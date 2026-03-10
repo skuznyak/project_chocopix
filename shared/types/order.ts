@@ -11,7 +11,8 @@ export interface CustomerDetails {
 }
 
 export interface DeliveryDetails {
-  city: string
+  region?: string
+  city?: string
   branch: string
   address?: string
   method: DeliveryMethod

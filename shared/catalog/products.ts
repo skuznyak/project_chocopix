@@ -92,26 +92,4 @@ export const productsCatalog: Product[] = [
     reviewSummary: { rating: 5, reviewCount: 54 },
     featured: true,
   },
-{
-    id: 'winter-box',
-    slug: 'winter-box',
-    name: 'Подарунковий набір Winter Box',
-    shortDescription: '4 смаки в преміальному боксі.',
-    description:
-      'Подарунковий сет з чотирьох авторських бомбочок: карамель, ягода, фундук і класичний какао-маршмелоу.',
-    composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
-    weight: 360,
-    flavor: 'Асорті',
-    price: 329,
-    badge: 'hit',
-    category: 'gift-set',
-    tags: ['набір', 'подарунок'],
-    popularity: 99,
-    images: [
-      { id: '1', src: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?auto=format&fit=crop&w=900&q=80', alt: 'Подарунковий набір' },
-      { id: '2', src: 'https://images.unsplash.com/photo-1481391243133-f96216dcb5d2?auto=format&fit=crop&w=900&q=80', alt: 'Пакування' },
-    ],
-    reviewSummary: { rating: 5, reviewCount: 54 },
-    featured: true,
-  },
 ]

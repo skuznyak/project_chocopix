@@ -11,7 +11,7 @@ export const Input = ({ label, error, className, ...props }: InputProps) => (
     <span>{label}</span>
     <input
       className={clsx(
-        'min-h-14 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base text-[#5f3925] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]',
+        'min-h-14 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base text-[#2d1f1a] placeholder:text-[#9a8b7f] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]',
         error && 'border-rose-400 focus:border-rose-400 focus:ring-rose-100',
         className,
       )}

@@ -25,3 +25,84 @@ npm run dev:backend
 - If frontend and backend are served from the same domain in production, no frontend API URL override is needed.
 - In development, the backend accepts `localhost` and `127.0.0.1` origins on any port.
 - In production with a separate frontend domain, set `CORS_ORIGIN` to a comma-separated list of allowed origins.
+
+---
+
+## Deployment (Single Domain)
+
+When frontend and backend are served from the same domain (e.g., `chocopix.store`):
+
+### 1. Build
+
+```bash
+# Build everything
+npm run build
+```
+
+### 2. Environment Variables
+
+**Backend** (`backend/.env` or `backend/.env.production`):
+```env
+PORT=3000
+CORS_ORIGIN=
+TELEGRAM_BOT_TOKEN=your_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+NODE_ENV=production
+```
+
+> Note: `CORS_ORIGIN` can be empty when frontend and backend share the same domain.
+
+**Frontend** (`frontend/.env.production`):
+```env
+VITE_USE_MOCK=false
+VITE_API_URL=/api
+```
+
+### 3. Nginx Configuration
+
+Example nginx config to serve both frontend and backend from one domain:
+
+```nginx
+server {
+    listen 80;
+    server_name chocopix.store;
+
+    location / {
+        root /path/to/frontend/dist;
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+### 4. Start Backend
+
+```bash
+cd backend
+npm run start
+```
+
+Or use PM2 for process management:
+
+```bash
+pm2 start backend/dist/app.js --name chocopix-api
+pm2 save
+pm2 startup
+```
+
+### 5. Telegram Setup
+
+The backend sends callback requests to Telegram. Make sure:
+1. Bot token is valid
+2. Chat ID is correct (bot must be added to the chat/group)

@@ -1,0 +1,117 @@
+import type { Product } from '../types/product.js'
+
+// Edit this file to add, remove, or update product cards.
+// Product images can live in frontend/public/products and be referenced as:
+// /products/<product-slug>/1.jpg
+export const productsCatalog: Product[] = [
+  {
+    id: 'caramel-cloud',
+    slug: 'caramel-cloud',
+    name: 'Карамельна хмаринка',
+    shortDescription: 'Молочний шоколад, карамель і ніжний маршмелоу.',
+    description:
+      'Шоколадна бомбочка з вершковою карамеллю, міні-маршмелоу та нотами ванілі. Ідеальна для вечірнього какао або святкового подарунка.',
+    composition: ['молочний шоколад', 'карамель', 'маршмелоу', 'ваніль'],
+    weight: 90,
+    flavor: 'Карамель',
+    price: 85,
+    badge: 'hit',
+    category: 'classic',
+    tags: ['карамель', 'подарунок', 'популярне'],
+    popularity: 98,
+    images: [
+      { id: '1', src: 'https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=900&q=80', alt: 'Карамельна бомбочка' },
+      { id: '2', src: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f5c1?auto=format&fit=crop&w=900&q=80', alt: 'Бомбочка у чашці' },
+      { id: '3', src: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&w=900&q=80', alt: 'Гарячий шоколад' },
+    ],
+    reviewSummary: { rating: 4.9, reviewCount: 47 },
+    featured: true,
+  },
+  {
+    id: 'berry-kiss',
+    slug: 'berry-kiss',
+    name: 'Ягідний поцілунок',
+    shortDescription: 'Темний шоколад з полуничним центром.',
+    description:
+      'Контрастна бомбочка на базі темного шоколаду з ягідним маршмелоу та легкою кислинкою полуниці.',
+    composition: ['темний шоколад', 'сублімована полуниця', 'маршмелоу'],
+    weight: 88,
+    flavor: 'Полуниця',
+    price: 89,
+    badge: 'new',
+    category: 'premium',
+    tags: ['полуниця', 'темний шоколад'],
+    popularity: 87,
+    images: [
+      { id: '1', src: 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=900&q=80', alt: 'Ягідна бомбочка' },
+      { id: '2', src: 'https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=900&q=80', alt: 'Полуничний шоколад' },
+    ],
+    reviewSummary: { rating: 4.8, reviewCount: 28 },
+  },
+  {
+    id: 'hazelnut-dream',
+    slug: 'hazelnut-dream',
+    name: 'Горіхова мрія',
+    shortDescription: 'Праліне, лісовий горіх і маршмелоу.',
+    description:
+      'Насичений смак фундука та шоколадного праліне для тих, хто любить виразні десертні комбінації.',
+    composition: ['молочний шоколад', 'фундук', 'паста праліне', 'маршмелоу'],
+    weight: 95,
+    flavor: 'Фундук',
+    price: 92,
+    previousPrice: 104,
+    badge: 'sale',
+    category: 'premium',
+    tags: ['горіхи', 'праліне'],
+    popularity: 82,
+    images: [
+      { id: '1', src: 'https://images.unsplash.com/photo-1576618148400-f54bed99fcfd?auto=format&fit=crop&w=900&q=80', alt: 'Горіхова бомбочка' },
+      { id: '2', src: 'https://images.unsplash.com/photo-1513442542250-854d436a73f2?auto=format&fit=crop&w=900&q=80', alt: 'Фундук і шоколад' },
+    ],
+    reviewSummary: { rating: 4.7, reviewCount: 19 },
+  },
+  {
+    id: 'winter-box',
+    slug: 'winter-box',
+    name: 'Подарунковий набір Winter Box',
+    shortDescription: '4 смаки в преміальному боксі.',
+    description:
+      'Подарунковий сет з чотирьох авторських бомбочок: карамель, ягода, фундук і класичний какао-маршмелоу.',
+    composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
+    weight: 360,
+    flavor: 'Асорті',
+    price: 329,
+    badge: 'hit',
+    category: 'gift-set',
+    tags: ['набір', 'подарунок'],
+    popularity: 99,
+    images: [
+      { id: '1', src: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?auto=format&fit=crop&w=900&q=80', alt: 'Подарунковий набір' },
+      { id: '2', src: 'https://images.unsplash.com/photo-1481391243133-f96216dcb5d2?auto=format&fit=crop&w=900&q=80', alt: 'Пакування' },
+    ],
+    reviewSummary: { rating: 5, reviewCount: 54 },
+    featured: true,
+  },
+{
+    id: 'winter-box',
+    slug: 'winter-box',
+    name: 'Подарунковий набір Winter Box',
+    shortDescription: '4 смаки в преміальному боксі.',
+    description:
+      'Подарунковий сет з чотирьох авторських бомбочок: карамель, ягода, фундук і класичний какао-маршмелоу.',
+    composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
+    weight: 360,
+    flavor: 'Асорті',
+    price: 329,
+    badge: 'hit',
+    category: 'gift-set',
+    tags: ['набір', 'подарунок'],
+    popularity: 99,
+    images: [
+      { id: '1', src: 'https://images.unsplash.com/photo-1515037893149-de7f840978e2?auto=format&fit=crop&w=900&q=80', alt: 'Подарунковий набір' },
+      { id: '2', src: 'https://images.unsplash.com/photo-1481391243133-f96216dcb5d2?auto=format&fit=crop&w=900&q=80', alt: 'Пакування' },
+    ],
+    reviewSummary: { rating: 5, reviewCount: 54 },
+    featured: true,
+  },
+]

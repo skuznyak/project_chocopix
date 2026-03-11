@@ -84,12 +84,14 @@ export const useCartStore = create<CartState>()(
           return sum + (product?.price ?? 0) * item.quantity
         }, 0)
         const discount = promoCode ? Math.round(subtotal * 0.1) : 0
-        const delivery = subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0 ? 0 : 90
+        const isFreeDelivery = subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0
+        const delivery = 0
 
         return {
           subtotal,
           discount,
           delivery,
+          isFreeDelivery,
           total: subtotal - discount + delivery,
         }
       },

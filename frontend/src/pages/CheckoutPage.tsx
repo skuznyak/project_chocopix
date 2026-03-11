@@ -133,8 +133,8 @@ export default function CheckoutPage() {
               <div className="flex justify-between text-[#7a6050]"><span>Сума:</span><span>{formatPrice(totals.subtotal)}</span></div>
               <div className="flex justify-between text-[#7a6050]">
                 <span>Доставка:</span>
-                <span className={totals.delivery === 0 ? 'font-semibold text-[#2f8a57]' : undefined}>
-                  {totals.delivery === 0 ? 'Безкоштовна' : 'За тарифами перевізника'}
+                <span className={totals.isFreeDelivery ? 'font-semibold text-[#2f8a57]' : undefined}>
+                  {totals.isFreeDelivery ? 'Безкоштовна' : 'За тарифами перевізника'}
                 </span>
               </div>
               <div className="flex justify-between text-[#7a6050]"><span>Знижка:</span><span>-{formatPrice(totals.discount)}</span></div>

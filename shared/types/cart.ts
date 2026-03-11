@@ -7,5 +7,6 @@ export interface CartTotals {
   subtotal: number
   discount: number
   delivery: number
+  isFreeDelivery: boolean
   total: number
 }

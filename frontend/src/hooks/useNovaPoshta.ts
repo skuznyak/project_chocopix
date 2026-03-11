@@ -1,16 +1,23 @@
 import { useQuery } from '@tanstack/react-query'
-import { getCities, getWarehouses } from '@/api/novaposhta'
+import { getAreas, getCities, getWarehouses } from '@/api/novaposhta'
 
-export const useCities = (query: string) =>
+export const useAreas = () =>
   useQuery({
-    queryKey: ['nova-poshta-cities', query],
-    queryFn: () => getCities(query),
-    enabled: query.trim().length > 1,
+    queryKey: ['nova-poshta-areas'],
+    queryFn: getAreas,
   })
 
-export const useWarehouses = (city: string) =>
+export const useCities = (areaRef?: string, query?: string) =>
   useQuery({
-    queryKey: ['nova-poshta-warehouses', city],
-    queryFn: () => getWarehouses(city),
-    enabled: Boolean(city),
+    queryKey: ['nova-poshta-cities', areaRef || '', query || ''],
+    queryFn: () => getCities({ areaRef, q: query }),
+    enabled: Boolean(areaRef) || Boolean(query && query.length > 1),
+  })
+
+export const useWarehouses = (cityRef?: string) =>
+  useQuery({
+    queryKey: ['nova-poshta-warehouses', cityRef || ''],
+    queryFn: () => getWarehouses(cityRef!),
+    enabled: Boolean(cityRef),
+    initialData: [],
   })

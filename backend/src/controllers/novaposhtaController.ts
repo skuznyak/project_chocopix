@@ -1,18 +1,215 @@
 import type { Request, Response } from 'express'
+import axios from 'axios'
 
-const cities = ['Київ', 'Львів', 'Одеса', 'Дніпро', 'Івано-Франківськ', 'Вінниця']
-const warehouses: Record<string, string[]> = {
-  Київ: ['Відділення №12', 'Поштомат №41'],
-  Львів: ['Відділення №7', 'Відділення №22'],
-  Одеса: ['Відділення №3', 'Поштомат №9'],
+const NOVA_POSHTA_API_KEY = process.env.NOVA_POSHTA_API_KEY || ''
+const NOVA_POSHTA_API_URL = 'https://api.novaposhta.ua/v2.0/json/'
+
+console.log('Nova Poshta API Key loaded:', NOVA_POSHTA_API_KEY ? '***' + NOVA_POSHTA_API_KEY.slice(-8) : 'NOT SET')
+
+// Кеш для даних (спрощений, в пам'яті)
+const cache = new Map<string, { data: any; timestamp: number }>()
+const CACHE_TTL = 5 * 60 * 1000 // 5 хвилин
+
+interface NovaPoshtaResponse<T> {
+  success: boolean
+  data: T[]
+  errors: string[]
+  warnings: string[]
+  info: {
+    total_count: number
+  }
 }
 
-export const getCitiesController = (request: Request, response: Response) => {
-  const query = typeof request.query.q === 'string' ? request.query.q.toLowerCase() : ''
-  response.json(cities.filter((city) => city.toLowerCase().includes(query)))
+const novaPoshtaApi = axios.create({
+  timeout: 10000, // 10 секунд таймаут
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+// Отримати всі області
+export const getAreasController = async (request: Request, response: Response) => {
+  console.log('getAreasController called')
+  try {
+    const cacheKey = 'areas'
+    const cached = cache.get(cacheKey)
+    
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      console.log('Returning cached areas')
+      return response.json(cached.data)
+    }
+
+    console.log('Fetching areas from Nova Poshta API...')
+    const areaResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, {
+      apiKey: NOVA_POSHTA_API_KEY,
+      modelName: 'Address',
+      calledMethod: 'getAreas',
+    })
+    console.log('Nova Poshta API response:', areaResponse.data.success ? 'SUCCESS' : 'FAILED')
+
+    if (!areaResponse.data.success) {
+      return response.status(400).json({ error: areaResponse.data.errors })
+    }
+
+    const areas = areaResponse.data.data.map((area) => ({
+      ref: area.Ref,
+      description: area.Description,
+    }))
+
+    cache.set(cacheKey, { data: areas, timestamp: Date.now() })
+    console.log('Returning', areas.length, 'areas')
+    response.json(areas)
+  } catch (error) {
+    console.error('Error fetching areas from Nova Poshta:', error)
+    
+    // Якщо є кеш, повертаємо його навіть якщо він застарів
+    const cached = cache.get('areas')
+    if (cached) {
+      return response.json(cached.data)
+    }
+    
+    response.status(500).json({ error: 'Failed to fetch areas' })
+  }
 }
 
-export const getWarehousesController = (request: Request, response: Response) => {
-  const city = typeof request.query.city === 'string' ? request.query.city : ''
-  response.json(warehouses[city] ?? [])
+// Отримати міста за областю або за пошуковим запитом
+export const getCitiesController = async (request: Request, response: Response) => {
+  try {
+    const { areaRef, q } = request.query
+    const cacheKey = `cities:${areaRef || ''}:${q || ''}`
+    const cached = cache.get(cacheKey)
+    
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      return response.json(cached.data)
+    }
+
+    const payload = {
+      apiKey: NOVA_POSHTA_API_KEY,
+      modelName: 'Address',
+      calledMethod: 'getCities',
+      methodProperties: {
+        AreaRef: areaRef || '',
+        FindByString: q || '',
+      },
+    }
+
+    const citiesResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, payload)
+
+    if (!citiesResponse.data.success) {
+      return response.status(400).json({ error: citiesResponse.data.errors })
+    }
+
+    const cities = citiesResponse.data.data.map((city) => ({
+      ref: city.Ref,
+      description: city.Description,
+      area: city.Area,
+      areaRef: city.AreaRef,
+    }))
+
+    cache.set(cacheKey, { data: cities, timestamp: Date.now() })
+    response.json(cities)
+  } catch (error) {
+    console.error('Error fetching cities from Nova Poshta:', error)
+    
+    // Якщо є кеш, повертаємо його навіть якщо він застарів
+    const cacheKey = `cities:${request.query.areaRef || ''}:${request.query.q || ''}`
+    const cached = cache.get(cacheKey)
+    if (cached) {
+      return response.json(cached.data)
+    }
+    
+    response.status(500).json({ error: 'Failed to fetch cities' })
+  }
+}
+
+// Отримати відділення за містом
+export const getWarehousesController = async (request: Request, response: Response) => {
+  try {
+    const { cityRef } = request.query
+
+    if (!cityRef) {
+      return response.status(400).json({ error: 'cityRef is required' })
+    }
+
+    const cacheKey = `warehouses:${cityRef}`
+    const cached = cache.get(cacheKey)
+    
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      return response.json(cached.data)
+    }
+
+    const warehousesResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, {
+      apiKey: NOVA_POSHTA_API_KEY,
+      modelName: 'Address',
+      calledMethod: 'getWarehouses',
+      methodProperties: {
+        CityRef: cityRef,
+      },
+    })
+
+    if (!warehousesResponse.data.success) {
+      return response.status(400).json({ error: warehousesResponse.data.errors })
+    }
+
+    const warehouses = warehousesResponse.data.data.map((warehouse) => ({
+      ref: warehouse.Ref,
+      description: warehouse.Description,
+      shortAddress: warehouse.ShortAddress,
+      number: warehouse.Number,
+    }))
+
+    cache.set(cacheKey, { data: warehouses, timestamp: Date.now() })
+    response.json(warehouses)
+  } catch (error) {
+    console.error('Error fetching warehouses from Nova Poshta:', error)
+    
+    // Якщо є кеш, повертаємо його навіть якщо він застарів
+    const cached = cache.get(`warehouses:${request.query.cityRef}`)
+    if (cached) {
+      return response.json(cached.data)
+    }
+    
+    response.status(500).json({ error: 'Failed to fetch warehouses' })
+  }
+}
+
+// Розрахувати вартість доставки
+export const getDeliveryCostController = async (request: Request, response: Response) => {
+  try {
+    const { senderCityRef, receiverCityRef, weight = '1' } = request.query
+
+    if (!senderCityRef || !receiverCityRef) {
+      return response.status(400).json({ error: 'senderCityRef and receiverCityRef are required' })
+    }
+
+    const cacheKey = `delivery:${senderCityRef}:${receiverCityRef}:${weight}`
+    const cached = cache.get(cacheKey)
+    
+    if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
+      return response.json(cached.data)
+    }
+
+    const costResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, {
+      apiKey: NOVA_POSHTA_API_KEY,
+      modelName: 'InternetDocument',
+      calledMethod: 'getDocumentPrice',
+      methodProperties: {
+        senderCityRef,
+        receiverCityRef,
+        weight: String(weight),
+      },
+    })
+
+    if (!costResponse.data.success) {
+      return response.status(400).json({ error: costResponse.data.errors })
+    }
+
+    const costData = { cost: Number(costResponse.data.data[0]?.Cost || '0') }
+    
+    cache.set(cacheKey, { data: costData, timestamp: Date.now() })
+    response.json(costData)
+  } catch (error) {
+    console.error('Error fetching delivery cost from Nova Poshta:', error)
+    response.status(500).json({ error: 'Failed to fetch delivery cost' })
+  }
 }

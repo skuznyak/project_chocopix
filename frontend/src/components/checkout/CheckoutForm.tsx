@@ -6,13 +6,19 @@ import { useState } from 'react'
 import type { CreateOrderPayload } from '@chocopix/shared'
 import { Button } from '@/components/ui/Button'
 import { Input } from '@/components/ui/Input'
+import { AreaSelect } from '@/components/checkout/AreaSelect'
+import { CitySelect } from '@/components/checkout/CitySelect'
+import { BranchSelect } from '@/components/checkout/BranchSelect'
 
 const checkoutSchema = z.object({
   fullName: z.string().min(3, 'Вкажіть імʼя та прізвище'),
   phone: z.string().min(10, 'Вкажіть коректний номер телефону'),
   email: z.string().email('Некоректний email').optional().or(z.literal('')),
-  region: z.string().min(2, 'Вкажіть область').optional(),
-  city: z.string().min(2, 'Вкажіть населений пункт').optional(),
+  areaRef: z.string().optional(),
+  area: z.string().optional(),
+  cityRef: z.string().optional(),
+  city: z.string().optional(),
+  branchRef: z.string().optional(),
   branch: z.string().min(2, 'Вкажіть відділення або адресу'),
   paymentMethod: z.enum(['cod', 'card-transfer']),
 })
@@ -27,10 +33,14 @@ interface CheckoutFormProps {
 
 export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) => {
   const [deliveryMethod, setDeliveryMethod] = useState<'warehouse' | 'courier'>('warehouse')
+  const [areaRef, setAreaRef] = useState<string>('')
+  const [cityRef, setCityRef] = useState<string>('')
+
   const {
     register,
     watch,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
@@ -40,6 +50,9 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
   })
 
   const watchedPaymentMethod = watch('paymentMethod')
+  const watchedAreaRef = watch('areaRef')
+  const watchedCityRef = watch('cityRef')
+  const watchedBranchRef = watch('branchRef')
 
   return (
     <form
@@ -54,7 +67,9 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
           },
           delivery: {
             city: values.city || '',
+            cityRef: values.cityRef || '',
             branch: values.branch,
+            branchRef: values.branchRef || '',
             method: deliveryMethod,
             estimatedDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3).toISOString(),
           },
@@ -108,18 +123,69 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
         </div>
         {deliveryMethod === 'warehouse' ? (
           <div className="mt-5 space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input label="Область" placeholder="Ваша область" error={errors.region?.message} {...register('region')} />
-              <Input label="Населений пункт" placeholder="Ваше місто" error={errors.city?.message} {...register('city')} />
-            </div>
-            <Input label="Номер відділення" placeholder="№ відділення" error={errors.branch?.message} {...register('branch')} />
+            <AreaSelect
+              value={areaRef}
+              onChange={(ref, description) => {
+                setAreaRef(ref)
+                setValue('areaRef', ref)
+                setValue('area', description)
+                setCityRef('')
+                setValue('cityRef', '')
+                setValue('city', '')
+                setValue('branchRef', '')
+                setValue('branch', '')
+              }}
+              error={errors.areaRef?.message}
+            />
+            <CitySelect
+              areaRef={areaRef}
+              value={cityRef}
+              onChange={(ref, description) => {
+                setCityRef(ref)
+                setValue('cityRef', ref)
+                setValue('city', description)
+                setValue('branchRef', '')
+                setValue('branch', '')
+              }}
+              error={errors.cityRef?.message}
+              disabled={!areaRef}
+            />
+            <BranchSelect
+              cityRef={watchedCityRef}
+              value={watchedBranchRef}
+              onChange={(ref, description) => {
+                setValue('branchRef', ref)
+                setValue('branch', description)
+              }}
+              error={errors.branch?.message}
+              disabled={!watchedCityRef}
+            />
           </div>
         ) : (
           <div className="mt-5 space-y-4">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <Input label="Область" placeholder="Ваша область" error={errors.region?.message} {...register('region')} />
-              <Input label="Населений пункт" placeholder="Ваше місто" error={errors.city?.message} {...register('city')} />
-            </div>
+            <AreaSelect
+              value={areaRef}
+              onChange={(ref, description) => {
+                setAreaRef(ref)
+                setValue('areaRef', ref)
+                setValue('area', description)
+                setCityRef('')
+                setValue('cityRef', '')
+                setValue('city', '')
+              }}
+              error={errors.areaRef?.message}
+            />
+            <CitySelect
+              areaRef={areaRef}
+              value={cityRef}
+              onChange={(ref, description) => {
+                setCityRef(ref)
+                setValue('cityRef', ref)
+                setValue('city', description)
+              }}
+              error={errors.cityRef?.message}
+              disabled={!areaRef}
+            />
             <Input label="Адреса доставки" placeholder="Вулиця, будинок, квартира" error={errors.branch?.message} {...register('branch')} />
           </div>
         )}
@@ -135,7 +201,6 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
             <input
               type="radio"
               className="sr-only"
-              name="payment"
               value="cod"
               checked={watchedPaymentMethod === 'cod'}
               {...register('paymentMethod')}
@@ -147,7 +212,6 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
             <input
               type="radio"
               className="sr-only"
-              name="payment"
               value="card-transfer"
               checked={watchedPaymentMethod === 'card-transfer'}
               {...register('paymentMethod')}

@@ -13,7 +13,9 @@ export interface CustomerDetails {
 export interface DeliveryDetails {
   region?: string
   city?: string
+  cityRef?: string
   branch: string
+  branchRef?: string
   address?: string
   method: DeliveryMethod
   estimatedDate: string

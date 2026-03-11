@@ -6,6 +6,7 @@ interface CartSummaryProps {
   subtotal: number
   discount: number
   delivery: number
+  isFreeDelivery: boolean
   total: number
   promoCode?: string
   onApplyPromoCode: (value: string) => void
@@ -17,6 +18,7 @@ export const CartSummary = ({
   subtotal,
   discount,
   delivery,
+  isFreeDelivery,
   total,
   promoCode,
   onApplyPromoCode,
@@ -28,7 +30,7 @@ export const CartSummary = ({
     <div className="mt-5 space-y-3 text-sm">
       <div className="flex justify-between"><span>Товари</span><span>{formatPrice(subtotal)}</span></div>
       <div className="flex justify-between"><span>Знижка</span><span>-{formatPrice(discount)}</span></div>
-      <div className="flex justify-between"><span>Доставка</span><span>{delivery === 0 ? 'Безкоштовно' : formatPrice(delivery)}</span></div>
+      <div className="flex justify-between"><span>Доставка</span><span>{isFreeDelivery ? 'Безкоштовна' : 'За тарифами перевізника'}</span></div>
       <div className="flex justify-between border-t border-cocoa-900/10 pt-3 text-base font-semibold"><span>Разом</span><span>{formatPrice(total)}</span></div>
     </div>
     <div className="mt-6">

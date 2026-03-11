@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Autocomplete, type AutocompleteOption } from '@/components/ui/Autocomplete'
 import { useAreas } from '@/hooks/useNovaPoshta'
 
@@ -9,7 +10,12 @@ interface AreaSelectProps {
 }
 
 export const AreaSelect = ({ value, onChange, error, disabled }: AreaSelectProps) => {
-  const { data: areas = [], isLoading } = useAreas()
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const { data: areas = [], isLoading } = useAreas(searchQuery.length === 0 ? undefined : searchQuery)
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query)
+  }
 
   const options: AutocompleteOption[] = areas.map((area) => ({
     value: area.ref,
@@ -21,12 +27,13 @@ export const AreaSelect = ({ value, onChange, error, disabled }: AreaSelectProps
   return (
     <Autocomplete
       label="Область"
-      placeholder="Оберіть область"
+      placeholder="Введіть назву області"
       options={options}
       value={selectedOption}
       onChange={(option) => {
         onChange?.(option?.value || '', option?.label || '')
       }}
+      onSearch={handleSearch}
       loading={isLoading}
       error={error}
       disabled={disabled}

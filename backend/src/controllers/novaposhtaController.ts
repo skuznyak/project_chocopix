@@ -31,7 +31,8 @@ const novaPoshtaApi = axios.create({
 export const getAreasController = async (request: Request, response: Response) => {
   console.log('getAreasController called')
   try {
-    const cacheKey = 'areas'
+    const { q } = request.query
+    const cacheKey = `areas:${q || 'all'}`
     const cached = cache.get(cacheKey)
     
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
@@ -51,10 +52,18 @@ export const getAreasController = async (request: Request, response: Response) =
       return response.status(400).json({ error: areaResponse.data.errors })
     }
 
-    const areas = areaResponse.data.data.map((area) => ({
+    let areas = areaResponse.data.data.map((area) => ({
       ref: area.Ref,
       description: area.Description,
     }))
+
+    // Фільтрація пошуковим запитом
+    if (q && typeof q === 'string' && q.trim().length > 0) {
+      const searchQuery = q.toLowerCase()
+      areas = areas.filter((area) =>
+        area.description.toLowerCase().includes(searchQuery)
+      )
+    }
 
     cache.set(cacheKey, { data: areas, timestamp: Date.now() })
     console.log('Returning', areas.length, 'areas')
@@ -125,13 +134,13 @@ export const getCitiesController = async (request: Request, response: Response) 
 // Отримати відділення за містом
 export const getWarehousesController = async (request: Request, response: Response) => {
   try {
-    const { cityRef } = request.query
+    const { cityRef, q } = request.query
 
     if (!cityRef) {
       return response.status(400).json({ error: 'cityRef is required' })
     }
 
-    const cacheKey = `warehouses:${cityRef}`
+    const cacheKey = `warehouses:${cityRef}:${q || ''}`
     const cached = cache.get(cacheKey)
     
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
@@ -151,12 +160,21 @@ export const getWarehousesController = async (request: Request, response: Respon
       return response.status(400).json({ error: warehousesResponse.data.errors })
     }
 
-    const warehouses = warehousesResponse.data.data.map((warehouse) => ({
+    let warehouses = warehousesResponse.data.data.map((warehouse) => ({
       ref: warehouse.Ref,
       description: warehouse.Description,
       shortAddress: warehouse.ShortAddress,
       number: warehouse.Number,
     }))
+
+    // Фільтрація пошуковим запитом
+    if (q && typeof q === 'string' && q.trim().length > 0) {
+      const searchQuery = q.toLowerCase()
+      warehouses = warehouses.filter((warehouse) =>
+        warehouse.description.toLowerCase().includes(searchQuery) ||
+        warehouse.number.toLowerCase().includes(searchQuery)
+      )
+    }
 
     cache.set(cacheKey, { data: warehouses, timestamp: Date.now() })
     response.json(warehouses)

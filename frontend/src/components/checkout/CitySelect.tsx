@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Autocomplete, type AutocompleteOption } from '@/components/ui/Autocomplete'
 import { useCities } from '@/hooks/useNovaPoshta'
 
@@ -10,7 +11,12 @@ interface CitySelectProps {
 }
 
 export const CitySelect = ({ areaRef, value, onChange, error, disabled }: CitySelectProps) => {
-  const { data: cities = [], isLoading } = useCities(areaRef)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const { data: cities = [], isLoading } = useCities(areaRef, searchQuery)
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query)
+  }
 
   const options: AutocompleteOption[] = cities.map((city) => ({
     value: city.ref,
@@ -22,12 +28,13 @@ export const CitySelect = ({ areaRef, value, onChange, error, disabled }: CitySe
   return (
     <Autocomplete
       label="Населений пункт"
-      placeholder="Введіть місто"
+      placeholder="Введіть назву міста"
       options={options}
       value={selectedOption}
       onChange={(option) => {
         onChange?.(option?.value || '', option?.label || '')
       }}
+      onSearch={handleSearch}
       loading={isLoading}
       error={error}
       disabled={disabled || !areaRef}

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Autocomplete, type AutocompleteOption } from '@/components/ui/Autocomplete'
 import { useWarehouses } from '@/hooks/useNovaPoshta'
 
@@ -10,7 +11,12 @@ interface BranchSelectProps {
 }
 
 export const BranchSelect = ({ cityRef, value, onChange, error, disabled }: BranchSelectProps) => {
-  const { data: warehouses = [], isLoading } = useWarehouses(cityRef)
+  const [searchQuery, setSearchQuery] = useState<string>('')
+  const { data: warehouses = [], isLoading } = useWarehouses(cityRef, searchQuery)
+
+  const handleSearch = (query: string) => {
+    setSearchQuery(query)
+  }
 
   const options: AutocompleteOption[] = warehouses.map((warehouse) => ({
     value: warehouse.ref,
@@ -22,12 +28,13 @@ export const BranchSelect = ({ cityRef, value, onChange, error, disabled }: Bran
   return (
     <Autocomplete
       label="Номер відділення"
-      placeholder="Оберіть відділення або поштомат"
+      placeholder="Введіть номер або назву відділення"
       options={options}
       value={selectedOption}
       onChange={(option) => {
         onChange?.(option?.value || '', option?.label || '')
       }}
+      onSearch={handleSearch}
       loading={isLoading}
       error={error}
       disabled={disabled || !cityRef}

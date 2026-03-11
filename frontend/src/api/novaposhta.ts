@@ -25,8 +25,8 @@ export interface DeliveryCost {
   cost: number
 }
 
-export const getAreas = async (): Promise<Area[]> => {
-  const response = await axios.get(`${API_URL}/api/np/areas`)
+export const getAreas = async (query?: string): Promise<Area[]> => {
+  const response = await axios.get(`${API_URL}/api/np/areas`, { params: { q: query } })
   return response.data
 }
 
@@ -35,8 +35,8 @@ export const getCities = async (params?: { areaRef?: string; q?: string }): Prom
   return response.data
 }
 
-export const getWarehouses = async (cityRef: string): Promise<Warehouse[]> => {
-  const response = await axios.get(`${API_URL}/api/np/warehouses`, { params: { cityRef } })
+export const getWarehouses = async (cityRef: string, query?: string): Promise<Warehouse[]> => {
+  const response = await axios.get(`${API_URL}/api/np/warehouses`, { params: { cityRef, q: query } })
   return response.data
 }
 

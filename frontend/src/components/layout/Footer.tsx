@@ -1,9 +1,9 @@
 export const Footer = () => (
-  <footer className="mt-16 border-t border-[#d4d9b8] bg-[#643721] text-white">
+  <footer className="mt-16 border-t border-[#d4d9b8] bg-[#7b4a32] text-white">
     <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 lg:grid-cols-3 lg:px-8">
       <div>
         <div className="flex items-center gap-3">
-          <img src="/favicon.svg" alt="ChocoPix" className="h-12 w-12 rounded-2xl bg-white/10 p-1 object-contain" />
+          <img src="/favicon.svg" alt="ChocoPix" className="h-12 w-12 rounded-2xl object-contain" />
           <p className="text-3xl font-extrabold tracking-[-0.05em]">
             <span className="text-white">Choco</span>
             <span className="text-[#d9b18b]">Pix</span>

@@ -54,10 +54,10 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Шоколадні бомбочки з маршмелоу — ручна робота</title>
+        <title>Какао бомбочки з маршмелоу — ручна робота</title>
         <meta
           name="description"
-          content="Купити шоколадні бомбочки з маршмелоу з доставкою по Україні. Ручна робота, натуральний склад. Ідеальний подарунок."
+          content="Купити какао бомбочки з маршмелоу з доставкою по Україні. Ручна робота, натуральний склад. Ідеальний подарунок."
         />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -67,7 +67,7 @@ export default function HomePage() {
               Новинка 2026
             </div>
             <h1 className="mt-8 max-w-2xl font-display text-[78px] font-semibold leading-[0.82] tracking-[-0.05em] text-[#4c1d11] sm:text-[96px] xl:text-[108px]">
-              Шоколадні
+              Какао
               <br />
               <span className="font-script text-[#d29b60] italic">бомбочки</span>
             </h1>

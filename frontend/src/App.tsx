@@ -5,6 +5,7 @@ import ProductPage from '@/pages/ProductPage'
 import CartPage from '@/pages/CartPage'
 import CheckoutPage from '@/pages/CheckoutPage'
 import OrderSuccessPage from '@/pages/OrderSuccessPage'
+import CupsPage from '@/pages/CupsPage'
 
 export const App = () => (
   <Routes>
@@ -14,6 +15,7 @@ export const App = () => (
       <Route path="/cart" element={<CartPage />} />
       <Route path="/checkout" element={<CheckoutPage />} />
       <Route path="/order-success" element={<OrderSuccessPage />} />
+      <Route path="/cups" element={<CupsPage />} />
       <Route path="*" element={<Navigate to="/" replace />} />
     </Route>
   </Routes>

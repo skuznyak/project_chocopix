@@ -125,6 +125,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
             cityRef: values.cityRef || '',
             branch: values.branch,
             branchRef: values.branchRef || '',
+            region: values.area || '',
             method: deliveryMethod,
             estimatedDate: new Date(Date.now() + 1000 * 60 * 60 * 24 * 3).toISOString(),
           },
@@ -133,6 +134,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
           contactMethod: (values.paymentMethod === 'cod' || values.paymentMethod === 'card-transfer') ? contactMethod : undefined,
           comment: comment || undefined,
           total: totals.total,
+          subtotal: totals.subtotal,
         })
       })}
     >

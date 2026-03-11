@@ -36,6 +36,7 @@ export interface Order {
   paymentMethod: PaymentMethod
   contactMethod?: ContactMethod
   comment?: string
+  subtotal?: number
   status: OrderStatus
   promoCode?: string
   total: number
@@ -50,5 +51,6 @@ export interface CreateOrderPayload {
   contactMethod?: ContactMethod
   comment?: string
   total?: number
+  subtotal?: number
   promoCode?: string
 }

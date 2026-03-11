@@ -28,6 +28,7 @@ const createOrderSchema = z.object({
   comment: z.string().optional(),
   promoCode: z.string().optional(),
   total: z.number().optional(),
+  subtotal: z.number().optional(),
 })
 
 const orders = new Map<string, Order>()
@@ -45,12 +46,15 @@ export const createOrderController = async (request: Request, response: Response
   }
 
   orders.set(id, order)
-
+  
+  console.log('Order received:', JSON.stringify(payload, null, 2))
+  
   // Vidpravlyayemo zamovlennya v Telegram (ne blokuemo vidpovid')
   sendOrderToTelegram({
     orderNumber: order.orderNumber,
     customer: order.customer,
     delivery: {
+      region: order.delivery.region || '',
       city: order.delivery.city || '',
       branch: order.delivery.branch,
       method: order.delivery.method,
@@ -60,8 +64,9 @@ export const createOrderController = async (request: Request, response: Response
     comment: order.comment,
     items: order.items,
     total: order.total || 0,
+    subtotal: order.subtotal || 0,
   }).catch(console.error)
-
+  
   response.status(201).json(order)
 }
 

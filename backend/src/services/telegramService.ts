@@ -12,6 +12,7 @@ interface OrderData {
     email?: string
   }
   delivery: {
+    region?: string
     city: string
     branch: string
     method: string
@@ -28,6 +29,7 @@ interface OrderData {
     quantity: number
   }>
   total: number
+  subtotal?: number
 }
 
 export const sendOrderToTelegram = async (order: OrderData) => {
@@ -78,6 +80,12 @@ export const sendOrderToTelegram = async (order: OrderData) => {
     ? '🚚 Нова Пошта' 
     : '🚴 Кур\'єр'
 
+  // Визначаємо вартість доставки
+  const FREE_DELIVERY_THRESHOLD = 2000
+  const deliveryCostText = (order.subtotal || order.total) >= FREE_DELIVERY_THRESHOLD
+    ? '✅ Безкоштовна'
+    : '💰 За тарифами перевізника'
+
   const message = `
 🛍️ *Нове замовлення #${order.orderNumber}*
 
@@ -87,9 +95,11 @@ export const sendOrderToTelegram = async (order: OrderData) => {
 ${order.customer.email ? `• Email: ${order.customer.email}` : ''}
 
 📦 *Доставка:*
+${order.delivery.region ? `• Область: ${order.delivery.region}` : ''}
 • Місто: ${order.delivery.city}
 • Відділення: ${order.delivery.branch}
 • Метод: ${deliveryText}
+• Вартість доставки: ${deliveryCostText}
 
 ${paymentText}
 ${contactMethodText ? `📱 *Зв'язок:* ${contactMethodText}` : ''}

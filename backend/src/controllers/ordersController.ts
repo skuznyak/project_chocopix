@@ -15,6 +15,7 @@ const createOrderSchema = z.object({
     cityRef: z.string().optional(),
     branch: z.string(),
     branchRef: z.string().optional(),
+    region: z.string().optional(),
     address: z.string().optional(),
     method: z.enum(['warehouse', 'locker', 'courier']),
     estimatedDate: z.string(),

@@ -43,7 +43,7 @@ export const HeroBomb = () => {
 
         {/* Табличка з безкоштовною доставкою - з'являється збоку при наведенні */}
         <motion.div
-          className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-[18px] border border-[#a4693f]/30 bg-[linear-gradient(135deg,rgba(140,83,40,0.95),rgba(160,95,50,0.9))] px-4 py-3 text-white shadow-[0_8px_30px_rgba(91,28,2,0.2)] backdrop-blur-sm"
+          className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-[18px] border border-[#a4693f]/30 bg-[#e8b890] px-5 py-4 text-white shadow-[0_8px_30px_rgba(91,28,2,0.2)] backdrop-blur-sm"
           initial={{ x: -100, opacity: 0 }}
           animate={{ 
             x: isHovered ? 0 : -100, 
@@ -51,11 +51,11 @@ export const HeroBomb = () => {
           }}
           transition={{ duration: 0.4, ease: 'easeOut' }}
         >
-          <div className="flex flex-col items-center gap-1">
-            <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-white/90">Від</span>
-            <span className="text-base font-bold">2000 грн</span>
-            <div className="mt-1 h-[1px] w-full bg-white/30" />
-            <span className="text-[11px] font-semibold text-white/95">Безкоштовна доставка</span>
+          <div className="flex flex-col items-center gap-1.5">
+            <span className="text-[11px] font-medium uppercase tracking-[0.15em] text-[#8c5328]/90">Від</span>
+            <span className="text-lg font-bold text-[#8c5328]">2000 грн</span>
+            <div className="mt-1 h-[1px] w-full bg-[#8c5328]/30" />
+            <span className="text-[15px] font-bold text-[#8c5328]">Безкоштовна доставка</span>
           </div>
         </motion.div>
 

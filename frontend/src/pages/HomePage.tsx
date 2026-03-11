@@ -1,9 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { ArrowRight, Candy, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
+import { useState } from 'react'
 import { HeroBomb } from '@/components/3d/HeroBomb'
 import { ProductCard } from '@/components/product/ProductCard'
 import { Button } from '@/components/ui/Button'
+import { CallbackModal } from '@/components/layout/CallbackModal'
 import { useProducts } from '@/hooks/useProducts'
 
 const uspItems = [
@@ -50,6 +52,7 @@ const faqs = [
 
 export default function HomePage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
+  const [isCallbackOpen, setIsCallbackOpen] = useState(false)
 
   return (
     <>
@@ -69,10 +72,10 @@ export default function HomePage() {
             <h1 className="mt-8 max-w-2xl font-display text-[78px] font-semibold leading-[0.82] tracking-[-0.05em] text-[#4c1d11] sm:text-[96px] xl:text-[108px]">
               Какао
               <br />
-              <span className="font-script text-[#d29b60] italic">бомбочки</span>
+              <span className="font-script text-[#d29b60] italic">бомбочки з маршмелоу</span>
             </h1>
             <p className="mt-8 max-w-xl text-[19px] leading-10 text-[#8a5d3c]">
-              Відчуйте справжній вибух смаку! Просто покладіть бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
+              Відчуйте справжній вибух смаку! Просто покладіть шоколадну бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a href="#catalog">
@@ -80,11 +83,12 @@ export default function HomePage() {
                   Спробувати зараз <ArrowRight className="ml-3" size={22} />
                 </Button>
               </a>
-              <a href="#how-it-works">
-                <Button variant="secondary" className="min-h-16 rounded-[22px] border-[#9f6438] bg-transparent px-9 text-[19px] font-extrabold text-[#8c5328]">
-                  Дивитись відео
-                </Button>
-              </a>
+              <Button
+                onClick={() => setIsCallbackOpen(true)}
+                className="min-h-16 rounded-[22px] bg-[#e8b890] px-9 text-[19px] font-extrabold text-[#8c5328] shadow-[0_18px_40px_rgba(91,28,2,0.18)] hover:bg-[#f0c9a8]"
+              >
+                Хочу солодкого
+              </Button>
             </div>
           </div>
           <HeroBomb />
@@ -185,6 +189,7 @@ export default function HomePage() {
           </div>
         </section>
       </div>
+      <CallbackModal isOpen={isCallbackOpen} onClose={() => setIsCallbackOpen(false)} />
     </>
   )
 }

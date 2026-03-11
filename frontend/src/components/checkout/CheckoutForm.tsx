@@ -61,6 +61,12 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       paymentMethod: 'card-transfer',
+      area: '',
+      areaRef: '',
+      city: '',
+      cityRef: '',
+      branch: '',
+      branchRef: '',
     },
   })
 

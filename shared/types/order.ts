@@ -4,6 +4,12 @@ export type DeliveryMethod = 'warehouse' | 'locker' | 'courier'
 export type PaymentMethod = 'online' | 'cod' | 'card-transfer'
 export type OrderStatus = 'pending' | 'confirmed' | 'paid' | 'shipped'
 
+export interface ContactMethod {
+  noCall?: boolean
+  messenger?: boolean
+  phoneCall?: boolean
+}
+
 export interface CustomerDetails {
   fullName: string
   phone: string
@@ -28,6 +34,8 @@ export interface Order {
   customer: CustomerDetails
   delivery: DeliveryDetails
   paymentMethod: PaymentMethod
+  contactMethod?: ContactMethod
+  comment?: string
   status: OrderStatus
   promoCode?: string
   total: number
@@ -39,5 +47,7 @@ export interface CreateOrderPayload {
   customer: CustomerDetails
   delivery: DeliveryDetails
   paymentMethod: PaymentMethod
+  contactMethod?: ContactMethod
+  comment?: string
   promoCode?: string
 }

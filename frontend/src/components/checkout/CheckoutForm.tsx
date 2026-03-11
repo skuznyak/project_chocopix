@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/Input'
 import { AreaSelect } from '@/components/checkout/AreaSelect'
 import { CitySelect } from '@/components/checkout/CitySelect'
 import { BranchSelect } from '@/components/checkout/BranchSelect'
+import { useCart } from '@/hooks/useCart'
 
 const checkoutSchema = z.object({
   fullName: z.string().min(3, 'Вкажіть імʼя та прізвище'),
@@ -47,6 +48,8 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
   })
   const [comment, setComment] = useState<string>('')
   const [contactError, setContactError] = useState<string>('')
+  
+  const { totals } = useCart()
 
   const {
     register,
@@ -129,6 +132,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
           promoCode,
           contactMethod: (values.paymentMethod === 'cod' || values.paymentMethod === 'card-transfer') ? contactMethod : undefined,
           comment: comment || undefined,
+          total: totals.total,
         })
       })}
     >

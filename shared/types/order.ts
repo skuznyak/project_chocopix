@@ -49,5 +49,6 @@ export interface CreateOrderPayload {
   paymentMethod: PaymentMethod
   contactMethod?: ContactMethod
   comment?: string
+  total?: number
   promoCode?: string
 }

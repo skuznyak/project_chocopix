@@ -1,6 +1,7 @@
 import type { Request, Response } from 'express'
-import type { Order } from '@chocopix/shared'
+import type { Order, ContactMethod } from '@chocopix/shared'
 import { z } from 'zod'
+import { sendOrderToTelegram } from '../services/telegramService.js'
 
 const createOrderSchema = z.object({
   items: z.array(z.object({ productId: z.string(), quantity: z.number().min(1) })),
@@ -11,18 +12,27 @@ const createOrderSchema = z.object({
   }),
   delivery: z.object({
     city: z.string(),
+    cityRef: z.string().optional(),
     branch: z.string(),
+    branchRef: z.string().optional(),
     address: z.string().optional(),
     method: z.enum(['warehouse', 'locker', 'courier']),
     estimatedDate: z.string(),
   }),
   paymentMethod: z.enum(['online', 'cod', 'card-transfer']),
+  contactMethod: z.object({
+    noCall: z.boolean().optional(),
+    messenger: z.boolean().optional(),
+    phoneCall: z.boolean().optional(),
+  }).optional(),
+  comment: z.string().optional(),
   promoCode: z.string().optional(),
+  total: z.number().optional(),
 })
 
 const orders = new Map<string, Order>()
 
-export const createOrderController = (request: Request, response: Response) => {
+export const createOrderController = async (request: Request, response: Response) => {
   const payload = createOrderSchema.parse(request.body)
   const id = crypto.randomUUID()
   const order: Order = {
@@ -35,6 +45,23 @@ export const createOrderController = (request: Request, response: Response) => {
   }
 
   orders.set(id, order)
+
+  // Vidpravlyayemo zamovlennya v Telegram (ne blokuemo vidpovid')
+  sendOrderToTelegram({
+    orderNumber: order.orderNumber,
+    customer: order.customer,
+    delivery: {
+      city: order.delivery.city || '',
+      branch: order.delivery.branch,
+      method: order.delivery.method,
+    },
+    paymentMethod: order.paymentMethod,
+    contactMethod: order.contactMethod,
+    comment: order.comment,
+    items: order.items,
+    total: order.total || 0,
+  }).catch(console.error)
+
   response.status(201).json(order)
 }
 

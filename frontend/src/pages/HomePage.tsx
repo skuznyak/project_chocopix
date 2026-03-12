@@ -85,7 +85,7 @@ export default function HomePage() {
               </a>
               <Button
                 onClick={() => setIsCallbackOpen(true)}
-                className="min-h-16 rounded-[22px] bg-[#e8b890] px-9 text-[19px] font-extrabold text-[#8c5328] shadow-[0_18px_40px_rgba(91,28,2,0.18)] hover:bg-[#f0c9a8]"
+                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#3D1C02] transition hover:bg-[#e8b890]"
               >
                 Хочу солодкого
               </Button>

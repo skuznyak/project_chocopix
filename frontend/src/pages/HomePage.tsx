@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
-import { ArrowRight, Candy, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
+import { ArrowRight, CircleDashed, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
 import { useState } from 'react'
 import { HeroBomb } from '@/components/3d/HeroBomb'
 import { ProductCard } from '@/components/product/ProductCard'
@@ -19,12 +19,12 @@ const steps = [
   {
     icon: Milk,
     accent: 'from-[#fff9ef] to-[#f0dfc6]',
-    text: 'Налий у чашку приблизно 250-300 мл гарячого молока або води.',
+    text: 'Налий у чашку приблизно 250-300 мл гарячого молока.',
   },
   {
-    icon: Candy,
+    icon: CircleDashed,
     accent: 'from-[#f6e4d0] to-[#e8c6a8]',
-    text: 'Опусти шоколадну кульку й дай їй кілька секунд, щоб красиво розкритися.',
+    text: 'Опусти шоколадну кульку й дай їй кілька секунд, щоб гарно розкритися.',
   },
   {
     icon: Sparkles,
@@ -46,8 +46,10 @@ const reviews = [
 
 const faqs = [
   { question: 'Як зберігати?', answer: 'У сухому прохолодному місці при температурі до 20°C.' },
-  { question: 'Чи можна дітям?', answer: 'Так, але зважайте на індивідуальні алергії та вміст цукру.' },
+  { question: 'Скільки зберігаються?', answer: 'До 6-ти тижнів.' },
   { question: 'Яка доставка?', answer: 'Нова Пошта, відділення, поштомат або курʼєр.' },
+  { question: 'Як оплатити?', answer: 'Оплата при отриманні або на карту. При оплаті на карту — дешевша доставка.' },
+  { question: 'Чи можна дітям?', answer: 'Так, але зважайте на індивідуальні алергії та вміст цукру.' },
 ]
 
 export default function HomePage() {
@@ -90,8 +92,9 @@ export default function HomePage() {
                 </Button>
               </a>
               <Button
+                variant="ghost"
                 onClick={() => setIsCallbackOpen(true)}
-                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#8A5D3C] transition hover:bg-[#8A5D3C] hover:text-white"
+                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#c78f59] transition hover:bg-[#EAD7B8] hover:text-white"
               >
                 Хочу солодкого
               </Button>
@@ -227,12 +230,12 @@ export default function HomePage() {
                   >
                     <div className={`absolute right-[-16px] top-[-16px] h-24 w-24 rounded-full bg-gradient-to-br ${step.accent} opacity-90 blur-[1px]`} />
                     <div className="relative flex items-start gap-4">
-                      <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[18px] bg-white/65 shadow-[0_8px_20px_rgba(92,55,28,0.08)]">
-                        <step.icon size={26} className="text-[#8b5c3c]" />
+                      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-[16px] bg-white/65 shadow-[0_8px_20px_rgba(92,55,28,0.08)]">
+                        <step.icon size={22} className="text-[#8b5c3c]" />
                       </div>
                       <div>
-                        <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#9f7357]">Крок {index + 1}</p>
-                        <p className="mt-2 text-[22px] font-medium leading-[1.18] tracking-[-0.03em] sm:text-[26px]">
+                        <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#9f7357]">Крок {index + 1}</p>
+                        <p className="mt-1.5 text-base leading-[1.25] tracking-[-0.02em] sm:text-lg">
                           {step.text}
                         </p>
                       </div>

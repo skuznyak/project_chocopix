@@ -1,6 +1,17 @@
 import type { Product } from '../types/product.js'
 
-// Edit this file to add, remove, or update product cards.
+// ============================================================================
+// КАТАЛОГ ТОВАРІВ
+// ============================================================================
+// Для додавання нового товару:
+// 1. Скопіюйте шаблон з PRODUCT_TEMPLATE.md
+// 2. Вставте в потрібну секцію (БОМБОЧКИ / НАБОРИ / ЧАШКИ)
+// 3. Заповніть всі поля
+// 4. Перевірте: npm run build
+//
+// Шаблон та інструкція: /shared/catalog/PRODUCT_TEMPLATE.md
+// ============================================================================
+
 // Product images can live in frontend/public/products and be referenced as:
 // /products/<product-slug>/1.jpg
 export const productsCatalog: Product[] = [
@@ -367,26 +378,5 @@ export const productsCatalog: Product[] = [
       { id: '2', src: 'https://images.unsplash.com/photo-1570554868546-5c403783457c?auto=format&fit=crop&w=900&q=80', alt: 'Grande чашка' },
     ],
     reviewSummary: { rating: 4.7, reviewCount: 33 },
-  },
-  {
-    id: 'kids-cup',
-    slug: 'kids-cup',
-    name: 'Дитяча чашка з вушками',
-    shortDescription: 'Зручна чашка з ручками для малюків.',
-    description:
-      'Яскрава дитяча чашка з двома ручками-вушками. Безпечна кераміка, місткість 250 мл.',
-    composition: ['дитяча кераміка', 'безпечна глазур', 'ергономічні ручки'],
-    weight: 220,
-    flavor: 'Універсальна',
-    price: 240,
-    badge: 'new',
-    category: 'cups',
-    tags: ['діти', 'чашка', 'малюки', 'чашки'],
-    popularity: 83,
-    images: [
-      { id: '1', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Дитяча чашка' },
-      { id: '2', src: 'https://images.unsplash.com/photo-1577937927633-291d1e0959b6?auto=format&fit=crop&w=900&q=80', alt: 'Чашка з вушками' },
-    ],
-    reviewSummary: { rating: 4.6, reviewCount: 24 },
-  },
+  },  
 ]

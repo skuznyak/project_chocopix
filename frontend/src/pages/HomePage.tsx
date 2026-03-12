@@ -47,6 +47,8 @@ const reviews = [
 const faqs = [
   { question: 'Як зберігати?', answer: 'У сухому прохолодному місці при температурі до 20°C.' },
   { question: 'Скільки зберігаються?', answer: 'До 6-ти тижнів.' },
+  { question: 'Коли відправки?', answer: '1-3 дні. Виготовляємо щодня, щоб все було свіжим!' },
+  { question: 'Чи можна змінити вміст набору?', answer: 'Готові набори не змінюються — тільки ті варіанти, що є на сайті. Але ви можете створити власний набір, обравши різні смаки бомбочок окремо.' },
   { question: 'Яка доставка?', answer: 'Нова Пошта, відділення, поштомат або курʼєр.' },
   { question: 'Як оплатити?', answer: 'Оплата при отриманні або на карту. При оплаті на карту — дешевша доставка.' },
   { question: 'Чи можна дітям?', answer: 'Так, але зважайте на індивідуальні алергії та вміст цукру.' },
@@ -94,13 +96,78 @@ export default function HomePage() {
               <Button
                 variant="ghost"
                 onClick={() => setIsCallbackOpen(true)}
-                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#c78f59] transition hover:bg-[#EAD7B8] hover:text-white"
+                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#c78f59] transition hover:bg-[#EAD7B8] hover:text-[#c78f59]"
               >
                 Хочу солодкого
               </Button>
             </div>
           </div>
           <HeroBomb />
+        </section>
+
+        {/* Category Navigation Blocks */}
+        <section className="py-8">
+          <div className="grid gap-6 md:grid-cols-3">
+            <motion.a
+              href="#bombочки"
+              className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
+              initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, ease: 'easeOut' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
+              <img
+                src="/images/107270_001.jpg"
+                alt="Бомбочки"
+                className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="font-display text-3xl font-semibold text-white">Бомбочки</h3>
+                <p className="mt-2 text-sm text-white">Шоколадні бомбочки з маршмелоу</p>
+              </div>
+            </motion.a>
+
+            <motion.a
+              href="#набори"
+              className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
+              initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
+              <img
+                src="/images/photo_2024-11-12_01-.jpg"
+                alt="Набори"
+                className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="font-display text-3xl font-semibold text-white">Набори</h3>
+                <p className="mt-2 text-sm text-white">Подарункові набори</p>
+              </div>
+            </motion.a>
+
+            <motion.a
+              href="#чашки"
+              className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
+              initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
+              <img
+                src="/images/1.jpg"
+                alt="Чашки"
+                className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
+              />
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                <h3 className="font-display text-3xl font-semibold text-white">Чашки</h3>
+                <p className="mt-2 text-sm text-white">Фірмові чашки</p>
+              </div>
+            </motion.a>
+          </div>
         </section>
 
         <section className="grid gap-4 py-10 md:grid-cols-2 xl:grid-cols-4">

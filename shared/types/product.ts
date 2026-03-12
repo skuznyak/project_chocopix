@@ -1,6 +1,8 @@
 export type ProductBadge = 'hit' | 'new' | 'sale'
 
-export type ProductCategory = 'classic' | 'premium' | 'gift-set'
+export type ProductCategory = 'classic' | 'premium' | 'gift-set' | 'cups'
+
+export type ProductCatalogType = 'bombочки' | 'набори' | 'чашки'
 
 export interface ProductImage {
   id: string

@@ -6,9 +6,9 @@ import { useCartStore } from '@/store/cartStore'
 
 const navItems = [
   { label: 'Головна', href: '/' },
-  { label: 'Бомбочки', href: '/#catalog' },
-  { label: 'Набори', href: '/#how-it-works' },
-  { label: 'Чашки', href: '/cups' },
+  { label: 'Бомбочки', href: '/#bombочки' },
+  { label: 'Набори', href: '/#набори' },
+  { label: 'Чашки', href: '/#чашки' },
   { label: 'Контакти', href: '/#faq' },
 ]
 

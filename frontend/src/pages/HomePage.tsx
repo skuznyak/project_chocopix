@@ -54,14 +54,20 @@ export default function HomePage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
   const [isCallbackOpen, setIsCallbackOpen] = useState(false)
 
+  // Filter products by category
+  const bombochkyProducts = products.filter((p) => p.tags.includes('бомбочки')).slice(0, 6)
+  const giftSetProducts = products.filter((p) => p.tags.includes('набори')).slice(0, 6)
+  const cupsProducts = products.filter((p) => p.tags.includes('чашки')).slice(0, 6)
+
   return (
     <>
       <Helmet>
-        <title>Какао бомбочки з маршмелоу — ручна робота</title>
+        <title>Какао бомбочки з маршмелоу — ручна робота | ChocoPix</title>
         <meta
           name="description"
-          content="Купити какао бомбочки з маршмелоу з доставкою по Україні. Ручна робота, натуральний склад. Ідеальний подарунок."
+          content="Купити какао бомбочки з маршмелоу, подарункові набори та фірмові чашки з доставкою по Україні. Ручна робота, натуральний склад."
         />
+        <link rel="canonical" href="https://chocopix.store/" />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="grid gap-10 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-14">
@@ -85,7 +91,7 @@ export default function HomePage() {
               </a>
               <Button
                 onClick={() => setIsCallbackOpen(true)}
-                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#3D1C02] transition hover:bg-[#e8b890]"
+                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#8A5D3C] transition hover:bg-[#8A5D3C] hover:text-white"
               >
                 Хочу солодкого
               </Button>
@@ -111,15 +117,88 @@ export default function HomePage() {
           ))}
         </section>
 
-        <section id="catalog" className="py-12">
+        {/* Бомбочки Catalog Section */}
+        <section id="bombочки" className="scroll-mt-24 py-12">
+          <Helmet>
+            <title>Бомбочки з маршмелоу — купити шоколадні бомбочки | ChocoPix</title>
+            <meta
+              name="description"
+              content="Шоколадні бомбочки з маршмелоу: карамель, ягода, горіх, ваніль та інші смаки. Ручна робота, натуральний склад. Доставка по Україні."
+            />
+            <link rel="canonical" href="https://chocopix.store/#bombочки" />
+          </Helmet>
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Каталог</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Найпопулярніші смаки</h2>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Бомбочки</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+                Шоколадні бомбочки з маршмелоу — вибух смаку у вашій чашці. Просто киньте в гаряче молоко і насолоджуйтесь!
+              </p>
             </div>
+            <a href="#набори" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
+              До наборів →
+            </a>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {products.map((product) => (
+            {bombochkyProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        {/* Набори Catalog Section */}
+        <section id="набори" className="scroll-mt-24 py-12">
+          <Helmet>
+            <title>Подарункові набори бомбочок — готові сети | ChocoPix</title>
+            <meta
+              name="description"
+              content="Подарункові набори шоколадних бомбочок: класична колекція, преміум тріо, сімейний пакунок. Ідеальний подарунок для близьких."
+            />
+            <link rel="canonical" href="https://chocopix.store/#набори" />
+          </Helmet>
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Подарунки</p>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Набори</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+                Готові подарункові набори з кількох смаків. Чудовий вибір для свята або щоб порадувати близьких.
+              </p>
+            </div>
+            <a href="#чашки" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
+              До чашок →
+            </a>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {giftSetProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        {/* Чашки Catalog Section */}
+        <section id="чашки" className="scroll-mt-24 py-12">
+          <Helmet>
+            <title>Фірмові чашки для какао та кави — кераміка, скло, термо | ChocoPix</title>
+            <meta
+              name="description"
+              content="Фірмові чашки ChocoPix: керамічні, скляні, термочашки. Зручні та стильні чашки для вашого улюбленого какао та кави."
+            />
+            <link rel="canonical" href="https://chocopix.store/#чашки" />
+          </Helmet>
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Аксесуари</p>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Чашки</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+                Фірмові чашки для ідеального какао. Кераміка, скло, термочашки — обирайте свій формат.
+              </p>
+            </div>
+            <a href="#how-it-works" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
+              Як це працює →
+            </a>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {cupsProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

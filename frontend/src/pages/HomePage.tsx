@@ -122,7 +122,7 @@ export default function HomePage() {
                 alt="Бомбочки"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
                 <h3 className="font-display text-3xl font-semibold text-white">Бомбочки</h3>
                 <p className="mt-2 text-sm text-white">Шоколадні бомбочки з маршмелоу</p>
               </div>
@@ -142,7 +142,7 @@ export default function HomePage() {
                 alt="Набори"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
                 <h3 className="font-display text-3xl font-semibold text-white">Набори</h3>
                 <p className="mt-2 text-sm text-white">Подарункові набори</p>
               </div>
@@ -162,7 +162,7 @@ export default function HomePage() {
                 alt="Чашки"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
                 <h3 className="font-display text-3xl font-semibold text-white">Чашки</h3>
                 <p className="mt-2 text-sm text-white">Фірмові чашки</p>
               </div>

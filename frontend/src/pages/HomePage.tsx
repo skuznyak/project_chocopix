@@ -88,7 +88,7 @@ export default function HomePage() {
               Відчуйте справжній вибух смаку! Просто покладіть шоколадну бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#catalog">
+              <a href="#bombочки">
                 <Button className="min-h-16 rounded-[22px] bg-[#8c5328] px-9 text-[19px] font-extrabold shadow-[0_18px_40px_rgba(91,28,2,0.18)] hover:bg-[#74411f]">
                   Спробувати зараз <ArrowRight className="ml-3" size={22} />
                 </Button>

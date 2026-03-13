@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Phone, ShoppingBag } from 'lucide-react'
+import { Phone, ShoppingBag, Menu, X } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { CallbackModal } from '@/components/layout/CallbackModal'
 import { useCartStore } from '@/store/cartStore'
@@ -16,12 +16,17 @@ export const Header = () => {
   const itemsCount = useCartStore((state) => state.items.reduce((sum, item) => sum + item.quantity, 0))
   const openCart = useCartStore((state) => state.openCart)
   const [isCallbackOpen, setIsCallbackOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-[#eadfcb]/80 bg-[#f4eddc]/92 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-5 sm:px-6 lg:px-8">
-          <Link to="/" className="group flex items-center gap-3 text-cocoa-900">
+          <Link 
+            to="/" 
+            className="group flex items-center gap-3 text-cocoa-900"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          >
             <img
               src="/favicon.svg"
               alt="ChocoPix"
@@ -66,8 +71,43 @@ export const Header = () => {
                 </span>
               ) : null}
             </button>
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="rounded-2xl p-3 text-cocoa-900 transition hover:bg-[#fbf5ea] md:hidden"
+              aria-label="Меню"
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
         </div>
+        {isMobileMenuOpen && (
+          <div className="border-t border-[#eadfcb]/80 bg-[#f4eddc] px-4 py-4 md:hidden">
+            <nav className="flex flex-col gap-2">
+              {navItems.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="rounded-lg px-4 py-3 text-sm font-medium text-cocoa-900/72 transition hover:bg-[#fbf5ea] hover:text-cocoa-900"
+                >
+                  {item.label}
+                </a>
+              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setIsCallbackOpen(true)
+                  setIsMobileMenuOpen(false)
+                }}
+                className="mt-2 flex items-center justify-center gap-2 rounded-lg border border-[#a4693f] px-4 py-3 text-sm font-semibold text-cocoa-900 transition hover:bg-[#fbf5ea]"
+              >
+                <Phone size={16} />
+                Передзвоніть мені
+              </button>
+            </nav>
+          </div>
+        )}
       </header>
       <CallbackModal isOpen={isCallbackOpen} onClose={() => setIsCallbackOpen(false)} />
     </>

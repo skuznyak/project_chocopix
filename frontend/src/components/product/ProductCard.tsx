@@ -35,7 +35,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105"
           />
         </Link>
-        {product.badge ? <div className="absolute left-4 top-4"><Badge badge={product.badge} /></div> : null}
+        {product.badge ? <div className="absolute left-5 top-5"><Badge badge={product.badge} /></div> : null}
       </div>
       <div className="flex flex-1 flex-col p-5">
         <div className="flex items-center justify-between gap-3">

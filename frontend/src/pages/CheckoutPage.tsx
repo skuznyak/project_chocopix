@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
 import { ArrowLeft, Minus, Package, Plus, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -19,6 +19,58 @@ export default function CheckoutPage() {
   const [promoFeedback, setPromoFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [isApplyingPromo, setIsApplyingPromo] = useState(false)
   const progress = Math.min((totals.subtotal / FREE_DELIVERY_THRESHOLD) * 100, 100)
+
+  const applyPromo = useCallback(
+    async (rawCode: string, options?: { silentSuccess?: boolean }) => {
+      const normalizedCode = rawCode.trim().toUpperCase()
+      setSubmitError(null)
+
+      if (!normalizedCode) {
+        setPromoCode(undefined, 0)
+        setPromoFeedback(null)
+        return
+      }
+
+      setIsApplyingPromo(true)
+      try {
+        const result = await validatePromoCode(normalizedCode, totals.subtotal)
+        if (result.isValid) {
+          setPromoCode(normalizedCode, result.discount ?? 0)
+          setPromoInput(normalizedCode)
+          if (!options?.silentSuccess) {
+            setPromoFeedback({
+              type: 'success',
+              message: `Промокод застосовано. Знижка: ${formatPrice(result.discount ?? 0)}`,
+            })
+          }
+          return
+        }
+
+        setPromoCode(undefined, 0)
+        setPromoFeedback({
+          type: 'error',
+          message: 'Промокод недійсний або термін його дії закінчився',
+        })
+      } catch {
+        setPromoCode(undefined, 0)
+        setPromoFeedback({
+          type: 'error',
+          message: 'Промокод недійсний або термін його дії закінчився',
+        })
+      } finally {
+        setIsApplyingPromo(false)
+      }
+    },
+    [setPromoCode, totals.subtotal],
+  )
+
+  useEffect(() => {
+    if (!promoCode) {
+      return
+    }
+
+    void applyPromo(promoCode, { silentSuccess: true })
+  }, [applyPromo, promoCode, totals.subtotal])
 
   return (
     <>
@@ -139,51 +191,16 @@ export default function CheckoutPage() {
                 <span>Промокод</span>
                 <div className="flex gap-2">
                   <input
-                    placeholder="CHOCO10"
                     value={promoInput}
-                    onChange={(event) => setPromoInput(event.target.value)}
-                    className="min-h-14 flex-1 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base text-[#2d1f1a] placeholder:text-[#9a8b7f] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]"
+                    onChange={(event) => setPromoInput(event.target.value.toUpperCase())}
+                    className="min-h-14 flex-1 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base uppercase text-[#2d1f1a] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]"
                   />
                   <Button
                     type="button"
                     className="min-h-14 rounded-[18px] bg-[#7d4a37] px-6 text-sm font-bold hover:bg-[#6f4232]"
                     disabled={isApplyingPromo}
-                    onClick={async () => {
-                      const normalizedCode = promoInput.trim().toUpperCase()
-                      setSubmitError(null)
-
-                      if (!normalizedCode) {
-                        setPromoCode(undefined, 0)
-                        setPromoFeedback(null)
-                        return
-                      }
-
-                      setIsApplyingPromo(true)
-                      try {
-                        const result = await validatePromoCode(normalizedCode, totals.subtotal)
-                        if (result.isValid) {
-                          setPromoCode(normalizedCode, result.discount ?? 0)
-                          setPromoInput(normalizedCode)
-                          setPromoFeedback({
-                            type: 'success',
-                            message: `Промокод застосовано. Знижка: ${formatPrice(result.discount ?? 0)}`,
-                          })
-                        } else {
-                          setPromoCode(undefined, 0)
-                          setPromoFeedback({
-                            type: 'error',
-                            message: 'Промокод недійсний або термін його дії закінчився',
-                          })
-                        }
-                      } catch {
-                        setPromoCode(undefined, 0)
-                        setPromoFeedback({
-                          type: 'error',
-                          message: 'Промокод недійсний або термін його дії закінчився',
-                        })
-                      } finally {
-                        setIsApplyingPromo(false)
-                      }
+                    onClick={() => {
+                      void applyPromo(promoInput)
                     }}
                   >
                     {isApplyingPromo ? 'Перевірка...' : 'Примінити'}

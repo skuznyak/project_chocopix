@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import { useCallback, useEffect, useState } from 'react'
 import axios from 'axios'
-import { ArrowLeft, Minus, Package, Plus, Trash2 } from 'lucide-react'
+import { ArrowLeft, Minus, Package, Plus, Trash2, Truck } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { CheckoutForm } from '@/components/checkout/CheckoutForm'
 import { Button } from '@/components/ui/Button'
@@ -19,6 +19,7 @@ export default function CheckoutPage() {
   const [promoFeedback, setPromoFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
   const [isApplyingPromo, setIsApplyingPromo] = useState(false)
   const progress = Math.min((totals.subtotal / FREE_DELIVERY_THRESHOLD) * 100, 100)
+  const truckProgress = Math.min(Math.max(progress, 3), 97)
 
   const applyPromo = useCallback(
     async (rawCode: string, options?: { silentSuccess?: boolean }) => {
@@ -79,7 +80,7 @@ export default function CheckoutPage() {
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <h1 className="text-5xl font-medium tracking-[-0.04em] text-[#5e3926]">Оформлення замовлення</h1>
+          <h1 className="text-3xl font-medium tracking-[-0.04em] text-[#5e3926] sm:text-5xl">Оформлення замовлення</h1>
           <button
             type="button"
             onClick={() => navigate('/')}
@@ -122,21 +123,30 @@ export default function CheckoutPage() {
             />
             {submitError ? <p className="text-sm text-rose-600">{submitError}</p> : null}
           </div>
-          <aside className="h-fit rounded-[32px] border border-[#eadfcb] bg-[#f8f1e4] p-7 shadow-[0_20px_40px_rgba(91,28,2,0.06)]">
-            <h2 className="text-3xl font-medium tracking-[-0.03em] text-[#5e3926]">Ваше замовлення</h2>
+          <aside className="h-fit rounded-[32px] border border-[#eadfcb] bg-[#f8f1e4] p-5 shadow-[0_20px_40px_rgba(91,28,2,0.06)] sm:p-7">
+            <h2 className="text-2xl font-medium tracking-[-0.03em] text-[#5e3926] sm:text-3xl">Ваше замовлення</h2>
             <div className="mt-6 rounded-[24px] border border-[#eadfcb] bg-[#fbf5ea] p-5">
-              <div className="flex items-center justify-between gap-4 text-sm font-bold uppercase tracking-[0.05em] text-[#6b4331]">
+              <div className="flex flex-col gap-2 text-xs font-bold uppercase tracking-[0.05em] text-[#6b4331] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:text-sm">
                 <div className="flex items-center gap-2">
                   <Package size={16} />
                   Безкоштовна доставка
                 </div>
                 <span>{formatPrice(totals.subtotal)} / {formatPrice(FREE_DELIVERY_THRESHOLD)}</span>
               </div>
-              <div className="mt-4 h-3 rounded-full bg-[#e7e4e1]">
+              <div className="relative mt-4 pt-6">
                 <div
-                  className="h-full rounded-full bg-[#7d4a37]"
-                  style={{ width: `${progress}%` }}
-                />
+                  className="absolute left-0 top-0 -translate-y-1 text-[#8c5328] transition-[left] duration-500 ease-out"
+                  style={{ left: `${truckProgress}%`, transform: 'translateX(-50%)' }}
+                  aria-hidden="true"
+                >
+                  <Truck size={26} strokeWidth={2.25} />
+                </div>
+                <div className="h-3 rounded-full bg-[#e7e4e1]">
+                  <div
+                    className="h-full rounded-full bg-[#7d4a37] transition-[width] duration-500 ease-out"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
               </div>
               <p className="mt-4 text-base text-[#8a6b59]">
                 <span className={totals.subtotal >= FREE_DELIVERY_THRESHOLD ? 'font-semibold text-[#2f8a57]' : undefined}>
@@ -189,7 +199,7 @@ export default function CheckoutPage() {
             <div className="mt-6">
               <label className="flex flex-col gap-2 text-sm font-semibold text-[#5f3925]">
                 <span>Промокод</span>
-                <div className="flex gap-2">
+                <div className="flex flex-col gap-2 sm:flex-row">
                   <input
                     value={promoInput}
                     onChange={(event) => setPromoInput(event.target.value.toUpperCase())}
@@ -197,7 +207,7 @@ export default function CheckoutPage() {
                   />
                   <Button
                     type="button"
-                    className="min-h-14 rounded-[18px] bg-[#7d4a37] px-6 text-sm font-bold hover:bg-[#6f4232]"
+                    className="min-h-14 rounded-[18px] bg-[#7d4a37] px-6 text-sm font-bold hover:bg-[#6f4232] sm:w-auto"
                     disabled={isApplyingPromo}
                     onClick={() => {
                       void applyPromo(promoInput)
@@ -222,7 +232,7 @@ export default function CheckoutPage() {
                 </span>
               </div>
               <div className="flex justify-between text-[#7a6050]"><span>Знижка:</span><span>-{formatPrice(totals.discount)}</span></div>
-              <div className="flex justify-between pt-2 text-[34px] font-bold tracking-[-0.04em] text-[#5e3926]"><span>Разом</span><span>{formatPrice(totals.total)}</span></div>
+              <div className="flex justify-between pt-2 text-[28px] font-bold tracking-[-0.04em] text-[#5e3926] sm:text-[34px]"><span>Разом</span><span>{formatPrice(totals.total)}</span></div>
             </div>
           </aside>
         </div>

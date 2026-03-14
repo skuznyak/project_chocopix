@@ -146,9 +146,9 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
       })}
     >
       <section>
-        <div className="mb-5 flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#a98a74] text-lg font-bold text-[#6a4331]">1</div>
-          <h2 className="text-[36px] font-medium tracking-[-0.04em] text-[#5e3926]">Контактні дані</h2>
+        <div className="mb-5 flex items-center gap-3 sm:gap-4">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#6a4331] sm:h-10 sm:w-10 sm:text-lg">1</div>
+          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Контактні дані</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Input label="Ім'я та прізвище" placeholder="Іван Петренко" error={errors.fullName?.message} {...register('fullName')} />
@@ -158,9 +158,9 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
       </section>
 
       <section>
-        <div className="mb-5 mt-6 flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#a98a74] text-lg font-bold text-[#6a4331]">2</div>
-          <h2 className="text-[36px] font-medium tracking-[-0.04em] text-[#5e3926]">Спосіб доставки</h2>
+        <div className="mb-5 mt-6 flex items-center gap-3 sm:gap-4">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#6a4331] sm:h-10 sm:w-10 sm:text-lg">2</div>
+          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Спосіб доставки</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#d8c2b0] bg-[#fbf5ea] px-4 py-8 text-center text-[#6b4331] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
@@ -259,9 +259,9 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
       </section>
 
       <section>
-        <div className="mb-5 mt-6 flex items-center gap-4">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#a98a74] text-lg font-bold text-[#6a4331]">3</div>
-          <h2 className="text-[36px] font-medium tracking-[-0.04em] text-[#5e3926]">Оплата</h2>
+        <div className="mb-5 mt-6 flex items-center gap-3 sm:gap-4">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#6a4331] sm:h-10 sm:w-10 sm:text-lg">3</div>
+          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Оплата</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#eadfcb] bg-[#fbf5ea] px-4 py-6 text-center text-[#6b4331] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
@@ -358,7 +358,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
       </section>
 
       <div className="pt-4">
-        <Button type="submit" className="min-h-16 rounded-[20px] bg-[#7d4a37] px-10 text-lg font-extrabold hover:bg-[#6f4232]" disabled={isSubmitting}>
+        <Button type="submit" className="min-h-16 w-full rounded-[20px] bg-[#7d4a37] px-10 text-lg font-extrabold hover:bg-[#6f4232] sm:w-auto" disabled={isSubmitting}>
           {isSubmitting ? 'Обробка...' : 'Підтвердити замовлення'}
         </Button>
       </div>

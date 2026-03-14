@@ -1,7 +1,9 @@
 import type { Request, Response } from 'express'
-import type { Order, ContactMethod } from '@chocopix/shared'
+import type { Order } from '@chocopix/shared'
+import { productsCatalog } from '@chocopix/shared'
 import { z } from 'zod'
 import { sendOrderToTelegram } from '../services/telegramService.js'
+import { validatePromoCode } from '../services/promoCodeService.js'
 
 const createOrderSchema = z.object({
   items: z.array(z.object({ productId: z.string(), quantity: z.number().min(1) })),
@@ -36,13 +38,41 @@ const orders = new Map<string, Order>()
 
 export const createOrderController = async (request: Request, response: Response) => {
   const payload = createOrderSchema.parse(request.body)
+  const subtotal = payload.items.reduce((sum, item) => {
+    const product = productsCatalog.find((entry) => entry.id === item.productId)
+    return sum + (product?.price ?? 0) * item.quantity
+  }, 0)
+
+  let discount = 0
+  let appliedPromoCode: string | undefined
+  const normalizedPromoCode = payload.promoCode?.trim().toUpperCase()
+
+  if (normalizedPromoCode) {
+    const promoValidation = validatePromoCode(normalizedPromoCode, subtotal)
+
+    if (!promoValidation.isValid) {
+      response.status(400).json({
+        message: 'Промокод недійсний або термін його дії закінчився',
+      })
+      return
+    }
+
+    discount = promoValidation.discount ?? 0
+    appliedPromoCode = normalizedPromoCode
+  }
+
+  const total = Math.max(subtotal - discount, 0)
   const id = crypto.randomUUID()
   const order: Order = {
     id,
     orderNumber: `CP-${Date.now().toString().slice(-6)}`,
     ...payload,
+    promoCode: appliedPromoCode,
+    appliedPromoCode,
+    subtotal,
+    discount,
     status: 'pending',
-    total: 0,
+    total,
     createdAt: new Date().toISOString(),
   }
 
@@ -64,7 +94,9 @@ export const createOrderController = async (request: Request, response: Response
     contactMethod: order.contactMethod,
     comment: order.comment,
     items: order.items,
-    total: order.total || 0,
+    promoCode: order.appliedPromoCode,
+    discount: order.discount || 0,
+    total: order.total,
     subtotal: order.subtotal || 0,
   }).catch(console.error)
   

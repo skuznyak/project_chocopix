@@ -141,6 +141,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
           comment: comment || undefined,
           total: totals.total,
           subtotal: totals.subtotal,
+          discount: totals.discount,
         })
       })}
     >

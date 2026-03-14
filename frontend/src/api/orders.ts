@@ -20,7 +20,10 @@ export const createOrder = async (payload: CreateOrderPayload) => {
     delivery: payload.delivery,
     paymentMethod: payload.paymentMethod,
     promoCode: payload.promoCode,
-    total: 0,
+    appliedPromoCode: payload.promoCode,
+    subtotal: payload.subtotal,
+    discount: payload.discount,
+    total: payload.total ?? 0,
     status: 'pending',
     createdAt: new Date().toISOString(),
   }

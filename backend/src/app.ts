@@ -6,6 +6,7 @@ import { productRouter } from './routes/products.js'
 import { orderRouter } from './routes/orders.js'
 import { novaPoshtaRouter } from './routes/novaposhta.js'
 import { callbackRouter } from './routes/callback.js'
+import { promoCodeRouter } from './routes/promoCodes.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
 const app = express()
@@ -58,6 +59,7 @@ app.use('/api/products', productRouter)
 app.use('/api/orders', orderRouter)
 app.use('/api/np', novaPoshtaRouter)
 app.use('/api/callback', callbackRouter)
+app.use('/api/promo', promoCodeRouter)
 app.use(errorHandler)
 
 app.listen(port, () => {

@@ -5,16 +5,19 @@ import { ArrowLeft, Minus, Package, Plus, Trash2 } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { CheckoutForm } from '@/components/checkout/CheckoutForm'
 import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
 import { useCart } from '@/hooks/useCart'
 import { createOrder } from '@/api/orders'
+import { validatePromoCode } from '@/api/promoCodes'
 import { FREE_DELIVERY_THRESHOLD } from '@/store/cartStore'
 import { formatPrice } from '@/utils/formatPrice'
 
 export default function CheckoutPage() {
   const navigate = useNavigate()
+  const { items, detailedItems, totals, promoCode, clearCart, removeItem, setQuantity, setPromoCode } = useCart()
   const [submitError, setSubmitError] = useState<string | null>(null)
-  const { items, detailedItems, totals, promoCode, clearCart, removeItem, setQuantity, applyPromoCode } = useCart()
+  const [promoInput, setPromoInput] = useState(promoCode ?? '')
+  const [promoFeedback, setPromoFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null)
+  const [isApplyingPromo, setIsApplyingPromo] = useState(false)
   const progress = Math.min((totals.subtotal / FREE_DELIVERY_THRESHOLD) * 100, 100)
 
   return (
@@ -44,8 +47,18 @@ export default function CheckoutPage() {
                   setSubmitError(null)
                   const order = await createOrder(payload)
                   clearCart()
+                  setPromoInput('')
+                  setPromoFeedback(null)
                   navigate(`/order-success?orderNumber=${order.orderNumber}`)
                 } catch (error) {
+                  if (axios.isAxiosError(error) && error.response?.status === 400) {
+                    const message = typeof error.response.data?.message === 'string'
+                      ? error.response.data.message
+                      : 'Промокод недійсний або термін його дії закінчився'
+                    setSubmitError(message)
+                    return
+                  }
+
                   if (axios.isAxiosError(error) && error.response?.status === 500) {
                     setSubmitError('Не вдалося оформити замовлення. Перевірте, чи запущений бекенд, і спробуйте ще раз.')
                     return
@@ -122,12 +135,66 @@ export default function CheckoutPage() {
               ))}
             </div>
             <div className="mt-6">
-              <Input
-                label="Промокод"
-                placeholder="CHOCO10"
-                defaultValue={promoCode}
-                onBlur={(event) => applyPromoCode(event.target.value)}
-              />
+              <label className="flex flex-col gap-2 text-sm font-semibold text-[#5f3925]">
+                <span>Промокод</span>
+                <div className="flex gap-2">
+                  <input
+                    placeholder="CHOCO10"
+                    value={promoInput}
+                    onChange={(event) => setPromoInput(event.target.value)}
+                    className="min-h-14 flex-1 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base text-[#2d1f1a] placeholder:text-[#9a8b7f] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]"
+                  />
+                  <Button
+                    type="button"
+                    className="min-h-14 rounded-[18px] bg-[#7d4a37] px-6 text-sm font-bold hover:bg-[#6f4232]"
+                    disabled={isApplyingPromo}
+                    onClick={async () => {
+                      const normalizedCode = promoInput.trim().toUpperCase()
+                      setSubmitError(null)
+
+                      if (!normalizedCode) {
+                        setPromoCode(undefined, 0)
+                        setPromoFeedback(null)
+                        return
+                      }
+
+                      setIsApplyingPromo(true)
+                      try {
+                        const result = await validatePromoCode(normalizedCode, totals.subtotal)
+                        if (result.isValid) {
+                          setPromoCode(normalizedCode, result.discount ?? 0)
+                          setPromoInput(normalizedCode)
+                          setPromoFeedback({
+                            type: 'success',
+                            message: `Промокод застосовано. Знижка: ${formatPrice(result.discount ?? 0)}`,
+                          })
+                        } else {
+                          setPromoCode(undefined, 0)
+                          setPromoFeedback({
+                            type: 'error',
+                            message: 'Промокод недійсний або термін його дії закінчився',
+                          })
+                        }
+                      } catch {
+                        setPromoCode(undefined, 0)
+                        setPromoFeedback({
+                          type: 'error',
+                          message: 'Промокод недійсний або термін його дії закінчився',
+                        })
+                      } finally {
+                        setIsApplyingPromo(false)
+                      }
+                    }}
+                  >
+                    {isApplyingPromo ? 'Перевірка...' : 'Примінити'}
+                  </Button>
+                </div>
+              </label>
+              {promoFeedback ? (
+                <p className={`mt-2 text-sm ${promoFeedback.type === 'error' ? 'text-rose-600' : 'text-[#2f8a57]'}`}>
+                  {promoFeedback.message}
+                </p>
+              ) : null}
             </div>
             <div className="mt-6 space-y-3 border-t border-dashed border-[#ddd7d2] pt-5 text-base">
               <div className="flex justify-between text-[#7a6050]"><span>Сума:</span><span>{formatPrice(totals.subtotal)}</span></div>

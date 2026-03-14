@@ -6,10 +6,11 @@ interface CartState {
   items: CartItem[]
   isOpen: boolean
   promoCode?: string
+  promoDiscount: number
   addItem: (productId: string) => void
   removeItem: (productId: string) => void
   setQuantity: (productId: string, quantity: number) => void
-  applyPromoCode: (code: string) => boolean
+  setPromoCode: (code?: string, discount?: number) => void
   clearCart: () => void
   openCart: () => void
   closeCart: () => void
@@ -17,7 +18,6 @@ interface CartState {
 }
 
 export const FREE_DELIVERY_THRESHOLD = 2000
-const PROMO_CODE = 'CHOCO10'
 const CART_STORAGE_KEY = 'chocopix-cart'
 
 const isCartItem = (value: unknown): value is CartItem =>
@@ -31,7 +31,13 @@ const isCartItem = (value: unknown): value is CartItem =>
 const sanitizeCartState = (state: Partial<CartState> | undefined) => ({
   items: Array.isArray(state?.items) ? state.items.filter(isCartItem) : [],
   isOpen: false,
-  promoCode: state?.promoCode === PROMO_CODE ? state.promoCode : undefined,
+  promoCode: typeof state?.promoCode === 'string' && state.promoCode.startsWith('CHOCO')
+    ? state.promoCode
+    : undefined,
+  promoDiscount:
+    typeof state?.promoDiscount === 'number' && Number.isFinite(state.promoDiscount) && state.promoDiscount > 0
+      ? state.promoDiscount
+      : 0,
 })
 
 export const useCartStore = create<CartState>()(
@@ -40,6 +46,7 @@ export const useCartStore = create<CartState>()(
       items: [],
       isOpen: false,
       promoCode: undefined,
+      promoDiscount: 0,
       addItem: (productId) =>
         set((state) => {
           const existingItem = state.items.find((item) => item.productId === productId)
@@ -67,23 +74,26 @@ export const useCartStore = create<CartState>()(
               ? state.items.filter((item) => item.productId !== productId)
               : state.items.map((item) => (item.productId === productId ? { ...item, quantity } : item)),
         })),
-      applyPromoCode: (code) => {
-        const normalizedCode = code.trim().toUpperCase()
-        const isValid = normalizedCode === PROMO_CODE
+      setPromoCode: (code, discount = 0) => {
+        const normalizedCode = code?.trim().toUpperCase()
+        const hasValidCode = Boolean(normalizedCode && normalizedCode.startsWith('CHOCO'))
+        const normalizedDiscount = Number.isFinite(discount) && discount > 0 ? Math.round(discount) : 0
 
-        set({ promoCode: isValid ? normalizedCode : undefined })
-        return isValid
+        set({
+          promoCode: hasValidCode ? normalizedCode : undefined,
+          promoDiscount: hasValidCode ? normalizedDiscount : 0,
+        })
       },
-      clearCart: () => set({ items: [], promoCode: undefined, isOpen: false }),
+      clearCart: () => set({ items: [], promoCode: undefined, promoDiscount: 0, isOpen: false }),
       openCart: () => set({ isOpen: true }),
       closeCart: () => set({ isOpen: false }),
       getTotals: (products) => {
-        const { items, promoCode } = get()
+        const { items, promoDiscount } = get()
         const subtotal = items.reduce((sum, item) => {
           const product = products.find((entry) => entry.id === item.productId)
           return sum + (product?.price ?? 0) * item.quantity
         }, 0)
-        const discount = promoCode ? Math.round(subtotal * 0.1) : 0
+        const discount = Math.min(promoDiscount, subtotal)
         const isFreeDelivery = subtotal >= FREE_DELIVERY_THRESHOLD || subtotal === 0
         const delivery = 0
 
@@ -103,6 +113,7 @@ export const useCartStore = create<CartState>()(
       partialize: (state) => ({
         items: state.items,
         promoCode: state.promoCode,
+        promoDiscount: state.promoDiscount,
       }),
       merge: (persistedState, currentState) => ({
         ...currentState,

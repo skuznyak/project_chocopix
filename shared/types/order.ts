@@ -37,8 +37,10 @@ export interface Order {
   contactMethod?: ContactMethod
   comment?: string
   subtotal?: number
+  discount?: number
   status: OrderStatus
   promoCode?: string
+  appliedPromoCode?: string
   total: number
   createdAt: string
 }
@@ -52,5 +54,6 @@ export interface CreateOrderPayload {
   comment?: string
   total?: number
   subtotal?: number
+  discount?: number
   promoCode?: string
 }

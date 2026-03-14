@@ -30,6 +30,8 @@ interface OrderData {
   }>
   total: number
   subtotal?: number
+  discount?: number
+  promoCode?: string
 }
 
 export const sendOrderToTelegram = async (order: OrderData) => {
@@ -48,11 +50,13 @@ export const sendOrderToTelegram = async (order: OrderData) => {
     }
   })
 
-  // Розраховуємо загальну суму
-  const calculatedTotal = itemsWithDetails.reduce(
+  // Розраховуємо суму товарів як fallback, якщо subtotal не переданий
+  const calculatedSubtotal = itemsWithDetails.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
   )
+  const subtotal = order.subtotal ?? calculatedSubtotal
+  const discount = order.discount ?? 0
 
   const contactMethodText = order.contactMethod
     ? Object.entries(order.contactMethod)
@@ -82,7 +86,7 @@ export const sendOrderToTelegram = async (order: OrderData) => {
 
   // Визначаємо вартість доставки
   const FREE_DELIVERY_THRESHOLD = 2000
-  const deliveryCostText = (order.subtotal || order.total) >= FREE_DELIVERY_THRESHOLD
+  const deliveryCostText = subtotal >= FREE_DELIVERY_THRESHOLD
     ? '✅ Безкоштовна'
     : '💰 За тарифами перевізника'
 
@@ -108,7 +112,10 @@ ${order.comment ? `📝 *Коментар:* ${order.comment}` : ''}
 🛒 *Товари:*
 ${itemsWithDetails.map((item) => `• ${item.name} × ${item.quantity} шт. = ${item.price * item.quantity} грн`).join('\n')}
 
-💰 *Разом:* ${calculatedTotal} грн
+${order.promoCode ? `🎟 *Промокод:* ${order.promoCode}` : ''}
+💸 *Знижка:* -${discount} грн
+💵 *Сума товарів:* ${subtotal} грн
+💰 *Фінальна сума:* ${order.total} грн
 `.trim()
 
   try {

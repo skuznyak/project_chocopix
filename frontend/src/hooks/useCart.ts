@@ -8,7 +8,7 @@ export const useCart = () => {
   const addItem = useCartStore((state) => state.addItem)
   const removeItem = useCartStore((state) => state.removeItem)
   const setQuantity = useCartStore((state) => state.setQuantity)
-  const applyPromoCode = useCartStore((state) => state.applyPromoCode)
+  const setPromoCode = useCartStore((state) => state.setPromoCode)
   const clearCart = useCartStore((state) => state.clearCart)
   const getTotals = useCartStore((state) => state.getTotals)
 
@@ -33,7 +33,7 @@ export const useCart = () => {
     addItem,
     removeItem,
     setQuantity,
-    applyPromoCode,
+    setPromoCode,
     clearCart,
   }
 }

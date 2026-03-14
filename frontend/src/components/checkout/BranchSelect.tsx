@@ -12,7 +12,7 @@ interface BranchSelectProps {
 
 export const BranchSelect = ({ cityRef, value, onChange, error, disabled }: BranchSelectProps) => {
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const { data: warehouses = [], isLoading } = useWarehouses(cityRef, searchQuery)
+  const { data: warehouses = [], isLoading, isError } = useWarehouses(cityRef, searchQuery)
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
@@ -36,7 +36,7 @@ export const BranchSelect = ({ cityRef, value, onChange, error, disabled }: Bran
       }}
       onSearch={handleSearch}
       loading={isLoading}
-      error={error}
+      error={error ?? (isError ? "Не вдалося завантажити відділення. Перевірте з'єднання з сервером." : undefined)}
       disabled={disabled || !cityRef}
     />
   )

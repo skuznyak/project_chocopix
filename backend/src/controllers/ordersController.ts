@@ -3,6 +3,7 @@ import type { Order } from '@chocopix/shared'
 import { productsCatalog } from '@chocopix/shared'
 import { z } from 'zod'
 import { sendOrderToTelegram } from '../services/telegramService.js'
+import { sendOrderToEmail } from '../services/email.js'
 import { validatePromoCode } from '../services/promoCodeService.js'
 
 const createOrderSchema = z.object({
@@ -35,6 +36,10 @@ const createOrderSchema = z.object({
 })
 
 const orders = new Map<string, Order>()
+const orderNotificationEmails = (process.env.ORDER_NOTIFICATION_EMAILS ?? '')
+  .split(',')
+  .map((email) => email.trim())
+  .filter(Boolean)
 
 export const createOrderController = async (request: Request, response: Response) => {
   const payload = createOrderSchema.parse(request.body)
@@ -77,11 +82,10 @@ export const createOrderController = async (request: Request, response: Response
   }
 
   orders.set(id, order)
-  
+
   console.log('Order received:', JSON.stringify(payload, null, 2))
-  
-  // Vidpravlyayemo zamovlennya v Telegram (ne blokuemo vidpovid')
-  sendOrderToTelegram({
+
+  const notificationOrderData = {
     orderNumber: order.orderNumber,
     customer: order.customer,
     delivery: {
@@ -98,8 +102,12 @@ export const createOrderController = async (request: Request, response: Response
     discount: order.discount || 0,
     total: order.total,
     subtotal: order.subtotal || 0,
-  }).catch(console.error)
-  
+  }
+
+  // Додаткові сповіщення не блокують відповідь клієнту.
+  void sendOrderToTelegram(notificationOrderData).catch(console.error)
+  void sendOrderToEmail(notificationOrderData, orderNotificationEmails).catch(console.error)
+
   response.status(201).json(order)
 }
 

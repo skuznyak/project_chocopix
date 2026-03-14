@@ -1,4 +1,4 @@
-import { Resend } from 'resend'
+import nodemailer from 'nodemailer'
 import { productsCatalog } from '@chocopix/shared'
 
 interface OrderData {
@@ -29,15 +29,16 @@ interface OrderData {
   subtotal?: number
 }
 
-// Resend client
-const resend = new Resend(process.env.RESEND_API_KEY || '')
+export const sendOrderToEmail = async (order: OrderData, recipientEmails: string[]) => {
+  const smtpUser = process.env.EMAIL_USER
+  const smtpPass = process.env.EMAIL_APP_PASSWORD
 
-export const sendOrderToEmail = async (order: OrderData, recipientEmail: string) => {
-  const resendApiKey = process.env.RESEND_API_KEY
+  if (!smtpUser || !smtpPass) {
+    console.warn('Gmail SMTP credentials are not configured. Skipping email notification.')
+    return
+  }
 
-  // Якщо API ключ не налаштовано - просто логгуємо
-  if (!resendApiKey) {
-    console.warn('Resend API key not configured. Skipping email notification.')
+  if (!recipientEmails.length) {
     return
   }
 
@@ -171,14 +172,29 @@ export const sendOrderToEmail = async (order: OrderData, recipientEmail: string)
 `.trim()
 
   try {
-    const data = await resend.emails.send({
-      from: 'ChocoPix Shop <onboarding@resend.dev>',
-      to: recipientEmail,
+    const smtpHost = process.env.SMTP_HOST ?? 'smtp.gmail.com'
+    const smtpPort = Number(process.env.SMTP_PORT ?? '587')
+    const smtpSecure = (process.env.SMTP_SECURE ?? 'false').toLowerCase() === 'true'
+    const fromName = process.env.EMAIL_FROM_NAME ?? 'ChocoPix Shop'
+
+    const transporter = nodemailer.createTransport({
+      host: smtpHost,
+      port: smtpPort,
+      secure: smtpSecure,
+      auth: {
+        user: smtpUser,
+        pass: smtpPass,
+      },
+    })
+
+    const info = await transporter.sendMail({
+      from: `${fromName} <${smtpUser}>`,
+      to: recipientEmails,
       subject: `🛍️ Нове замовлення #${order.orderNumber} з сайту`,
       html: emailHtml,
     })
 
-    console.log('Order email sent successfully:', order.orderNumber, 'Response:', data)
+    console.log('Order email sent successfully:', order.orderNumber, 'Message ID:', info.messageId)
   } catch (error) {
     console.error('Failed to send order email:', error)
     // Не кидаємо помилку - email є додатковим каналом

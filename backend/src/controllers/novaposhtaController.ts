@@ -10,6 +10,14 @@ console.log('Nova Poshta API Key loaded:', NOVA_POSHTA_API_KEY ? '***' + NOVA_PO
 const cache = new Map<string, { data: any; timestamp: number }>()
 const CACHE_TTL = 5 * 60 * 1000 // 5 хвилин
 
+const getLatestCacheByPrefix = (prefix: string) => {
+  const entries = [...cache.entries()]
+    .filter(([key]) => key.startsWith(prefix))
+    .sort((a, b) => b[1].timestamp - a[1].timestamp)
+
+  return entries[0]?.[1]
+}
+
 interface NovaPoshtaResponse<T> {
   success: boolean
   data: T[]
@@ -72,7 +80,7 @@ export const getAreasController = async (request: Request, response: Response) =
     console.error('Error fetching areas from Nova Poshta:', error)
     
     // Якщо є кеш, повертаємо його навіть якщо він застарів
-    const cached = cache.get('areas')
+    const cached = cache.get(`areas:${request.query.q || 'all'}`) ?? getLatestCacheByPrefix('areas:')
     if (cached) {
       return response.json(cached.data)
     }
@@ -122,7 +130,7 @@ export const getCitiesController = async (request: Request, response: Response) 
     
     // Якщо є кеш, повертаємо його навіть якщо він застарів
     const cacheKey = `cities:${request.query.areaRef || ''}:${request.query.q || ''}`
-    const cached = cache.get(cacheKey)
+    const cached = cache.get(cacheKey) ?? getLatestCacheByPrefix(`cities:${request.query.areaRef || ''}:`)
     if (cached) {
       return response.json(cached.data)
     }
@@ -182,7 +190,8 @@ export const getWarehousesController = async (request: Request, response: Respon
     console.error('Error fetching warehouses from Nova Poshta:', error)
     
     // Якщо є кеш, повертаємо його навіть якщо він застарів
-    const cached = cache.get(`warehouses:${request.query.cityRef}`)
+    const cacheKey = `warehouses:${request.query.cityRef}:${request.query.q || ''}`
+    const cached = cache.get(cacheKey) ?? getLatestCacheByPrefix(`warehouses:${request.query.cityRef}:`)
     if (cached) {
       return response.json(cached.data)
     }

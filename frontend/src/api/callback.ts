@@ -32,6 +32,6 @@ export const createCallbackRequest = async (payload: CreateCallbackPayload) => {
     return { success: true }
   }
 
-  const { data } = await apiClient.post<{ success: boolean }>('/api/callback', payload)
+  const { data } = await apiClient.post<{ success: boolean }>('/callback', payload)
   return data
 }

@@ -8,7 +8,7 @@ const readOrders = (): Order[] => readStorage<Order[]>(STORAGE_KEY, [])
 
 export const createOrder = async (payload: CreateOrderPayload) => {
   if (!USE_MOCK) {
-    const response = await apiClient.post<Order>('/api/orders', payload)
+    const response = await apiClient.post<Order>('/orders', payload)
     return response.data
   }
 
@@ -35,7 +35,7 @@ export const createOrder = async (payload: CreateOrderPayload) => {
 
 export const getOrderStatus = async (id: string) => {
   if (!USE_MOCK) {
-    const response = await apiClient.get<Order>(`/api/orders/${id}`)
+    const response = await apiClient.get<Order>(`/orders/${id}`)
     return response.data
   }
 

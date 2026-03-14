@@ -52,7 +52,7 @@ export const getProducts = async (filters: ProductFilters = {}) => {
   }
 
   try {
-    const response = await apiClient.get<Product[]>('/api/products', { params: filters })
+    const response = await apiClient.get<Product[]>('/products', { params: filters })
 
     if (!isProductArray(response.data) || response.data.length === 0) {
       return getMockProducts(filters)
@@ -80,7 +80,7 @@ export const getProductById = async (id: string) => {
   }
 
   try {
-    const response = await apiClient.get<Product>(`/api/products/${id}`)
+    const response = await apiClient.get<Product>(`/products/${id}`)
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error)) {

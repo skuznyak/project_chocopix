@@ -106,3 +106,19 @@ pm2 startup
 The backend sends callback requests to Telegram. Make sure:
 1. Bot token is valid
 2. Chat ID is correct (bot must be added to the chat/group)
+
+### 6. Post-Deploy Smoke Check
+
+Run a quick API check right after deploy:
+
+```bash
+# Local default target
+npm run smoke
+
+# Explicit production target
+npm run smoke -- https://chocopix.store
+```
+
+This validates:
+- `GET /api/health`
+- `GET /api/np/areas`

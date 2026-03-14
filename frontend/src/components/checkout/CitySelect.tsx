@@ -12,7 +12,7 @@ interface CitySelectProps {
 
 export const CitySelect = ({ areaRef, value, onChange, error, disabled }: CitySelectProps) => {
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const { data: cities = [], isLoading } = useCities(areaRef, searchQuery)
+  const { data: cities = [], isLoading, isError } = useCities(areaRef, searchQuery)
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
@@ -36,7 +36,7 @@ export const CitySelect = ({ areaRef, value, onChange, error, disabled }: CitySe
       }}
       onSearch={handleSearch}
       loading={isLoading}
-      error={error}
+      error={error ?? (isError ? "Не вдалося завантажити міста. Перевірте з'єднання з сервером." : undefined)}
       disabled={disabled || !areaRef}
     />
   )

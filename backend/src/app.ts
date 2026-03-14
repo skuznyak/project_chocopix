@@ -62,6 +62,10 @@ app.use('/api/callback', callbackRouter)
 app.use('/api/promo', promoCodeRouter)
 app.use(errorHandler)
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`ChocoPix API listening on http://localhost:${port}`)
+})
+
+server.on('close', () => {
+  console.log('ChocoPix API server closed')
 })

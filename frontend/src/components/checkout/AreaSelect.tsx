@@ -11,7 +11,7 @@ interface AreaSelectProps {
 
 export const AreaSelect = ({ value, onChange, error, disabled }: AreaSelectProps) => {
   const [searchQuery, setSearchQuery] = useState<string>('')
-  const { data: areas = [], isLoading } = useAreas(searchQuery.length === 0 ? undefined : searchQuery)
+  const { data: areas = [], isLoading, isError } = useAreas(searchQuery.length === 0 ? undefined : searchQuery)
 
   const handleSearch = (query: string) => {
     setSearchQuery(query)
@@ -35,7 +35,7 @@ export const AreaSelect = ({ value, onChange, error, disabled }: AreaSelectProps
       }}
       onSearch={handleSearch}
       loading={isLoading}
-      error={error}
+      error={error ?? (isError ? "Не вдалося завантажити області. Перевірте з'єднання з сервером." : undefined)}
       disabled={disabled}
     />
   )

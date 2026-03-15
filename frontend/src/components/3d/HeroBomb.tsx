@@ -30,7 +30,7 @@ export const HeroBomb = () => {
 
         {/* Фото бомбочки - з округленими краями і однаковою рамкою */}
         <motion.div
-          className="absolute inset-0 flex items-center justify-center p-[10%]"
+          className="absolute inset-0 flex items-center justify-center p-[8%] lg:p-[7%]"
           animate={{ scale: isHovered ? 1.08 : 1 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
         >

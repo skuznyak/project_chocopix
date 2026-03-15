@@ -38,12 +38,6 @@ const steps = [
   },
 ]
 
-const reviews = [
-  { name: 'Марина', text: 'Подарувала набір колегам, усі в захваті від ефекту та смаку.' },
-  { name: 'Олена', text: 'Діти просять ще, а пакування виглядає дуже преміально.' },
-  { name: 'Ірина', text: 'Швидка доставка і справді натуральний смак без зайвої солодкості.' },
-]
-
 const faqs = [
   { question: 'Як зберігати?', answer: 'У сухому прохолодному місці при температурі до 20°C.' },
   { question: 'Скільки зберігаються?', answer: 'До 6-ти тижнів.' },
@@ -311,18 +305,6 @@ export default function HomePage() {
                 ))}
               </div>
             </div>
-          </div>
-        </section>
-
-        <section className="py-10">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Відгуки</p>
-          <div className="mt-6 grid gap-4 lg:grid-cols-3">
-            {reviews.map((review) => (
-              <article key={review.name} className="rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-[0_18px_40px_rgba(92,55,28,0.05)]">
-                <p className="text-sm leading-7 text-[#6e4935]">“{review.text}”</p>
-                <p className="mt-4 font-semibold">{review.name}</p>
-              </article>
-            ))}
           </div>
         </section>
 

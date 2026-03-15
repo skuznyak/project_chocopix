@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { Truck, Bike, Package, Wallet, Phone, MessageCircle, PhoneOff, Check } from 'lucide-react'
+import { Truck, Bike, Package, Wallet, Phone, MessageCircle, PhoneOff } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import type { CreateOrderPayload } from '@chocopix/shared'
 import { Button } from '@/components/ui/Button'
@@ -300,9 +300,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                       checked={contactMethod.noCall}
                       onChange={() => updateContactMethod('noCall')}
                     />
-                    <div className="flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328]">
-                      <Check className="h-4 w-4 text-white opacity-0 transition-opacity peer-checked:opacity-100" strokeWidth={3.5} />
-                    </div>
+                    <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                   </div>
                   <PhoneOff size={20} className="text-[#7d4a37]" />
                   <span className="text-sm text-[#5f3925]">Не дзвонити мені</span>
@@ -316,9 +314,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                     checked={contactMethod.messenger}
                     onChange={() => updateContactMethod('messenger')}
                   />
-                  <div className="flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328]">
-                    <Check className="h-4 w-4 text-white opacity-0 transition-opacity peer-checked:opacity-100" strokeWidth={3.5} />
-                  </div>
+                  <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                 </div>
                 <MessageCircle size={20} className="text-[#7d4a37]" />
                 <span className="text-sm text-[#5f3925]">Написати в месенджер (Viber / Telegram / WhatsApp)</span>
@@ -331,9 +327,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                     checked={contactMethod.phoneCall}
                     onChange={() => updateContactMethod('phoneCall')}
                   />
-                  <div className="flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328]">
-                    <Check className="h-4 w-4 text-white opacity-0 transition-opacity peer-checked:opacity-100" strokeWidth={3.5} />
-                  </div>
+                  <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                 </div>
                 <Phone size={20} className="text-[#7d4a37]" />
                 <span className="text-sm text-[#5f3925]">Подзвонити мені</span>

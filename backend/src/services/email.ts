@@ -1,35 +1,7 @@
 import nodemailer from 'nodemailer'
-import { productsCatalog } from '@chocopix/shared'
+import { normalizeOrderNotificationData, type OrderNotificationData } from './orderNotification.js'
 
-interface OrderData {
-  orderNumber: string
-  customer: {
-    fullName: string
-    phone: string
-    email?: string
-  }
-  delivery: {
-    region?: string
-    city: string
-    branch: string
-    method: string
-  }
-  paymentMethod: string
-  contactMethod?: {
-    noCall?: boolean
-    messenger?: boolean
-    phoneCall?: boolean
-  }
-  comment?: string
-  items: Array<{
-    productId: string
-    quantity: number
-  }>
-  total: number
-  subtotal?: number
-}
-
-export const sendOrderToEmail = async (order: OrderData, recipientEmails: string[]) => {
+export const sendOrderToEmail = async (order: OrderNotificationData, recipientEmails: string[]) => {
   const smtpUser = process.env.EMAIL_USER
   const smtpPass = process.env.EMAIL_APP_PASSWORD
 
@@ -42,53 +14,7 @@ export const sendOrderToEmail = async (order: OrderData, recipientEmails: string
     return
   }
 
-  // Отримуємо інформацію про товари з каталогу
-  const itemsWithDetails = order.items.map((item) => {
-    const product = productsCatalog.find((p) => p.id === item.productId)
-    return {
-      ...item,
-      name: product?.name || item.productId,
-      price: product?.price || 0,
-    }
-  })
-
-  // Розраховуємо загальну суму
-  const calculatedTotal = itemsWithDetails.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  )
-
-  const contactMethodText = order.contactMethod
-    ? Object.entries(order.contactMethod)
-        .filter(([_, value]) => value)
-        .map(([key]) => {
-          switch (key) {
-            case 'noCall':
-              return '❌ Не дзвонити'
-            case 'messenger':
-              return '💬 Написати в месенджер'
-            case 'phoneCall':
-              return '📞 Подзвонити'
-            default:
-              return ''
-          }
-        })
-        .join(', ')
-    : ''
-
-  const paymentText = order.paymentMethod === 'cod'
-    ? '💳 Накладений платіж'
-    : '💳 Переказ на картку'
-
-  const deliveryText = order.delivery.method === 'warehouse'
-    ? '🚚 Нова Пошта'
-    : '🚴 Кур\'єр'
-
-  // Визначаємо вартість доставки
-  const FREE_DELIVERY_THRESHOLD = 2000
-  const deliveryCostText = (order.subtotal || order.total) >= FREE_DELIVERY_THRESHOLD
-    ? '✅ Безкоштовна'
-    : '💰 За тарифами перевізника'
+  const normalized = normalizeOrderNotificationData(order)
 
   // Формуємо HTML версію листа
   const emailHtml = `
@@ -112,48 +38,55 @@ export const sendOrderToEmail = async (order: OrderData, recipientEmails: string
 <body>
   <div class="container">
     <div class="header">
-      <h1>🛍️ Нове замовлення #${order.orderNumber}</h1>
+      <h1>🛍️ Нове замовлення #${normalized.orderNumber}</h1>
     </div>
     <div class="content">
       <div class="section">
         <div class="section-title">👤 Клієнт</div>
         <div class="item">
-          <strong>Ім'я:</strong> ${order.customer.fullName}<br>
-          <strong>Телефон:</strong> ${order.customer.phone}<br>
-          ${order.customer.email ? `<strong>Email:</strong> ${order.customer.email}<br>` : ''}
+          <strong>Ім'я:</strong> ${normalized.customer.fullName}<br>
+          <strong>Телефон:</strong> ${normalized.customer.phone}<br>
+          ${normalized.customer.email ? `<strong>Email:</strong> ${normalized.customer.email}<br>` : ''}
         </div>
       </div>
 
       <div class="section">
         <div class="section-title">📦 Доставка</div>
         <div class="item">
-          ${order.delivery.region ? `<strong>Область:</strong> ${order.delivery.region}<br>` : ''}
-          <strong>Місто:</strong> ${order.delivery.city}<br>
-          <strong>Відділення:</strong> ${order.delivery.branch}<br>
-          <strong>Метод:</strong> ${deliveryText}<br>
-          <strong>Вартість доставки:</strong> ${deliveryCostText}
+          ${normalized.delivery.region ? `<strong>Область:</strong> ${normalized.delivery.region}<br>` : ''}
+          <strong>Місто:</strong> ${normalized.delivery.city}<br>
+          <strong>Відділення:</strong> ${normalized.delivery.branch}<br>
+          <strong>Метод:</strong> ${normalized.deliveryText}<br>
+          <strong>Вартість доставки:</strong> ${normalized.deliveryCostText}
         </div>
       </div>
 
       <div class="section">
         <div class="section-title">💳 Оплата</div>
-        <div class="item">${paymentText}</div>
-        ${contactMethodText ? `<div class="item"><strong>📱 Зв'язок:</strong> ${contactMethodText}</div>` : ''}
-        ${order.comment ? `<div class="item"><strong>📝 Коментар:</strong> ${order.comment}</div>` : ''}
+        <div class="item">${normalized.paymentText}</div>
+        ${normalized.contactMethodText ? `<div class="item"><strong>📱 Зв'язок:</strong> ${normalized.contactMethodText}</div>` : ''}
+        ${normalized.comment ? `<div class="item"><strong>📝 Коментар:</strong> ${normalized.comment}</div>` : ''}
       </div>
 
       <div class="section">
         <div class="section-title">🛒 Товари</div>
-        ${itemsWithDetails.map((item) => `
+        ${normalized.items.map((item) => `
           <div class="item">
             <strong>${item.name}</strong><br>
-            ${item.quantity} шт. × ${item.price} грн = <strong>${item.price * item.quantity} грн</strong>
+            ${item.quantity} шт. × ${item.price} грн = <strong>${item.lineTotal} грн</strong>
           </div>
         `).join('')}
       </div>
 
+      <div class="section">
+        <div class="section-title">💸 Підсумок</div>
+        ${normalized.promoCode ? `<div class="item"><strong>🎟 Промокод:</strong> ${normalized.promoCode}</div>` : ''}
+        <div class="item"><strong>Знижка:</strong> -${normalized.discount} грн</div>
+        <div class="item"><strong>Сума товарів:</strong> ${normalized.subtotal} грн</div>
+      </div>
+
       <div class="total">
-        💰 Разом: ${calculatedTotal} грн
+        💰 Фінальна сума: ${normalized.total} грн
       </div>
 
       <div class="footer">

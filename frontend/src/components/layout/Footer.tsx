@@ -1,5 +1,5 @@
 export const Footer = () => (
-  <footer className="mt-16 border-t border-[#d4d9b8] bg-[#7b4a32] text-white">
+  <footer id="footer" className="mt-16 border-t border-[#d4d9b8] bg-[#7b4a32] text-white">
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-10">
         <div className="text-left">

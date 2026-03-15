@@ -78,6 +78,9 @@ export default function HomePage() {
               <br />
               <span className="font-script text-[#d29b60] italic">бомбочки з маршмелоу</span>
             </h1>
+            <div className="mt-6 lg:hidden">
+              <HeroBomb />
+            </div>
             <p className="mt-8 max-w-xl text-[19px] leading-10 text-[#8a5d3c]">
               Відчуйте справжній вибух смаку! Просто покладіть шоколадну бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
             </p>
@@ -96,7 +99,9 @@ export default function HomePage() {
               </Button>
             </div>
           </div>
-          <HeroBomb />
+          <div className="hidden lg:block">
+            <HeroBomb />
+          </div>
         </section>
 
         {/* Category Navigation Blocks */}
@@ -174,9 +179,9 @@ export default function HomePage() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.08 }}
             >
-              <item.icon className="text-[#c78f59]" />
-              <h2 className="mt-4 font-display text-2xl font-semibold text-[#4c1d11]">{item.title}</h2>
-              <p className="mt-3 text-sm text-[#805339]">{item.text}</p>
+              <item.icon size={30} className="text-[#c78f59]" />
+              <h2 className="mt-4 font-display text-[2.05rem] font-semibold leading-[1.08] text-[#4c1d11]">{item.title}</h2>
+              <p className="mt-3 text-base text-[#805339]">{item.text}</p>
             </motion.article>
           ))}
         </section>

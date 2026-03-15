@@ -45,14 +45,14 @@ export const ProductCard = ({ product }: { product: Product }) => {
             {product.reviewSummary.rating}
           </div>
         </div>
-        <p className="mt-3 text-sm leading-7 text-[#7c5338]">{product.shortDescription}</p>
-        <div className="mt-4 flex items-baseline gap-2">
+        <p className="mt-2 text-sm leading-6 text-[#7c5338]">{product.shortDescription}</p>
+        <div className="mt-3 flex items-baseline gap-2">
           <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
           {product.previousPrice ? (
             <span className="text-sm text-cocoa-900/40 line-through">{formatPrice(product.previousPrice)}</span>
           ) : null}
         </div>
-        <div className="mt-6 flex items-center justify-between gap-4">
+        <div className="mt-2 flex items-center justify-between gap-4">
           <Link
             to={`/product/${product.id}`}
             className="text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900"

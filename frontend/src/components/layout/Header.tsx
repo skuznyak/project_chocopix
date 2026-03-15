@@ -9,7 +9,7 @@ const navItems = [
   { label: 'Бомбочки', href: '/#bombочки' },
   { label: 'Набори', href: '/#набори' },
   { label: 'Чашки', href: '/#чашки' },
-  { label: 'Контакти', href: '/#faq' },
+  { label: 'Контакти', href: '/#footer' },
 ]
 
 export const Header = () => {
@@ -39,13 +39,24 @@ export const Header = () => {
           </Link>
           <nav className="hidden items-center gap-10 md:flex">
             {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className="relative text-sm font-medium text-cocoa-900/72 transition hover:text-cocoa-900 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#a4693f] after:transition-all after:duration-300 hover:after:w-full"
-              >
-                {item.label}
-              </a>
+              item.href === '/' ? (
+                <Link
+                  key={item.label}
+                  to="/"
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                  className="relative text-sm font-medium text-cocoa-900/72 transition hover:text-cocoa-900 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#a4693f] after:transition-all after:duration-300 hover:after:w-full"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="relative text-sm font-medium text-cocoa-900/72 transition hover:text-cocoa-900 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#a4693f] after:transition-all after:duration-300 hover:after:w-full"
+                >
+                  {item.label}
+                </a>
+              )
             ))}
           </nav>
           <div className="flex items-center gap-4">

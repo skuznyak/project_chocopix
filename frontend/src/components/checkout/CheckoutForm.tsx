@@ -317,7 +317,11 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                   <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                 </div>
                 <MessageCircle size={20} className="text-[#7d4a37]" />
-                <span className="text-sm text-[#5f3925]">Написати в месенджер (Viber / Telegram / WhatsApp)</span>
+                <span className="text-sm text-[#5f3925]">
+                  {watchedPaymentMethod === 'card-transfer'
+                    ? 'Надіслати реквізити для оплати в месенджер (Viber / Telegram / WhatsApp)'
+                    : 'Написати в месенджер (Viber / Telegram / WhatsApp)'}
+                </span>
               </label>
               <label className="flex cursor-pointer items-center gap-3">
                 <div className="relative flex items-center">

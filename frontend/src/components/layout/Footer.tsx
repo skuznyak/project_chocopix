@@ -20,7 +20,7 @@ export const Footer = () => (
           <p className="mt-2 text-sm text-white/80">
             <a href="/" className="transition hover:text-white">chocopix.store</a>
           </p>
-          <p className="mt-4 text-sm text-white/50">© 2026</p>
+          <p className="mt-4 text-sm text-white/50">© 2025-2026</p>
         </div>
         <div className="text-right">
           <div className="flex flex-col items-end gap-4">

@@ -53,7 +53,14 @@ export default function HomePage() {
   const [isCallbackOpen, setIsCallbackOpen] = useState(false)
 
   // Filter products by category
-  const bombochkyProducts = products.filter((p) => p.tags.includes('бомбочки')).slice(0, 6)
+  const bombochkyProducts = products
+    .filter((p) => p.tags.includes('бомбочки'))
+    .sort((a, b) => {
+      const aIsHeart = a.images[0]?.src?.includes('/products/heart_') ? 1 : 0
+      const bIsHeart = b.images[0]?.src?.includes('/products/heart_') ? 1 : 0
+
+      return aIsHeart - bIsHeart
+    })
   const giftSetProducts = products.filter((p) => p.tags.includes('набори')).slice(0, 6)
   const cupsProducts = products.filter((p) => p.tags.includes('чашки')).slice(0, 6)
 
@@ -148,7 +155,7 @@ export default function HomePage() {
             </motion.a>
 
             <motion.a
-              href="#чашки"
+              href="#акції"
               className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
               initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -158,12 +165,12 @@ export default function HomePage() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/1.jpg"
-                alt="Чашки"
+                alt="Акції"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
-                <h3 className="font-display text-3xl font-semibold text-white">Чашки</h3>
-                <p className="mt-2 text-sm text-white">Фірмові чашки</p>
+                <h3 className="font-display text-3xl font-semibold text-white">Акції</h3>
+                <p className="mt-2 text-sm text-white">Вигідні пропозиції</p>
               </div>
             </motion.a>
           </div>
@@ -233,8 +240,8 @@ export default function HomePage() {
                 Готові подарункові набори з кількох смаків. Чудовий вибір для свята або щоб порадувати близьких.
               </p>
             </div>
-            <a href="#чашки" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
-              До чашок →
+            <a href="#акції" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
+              До акцій →
             </a>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
@@ -244,22 +251,22 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Чашки Catalog Section */}
-        <section id="чашки" className="scroll-mt-24 py-12">
+        {/* Акції Catalog Section */}
+        <section id="акції" className="scroll-mt-24 py-12">
           <Helmet>
-            <title>Фірмові чашки для какао та кави — кераміка, скло, термо | ChocoPix</title>
+            <title>Акції та спеціальні пропозиції — вигідні ціни | ChocoPix</title>
             <meta
               name="description"
-              content="Фірмові чашки ChocoPix: керамічні, скляні, термочашки. Зручні та стильні чашки для вашого улюбленого какао та кави."
+              content="Акції ChocoPix: знижки, спеціальні пропозиції та вигідні набори. Обирайте улюблені товари за кращими цінами."
             />
-            <link rel="canonical" href="https://chocopix.store/#чашки" />
+            <link rel="canonical" href="https://chocopix.store/#акції" />
           </Helmet>
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Аксесуари</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Чашки</h2>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Акції</h2>
               <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
-                Фірмові чашки для ідеального какао. Кераміка, скло, термочашки — обирайте свій формат.
+                Спеціальні пропозиції, знижки та вигідні добірки для ваших улюблених смаків. Обирайте найкращу акцію для себе.
               </p>
             </div>
             <a href="#how-it-works" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">

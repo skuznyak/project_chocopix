@@ -8,7 +8,7 @@ const navItems = [
   { label: 'Головна', href: '/' },
   { label: 'Бомбочки', href: '/#bombочки' },
   { label: 'Набори', href: '/#набори' },
-  { label: 'Чашки', href: '/#чашки' },
+  { label: 'Акції', href: '/#акції', isPromo: true },
   { label: 'Контакти', href: '/#footer' },
 ]
 
@@ -52,7 +52,11 @@ export const Header = () => {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="relative text-sm font-medium text-cocoa-900/72 transition hover:text-cocoa-900 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#a4693f] after:transition-all after:duration-300 hover:after:w-full"
+                  className={`relative text-sm font-medium transition after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                    item.isPromo
+                      ? 'text-[#b42318] hover:text-[#911e13] after:bg-[#b42318]'
+                      : 'text-cocoa-900/72 hover:text-cocoa-900 after:bg-[#a4693f]'
+                  }`}
                 >
                   {item.label}
                 </a>
@@ -100,7 +104,9 @@ export const Header = () => {
                   key={item.label}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="rounded-lg px-4 py-3 text-sm font-medium text-cocoa-900/72 transition hover:bg-[#fbf5ea] hover:text-cocoa-900"
+                  className={`rounded-lg px-4 py-3 text-sm font-medium transition hover:bg-[#fbf5ea] ${
+                    item.isPromo ? 'text-[#b42318] hover:text-[#911e13]' : 'text-cocoa-900/72 hover:text-cocoa-900'
+                  }`}
                 >
                   {item.label}
                 </a>

@@ -61,8 +61,8 @@ export default function HomePage() {
 
       return aIsHeart - bIsHeart
     })
-  const giftSetProducts = products.filter((p) => p.tags.includes('набори')).slice(0, 6)
-  const cupsProducts = products.filter((p) => p.tags.includes('чашки')).slice(0, 6)
+  const giftSetProducts = products.filter((p) => p.tags.includes('набори'))
+  const promoProducts = products.filter((p) => p.badge === 'sale')
 
   return (
     <>
@@ -274,7 +274,7 @@ export default function HomePage() {
             </a>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {cupsProducts.map((product) => (
+            {promoProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

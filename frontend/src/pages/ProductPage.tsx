@@ -20,7 +20,11 @@ export default function ProductPage() {
     return <div className="mx-auto max-w-7xl px-4 py-20">Товар не знайдено.</div>
   }
 
-  const similarProducts = products.filter((item) => item.id !== product.id).slice(0, 3)
+  const similarProducts = products
+    .filter((item) => item.id !== product.id)
+    .filter((item) => item.id !== 'classic-mug')
+    .filter((item) => item.tags.includes('набори') || item.badge === 'sale')
+    .slice(0, 3)
 
   return (
     <>

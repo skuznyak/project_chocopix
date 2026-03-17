@@ -19,7 +19,7 @@ export const CartItemRow = ({
   onRemove,
 }: CartItemRowProps) => (
   <article className="flex items-center gap-3 rounded-[22px] bg-[#fbf5ea] p-3">
-    <img src={product.images[0]?.src} alt={product.images[0]?.alt} className="h-16 w-16 rounded-[16px] object-cover" />
+    <img src={product.images[0]?.src} alt={product.images[0]?.alt} loading="lazy" decoding="async" className="h-16 w-16 rounded-[16px] object-cover" />
     <div className="min-w-0 flex-1">
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">

@@ -19,6 +19,9 @@ export const ProductGallery = ({ images, imageId }: ProductGalleryProps) => {
             src={selectedImage.src}
             alt={selectedImage.alt}
             data-product-image-id={imageId}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="aspect-square w-full object-cover"
           />
         </button>
@@ -30,13 +33,13 @@ export const ProductGallery = ({ images, imageId }: ProductGalleryProps) => {
               onClick={() => setSelectedImage(image)}
               className="overflow-hidden rounded-2xl border border-cocoa-900/10"
             >
-              <img src={image.src} alt={image.alt} className="aspect-square w-full object-cover" />
+              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
             </button>
           ))}
         </div>
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <img src={selectedImage.src} alt={selectedImage.alt} className="max-h-[75vh] w-full rounded-3xl object-cover" />
+        <img src={selectedImage.src} alt={selectedImage.alt} loading="lazy" decoding="async" className="max-h-[75vh] w-full rounded-3xl object-cover" />
       </Modal>
     </>
   )

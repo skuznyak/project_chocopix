@@ -1,12 +1,15 @@
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { ArrowRight, CircleDashed, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
-import { useState } from 'react'
-import { HeroBomb } from '@/components/3d/HeroBomb'
+import { lazy, Suspense, useState } from 'react'
 import { ProductCard } from '@/components/product/ProductCard'
 import { Button } from '@/components/ui/Button'
 import { CallbackModal } from '@/components/layout/CallbackModal'
 import { useProducts } from '@/hooks/useProducts'
+
+const HeroBomb = lazy(() =>
+  import('@/components/3d/HeroBomb').then((module) => ({ default: module.HeroBomb })),
+)
 
 const uspItems = [
   { icon: HandHeart, title: 'Ручна робота', text: 'Кожна бомбочка відливається вручну невеликими партіями.' },
@@ -51,6 +54,18 @@ const faqs = [
 export default function HomePage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
   const [isCallbackOpen, setIsCallbackOpen] = useState(false)
+  const faqSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  }
 
   // Filter products by category
   const bombochkyProducts = products
@@ -67,12 +82,21 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Какао бомбочки з маршмелоу — ручна робота | ChocoPix</title>
+        <title>Какао бомбочки з маршмелоу купити | ChocoPix</title>
         <meta
           name="description"
-          content="Купити какао бомбочки з маршмелоу, подарункові набори та фірмові чашки з доставкою по Україні. Ручна робота, натуральний склад."
+          content="Какао бомбочки з маршмелоу ручної роботи. Ідеальний подарунок та затишок вдома. Доставка по Україні."
         />
+        <meta property="og:title" content="Какао бомбочки з маршмелоу купити | ChocoPix" />
+        <meta
+          property="og:description"
+          content="Какао бомбочки з маршмелоу ручної роботи. Ідеальний подарунок та затишок вдома. Доставка по Україні."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chocopix.store/" />
+        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
         <link rel="canonical" href="https://chocopix.store/" />
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <section className="grid gap-10 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-14">
@@ -86,7 +110,9 @@ export default function HomePage() {
               <span className="font-script text-[#d29b60] italic">бомбочки з маршмелоу</span>
             </h1>
             <div className="mt-6 lg:hidden">
-              <HeroBomb />
+              <Suspense fallback={<div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />}>
+                <HeroBomb />
+              </Suspense>
             </div>
             <p className="mt-8 max-w-xl text-[19px] leading-10 text-[#8a5d3c]">
               Відчуйте справжній вибух смаку! Просто покладіть шоколадну бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
@@ -107,7 +133,9 @@ export default function HomePage() {
             </div>
           </div>
           <div className="hidden lg:block">
-            <HeroBomb />
+            <Suspense fallback={<div className="h-[620px] w-full rounded-[42px] bg-[#f1e3ce]" />}>
+              <HeroBomb />
+            </Suspense>
           </div>
         </section>
 
@@ -124,8 +152,10 @@ export default function HomePage() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
-                src="/images/107270_001.jpg"
+                src="/images/107270_001.webp"
                 alt="Бомбочки"
+                loading="lazy"
+                decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
@@ -144,8 +174,10 @@ export default function HomePage() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
-                src="/images/photo_2024-11-12_01-.jpg"
+                src="/images/photo_2024-11-12_01-.webp"
                 alt="Набори"
+                loading="lazy"
+                decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
@@ -164,8 +196,10 @@ export default function HomePage() {
             >
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
-                src="/images/1.jpg"
+                src="/images/shares.webp"
                 alt="Акції"
+                loading="lazy"
+                decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
@@ -195,14 +229,6 @@ export default function HomePage() {
 
         {/* Бомбочки Catalog Section */}
         <section id="bombочки" className="scroll-mt-24 py-12">
-          <Helmet>
-            <title>Бомбочки з маршмелоу — купити шоколадні бомбочки | ChocoPix</title>
-            <meta
-              name="description"
-              content="Шоколадні бомбочки з маршмелоу: карамель, ягода, горіх, ваніль та інші смаки. Ручна робота, натуральний склад. Доставка по Україні."
-            />
-            <link rel="canonical" href="https://chocopix.store/#bombочки" />
-          </Helmet>
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Каталог</p>
@@ -224,14 +250,6 @@ export default function HomePage() {
 
         {/* Набори Catalog Section */}
         <section id="набори" className="scroll-mt-24 py-12">
-          <Helmet>
-            <title>Подарункові набори бомбочок — готові сети | ChocoPix</title>
-            <meta
-              name="description"
-              content="Подарункові набори шоколадних бомбочок: класична колекція, преміум тріо, сімейний пакунок. Ідеальний подарунок для близьких."
-            />
-            <link rel="canonical" href="https://chocopix.store/#набори" />
-          </Helmet>
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Подарунки</p>
@@ -253,14 +271,6 @@ export default function HomePage() {
 
         {/* Акції Catalog Section */}
         <section id="акції" className="scroll-mt-24 py-12">
-          <Helmet>
-            <title>Акції та спеціальні пропозиції — вигідні ціни | ChocoPix</title>
-            <meta
-              name="description"
-              content="Акції ChocoPix: знижки, спеціальні пропозиції та вигідні набори. Обирайте улюблені товари за кращими цінами."
-            />
-            <link rel="canonical" href="https://chocopix.store/#акції" />
-          </Helmet>
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Аксесуари</p>
@@ -277,6 +287,55 @@ export default function HomePage() {
             {promoProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
+          </div>
+        </section>
+
+        <section className="rounded-[30px] bg-gradient-to-b from-[#fff9ef] via-[#f7ead6] to-[#efdbc2] p-7 shadow-[0_16px_36px_rgba(90,53,25,0.09)] sm:p-10">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.03em] text-[#4c1d11] sm:text-5xl">
+            Какао бомбочки з маршмелоу — ідеальний подарунок та затишок вдома
+          </h2>
+          <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+            <p>
+              Какао бомбочки з маршмелоу давно стали улюбленим ритуалом для холодного сезону та приємних домашніх вечорів. Коли шоколадна сфера
+              потрапляє в гаряче молоко, вона поступово розкривається, а всередині з&apos;являються ніжні маршмелоу і насичений какао-аромат. Саме
+              тому цей формат напою так люблять і діти, і дорослі: він поєднує смак, ефектну подачу та відчуття затишку в кожній чашці.
+            </p>
+            <p>
+              У ChocoPix ви можете купити какао бомбочки з маршмелоу ручної роботи з доставкою по Україні. Ми готуємо шоколадні бомбочки
+              невеликими партіями, щоб зберегти стабільну якість і свіжість. Це вдалий вибір для подарунка близьким, для святкового столу або
+              просто для моменту, коли хочеться чогось теплого, солодкого і красивого без складного приготування.
+            </p>
+          </div>
+
+          <h3 className="mt-8 font-display text-3xl font-semibold tracking-[-0.02em] text-[#4c1d11]">
+            Чому варто обрати наші какао бомбочки?
+          </h3>
+          <ul className="mt-4 list-disc space-y-2 pl-6 text-[17px] leading-8 text-[#6f4a31] marker:text-[#9f6638]">
+            <li>Натуральний шоколад високої якості з приємним збалансованим смаком.</li>
+            <li>Ніжні маршмелоу всередині, які красиво розкриваються у гарячому молоці.</li>
+            <li>Формат, що ідеально підходить для подарунка та створює WOW-ефект.</li>
+            <li>Швидка доставка по Україні та акуратне пакування замовлення.</li>
+          </ul>
+
+          <h3 className="mt-8 font-display text-3xl font-semibold tracking-[-0.02em] text-[#4c1d11]">
+            Як користуватись какао бомбочкою?
+          </h3>
+          <div className="mt-4 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+            <p>
+              Візьміть улюблену чашку, покладіть у неї шоколадну бомбочку та залийте гарячим молоком. Через кілька секунд вона почне
+              розкриватися, напій стане насиченим, а маршмелоу піднімуться на поверхню. Далі залишиться лише перемішати та насолоджуватись.
+            </p>
+            <p>
+              Якщо шукаєте якісні шоколадні бомбочки для себе або на подарунок, обирайте смаки в каталозі ChocoPix. Замовляйте какао бомбочки
+              з маршмелоу вже сьогодні та даруйте собі й близьким теплі, смачні емоції.
+            </p>
+            <p className="font-medium text-[#7f4f2e]">
+              Переглянути всі смаки можна на сторінці{' '}
+              <a href="/cacao-bombs" className="underline decoration-[#a4693f] underline-offset-4 hover:text-[#5f3115]">
+                какао бомбочки з маршмелоу
+              </a>
+              .
+            </p>
           </div>
         </section>
 

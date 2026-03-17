@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ShoppingCart, X } from 'lucide-react'
-import { AnimatePresence, motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { validatePromoCode } from '@/api/promoCodes'
 import { CartItemRow } from '@/components/cart/CartItemRow'
@@ -67,7 +66,7 @@ export const CartDrawer = () => {
         setPromoCode(undefined, 0)
         setPromoFeedback({
           type: 'error',
-          message: 'Промокод недійсний або термін його дії закінчився',
+          message: result.error ?? 'Промокод недійсний або термін його дії закінчився',
         })
       } catch {
         setPromoCode(undefined, 0)
@@ -82,31 +81,19 @@ export const CartDrawer = () => {
     [setPromoCode, totals.subtotal],
   )
 
-  useEffect(() => {
-    if (!promoCode) return
-    void applyPromo(promoCode, { silentSuccess: true })
-  }, [applyPromo, promoCode, totals.subtotal])
+  if (!isOpen) {
+    return null
+  }
 
   return (
-    <AnimatePresence>
-      {isOpen ? (
-        <>
-          <motion.button
-            type="button"
-            className="fixed inset-0 z-40 bg-cocoa-900/45 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={closeCart}
-            aria-label="Закрити кошик"
-          />
-          <motion.aside
-            className="fixed right-0 top-0 z-50 flex h-screen w-full max-w-[380px] flex-col rounded-l-[28px] border-l border-[#eadfcb] bg-[#f8f1e4] shadow-2xl"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 240 }}
-          >
+    <>
+      <button
+        type="button"
+        className="fixed inset-0 z-40 bg-cocoa-900/45"
+        onClick={closeCart}
+        aria-label="Закрити кошик"
+      />
+      <aside className="fixed right-0 top-0 z-50 flex h-screen w-full max-w-[380px] flex-col rounded-l-[28px] border-l border-[#eadfcb] bg-[#f8f1e4] shadow-2xl">
             <div className="flex items-center justify-between px-6 pb-4 pt-5">
               <h2 className="text-[21px] font-medium tracking-[-0.02em] text-[#6b4331]">Мій кошик</h2>
               <button
@@ -127,6 +114,8 @@ export const CartDrawer = () => {
                   <img
                     src="/favicon.svg"
                     alt="ChocoPix"
+                    loading="lazy"
+                    decoding="async"
                     className="absolute left-1/2 top-[40px] h-10 w-10 -translate-x-1/2 rounded-full bg-[#f1dcc0] p-1 shadow-sm"
                   />
                 </div>
@@ -208,9 +197,7 @@ export const CartDrawer = () => {
                 </div>
               </>
             )}
-          </motion.aside>
-        </>
-      ) : null}
-    </AnimatePresence>
+      </aside>
+    </>
   )
 }

@@ -4,7 +4,7 @@ export const Footer = () => (
       <div className="flex flex-col justify-between gap-10 lg:flex-row lg:gap-10">
         <div className="text-left">
           <div className="flex items-center gap-3">
-            <img src="/favicon.svg" alt="ChocoPix" className="h-12 w-12 rounded-2xl object-contain" />
+            <img src="/favicon.svg" alt="ChocoPix" loading="lazy" decoding="async" className="h-12 w-12 rounded-2xl object-contain" />
             <p className="text-3xl font-extrabold tracking-[-0.05em]">
               <span className="text-white">Choco</span>
               <span className="text-[#d9b18b]">Pix</span>

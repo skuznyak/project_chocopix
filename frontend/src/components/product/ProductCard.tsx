@@ -18,6 +18,7 @@ const PlusIcon = ({ isHovered }: { isHovered: boolean }) => (
 )
 
 export const ProductCard = ({ product }: { product: Product }) => {
+  const productPath = `/product/${product.slug ?? product.id}`
   const addItem = useCartStore((state) => state.addItem)
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [isAdded, setIsAdded] = useState(false)
@@ -26,12 +27,13 @@ export const ProductCard = ({ product }: { product: Product }) => {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-[34px] border border-[#eadfcb] bg-[#f8f1e4] shadow-[0_18px_40px_rgba(92,55,28,0.06)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_26px_60px_rgba(92,55,28,0.1)]">
       <div className="relative overflow-hidden">
-        <Link to={`/product/${product.id}`} aria-label={`Відкрити ${product.name}`}>
+        <Link to={productPath} aria-label={`Відкрити ${product.name}`}>
           <img
             ref={imageRef}
             src={product.images[0]?.src}
             alt={product.images[0]?.alt}
             loading="lazy"
+            decoding="async"
             className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105"
           />
         </Link>
@@ -54,7 +56,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
         </div>
         <div className="mt-2 flex items-center justify-between gap-4">
           <Link
-            to={`/product/${product.id}`}
+            to={productPath}
             className="text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900"
           >
             Детальніше

@@ -13,8 +13,19 @@ interface PromoCodeValidationResponse {
 
 export const validatePromoCode = async (code: string, subtotal: number): Promise<PromoCodeValidationResponse> => {
   if (!USE_MOCK) {
-    const response = await apiClient.post<PromoCodeValidationResponse>('/promo/validate', { code, subtotal })
-    return response.data
+    try {
+      const response = await apiClient.post<PromoCodeValidationResponse>(
+        '/promo/validate',
+        { code, subtotal },
+        { timeout: 1200 },
+      )
+      return response.data
+    } catch {
+      return {
+        isValid: false,
+        error: 'Сервіс промокодів тимчасово недоступний. Спробуйте ще раз.',
+      }
+    }
   }
 
   // Mock validation for development

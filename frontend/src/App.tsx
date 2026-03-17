@@ -1,22 +1,40 @@
+import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { Layout } from '@/components/layout/Layout'
-import HomePage from '@/pages/HomePage'
-import ProductPage from '@/pages/ProductPage'
-import CartPage from '@/pages/CartPage'
-import CheckoutPage from '@/pages/CheckoutPage'
-import OrderSuccessPage from '@/pages/OrderSuccessPage'
-import CupsPage from '@/pages/CupsPage'
+
+const HomePage = lazy(() => import('@/pages/HomePage'))
+const ProductPage = lazy(() => import('@/pages/ProductPage'))
+const CartPage = lazy(() => import('@/pages/CartPage'))
+const CheckoutPage = lazy(() => import('@/pages/CheckoutPage'))
+const OrderSuccessPage = lazy(() => import('@/pages/OrderSuccessPage'))
+const CupsPage = lazy(() => import('@/pages/CupsPage'))
+const CacaoBombsPage = lazy(() => import('@/pages/CacaoBombsPage'))
+const GiftSetsPage = lazy(() => import('@/pages/GiftSetsPage'))
+const PromotionsPage = lazy(() => import('@/pages/PromotionsPage'))
+const ContactsPage = lazy(() => import('@/pages/ContactsPage'))
 
 export const App = () => (
-  <Routes>
-    <Route element={<Layout />}>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/product/:id" element={<ProductPage />} />
-      <Route path="/cart" element={<CartPage />} />
-      <Route path="/checkout" element={<CheckoutPage />} />
-      <Route path="/order-success" element={<OrderSuccessPage />} />
-      <Route path="/cups" element={<CupsPage />} />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Route>
-  </Routes>
+  <Suspense
+    fallback={
+      <div className="mx-auto flex min-h-[40vh] max-w-7xl items-center justify-center px-4 text-[#7f4f2e] sm:px-6 lg:px-8">
+        Завантаження...
+      </div>
+    }
+  >
+    <Routes>
+      <Route element={<Layout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/product/:slugOrId" element={<ProductPage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/order-success" element={<OrderSuccessPage />} />
+        <Route path="/cups" element={<CupsPage />} />
+        <Route path="/cacao-bombs" element={<CacaoBombsPage />} />
+        <Route path="/gift-sets" element={<GiftSetsPage />} />
+        <Route path="/promotions" element={<PromotionsPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Route>
+    </Routes>
+  </Suspense>
 )

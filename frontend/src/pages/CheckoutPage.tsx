@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import axios from 'axios'
 import { ArrowLeft, Minus, Package, Plus, Trash2, Truck } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -50,7 +50,7 @@ export default function CheckoutPage() {
         setPromoCode(undefined, 0)
         setPromoFeedback({
           type: 'error',
-          message: 'Промокод недійсний або термін його дії закінчився',
+          message: result.error ?? 'Промокод недійсний або термін його дії закінчився',
         })
       } catch {
         setPromoCode(undefined, 0)
@@ -64,14 +64,6 @@ export default function CheckoutPage() {
     },
     [setPromoCode, totals.subtotal],
   )
-
-  useEffect(() => {
-    if (!promoCode) {
-      return
-    }
-
-    void applyPromo(promoCode, { silentSuccess: true })
-  }, [applyPromo, promoCode, totals.subtotal])
 
   return (
     <>
@@ -160,7 +152,7 @@ export default function CheckoutPage() {
               {detailedItems.map(({ item, product }) => (
                 <div key={product.id} className="rounded-[22px] border border-[#eadfcb] bg-white/70 p-4">
                   <div className="flex items-center justify-between gap-3">
-                    <img src={product.images[0]?.src} alt={product.name} className="h-14 w-14 rounded-[16px] object-cover" />
+                    <img src={product.images[0]?.src} alt={product.name} loading="lazy" decoding="async" className="h-14 w-14 rounded-[16px] object-cover" />
                     <div className="min-w-0 flex-1">
                       <p className="line-clamp-2 font-semibold text-[#5f3925]">{product.name}</p>
                     </div>

@@ -37,6 +37,9 @@ export const HeroBomb = () => {
           <img
             src="/animations/hot-chocolate-bomb-.webp"
             alt="Какао бомбочка"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="h-full w-full rounded-[32px] object-cover"
           />
         </motion.div>

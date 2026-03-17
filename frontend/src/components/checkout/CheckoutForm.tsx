@@ -151,7 +151,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
           <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Контактні дані</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <Input label="Ім'я та прізвище" placeholder="Іван Петренко" error={errors.fullName?.message} {...register('fullName')} />
+          <Input label="Ім'я та прізвище" placeholder="Олена Петренко" error={errors.fullName?.message} {...register('fullName')} />
           <Input label="Номер телефону" placeholder="+38 (0__) ___ __ __" error={errors.phone?.message} {...register('phone')} />
           <Input label="Email" placeholder="you@email.com" error={errors.email?.message} {...register('email')} />
         </div>

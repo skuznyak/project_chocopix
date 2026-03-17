@@ -5,11 +5,11 @@ import { CallbackModal } from '@/components/layout/CallbackModal'
 import { useCartStore } from '@/store/cartStore'
 
 const navItems = [
-  { label: 'Головна', href: '/' },
-  { label: 'Бомбочки', href: '/#bombочки' },
-  { label: 'Набори', href: '/#набори' },
-  { label: 'Акції', href: '/#акції', isPromo: true },
-  { label: 'Контакти', href: '/#footer' },
+  { label: 'Головна', to: '/' },
+  { label: 'Бомбочки', to: '/cacao-bombs' },
+  { label: 'Набори', to: '/gift-sets' },
+  { label: 'Акції', to: '/promotions', isPromo: true },
+  { label: 'Контакти', to: '/contacts' },
 ]
 
 export const Header = () => {
@@ -30,6 +30,9 @@ export const Header = () => {
             <img
               src="/favicon.svg"
               alt="ChocoPix"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="h-12 w-12 rounded-full object-contain transition duration-300 group-hover:scale-110"
             />
             <span className="text-[26px] font-extrabold tracking-[-0.05em]">
@@ -39,28 +42,18 @@ export const Header = () => {
           </Link>
           <nav className="hidden items-center gap-10 md:flex">
             {navItems.map((item) => (
-              item.href === '/' ? (
-                <Link
-                  key={item.label}
-                  to="/"
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  className="relative text-sm font-medium text-cocoa-900/72 transition hover:text-cocoa-900 after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:bg-[#a4693f] after:transition-all after:duration-300 hover:after:w-full"
-                >
-                  {item.label}
-                </Link>
-              ) : (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className={`relative text-sm font-medium transition after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
-                    item.isPromo
-                      ? 'text-[#b42318] hover:text-[#911e13] after:bg-[#b42318]'
-                      : 'text-cocoa-900/72 hover:text-cocoa-900 after:bg-[#a4693f]'
-                  }`}
-                >
-                  {item.label}
-                </a>
-              )
+              <Link
+                key={item.label}
+                to={item.to}
+                onClick={item.to === '/' ? () => window.scrollTo({ top: 0, behavior: 'smooth' }) : undefined}
+                className={`relative text-sm font-medium transition after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                  item.isPromo
+                    ? 'text-[#b42318] hover:text-[#911e13] after:bg-[#b42318]'
+                    : 'text-cocoa-900/72 hover:text-cocoa-900 after:bg-[#a4693f]'
+                }`}
+              >
+                {item.label}
+              </Link>
             ))}
           </nav>
           <div className="flex items-center gap-4">
@@ -100,16 +93,16 @@ export const Header = () => {
           <div className="border-t border-[#eadfcb]/80 bg-[#f4eddc] px-4 py-4 md:hidden">
             <nav className="flex flex-col gap-2">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.label}
-                  href={item.href}
+                  to={item.to}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`rounded-lg px-4 py-3 text-sm font-medium transition hover:bg-[#fbf5ea] ${
                     item.isPromo ? 'text-[#b42318] hover:text-[#911e13]' : 'text-cocoa-900/72 hover:text-cocoa-900'
                   }`}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
               <button
                 type="button"

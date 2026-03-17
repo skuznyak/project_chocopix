@@ -37,6 +37,9 @@ export default function CupsPage() {
               <img
                 src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80"
                 alt="Класична біла чашка"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
             </div>
@@ -59,6 +62,8 @@ export default function CupsPage() {
               <img
                 src="https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=600&q=80"
                 alt="Прозора скляна чашка"
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
             </div>
@@ -81,6 +86,8 @@ export default function CupsPage() {
               <img
                 src="https://images.unsplash.com/photo-1536939459926-301728717817?auto=format&fit=crop&w=600&q=80"
                 alt="Чашка з мармуровим ефектом"
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />
             </div>

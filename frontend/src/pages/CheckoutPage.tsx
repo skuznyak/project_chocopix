@@ -81,6 +81,7 @@ export default function CheckoutPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chocopix.store/checkout" />
         <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
+        <meta name="robots" content="noindex,follow" />
         <link rel="canonical" href="https://chocopix.store/checkout" />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

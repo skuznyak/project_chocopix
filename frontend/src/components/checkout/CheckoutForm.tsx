@@ -71,7 +71,6 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
   })
 
   const watchedPaymentMethod = watch('paymentMethod')
-  const watchedAreaRef = watch('areaRef')
   const watchedCityRef = watch('cityRef')
   const watchedBranchRef = watch('branchRef')
 

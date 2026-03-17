@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Clock3, Leaf, Scale, ShieldAlert, Thermometer } from 'lucide-react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
+import type { Product } from '@chocopix/shared'
 import { ProductGallery } from '@/components/product/ProductGallery'
 import { ProductCard } from '@/components/product/ProductCard'
 import { Button } from '@/components/ui/Button'
@@ -9,7 +10,58 @@ import { useProduct, useProducts } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/cartStore'
 import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
-import { formatProductWeight } from '@/utils/formatProductWeight'
+
+type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup'
+
+const detectProductType = (item: Pick<Product, 'slug' | 'name'>): DetectedProductType => {
+  const rawSource = `${item.slug} ${item.name}`.toLowerCase()
+  const source = rawSource.replace(/\bsale\b/g, ' ')
+
+  if (/\bcup\b|чашк/.test(source)) {
+    return 'cup'
+  }
+
+  if (/\bset\b|набір|набор/.test(source)) {
+    return 'gift-set'
+  }
+
+  return 'cacao-bomb'
+}
+
+const pickRelatedProducts = (current: Product, catalog: Product[], type: DetectedProductType) => {
+  const otherProducts = catalog.filter((entry) => entry.id !== current.id)
+  const bombs = otherProducts.filter((entry) => detectProductType(entry) === 'cacao-bomb')
+  const giftSets = otherProducts.filter((entry) => detectProductType(entry) === 'gift-set')
+  const cups = otherProducts.filter((entry) => detectProductType(entry) === 'cup')
+  const mergeUnique = (primary: Product[], fallback: Product[]) => {
+    const merged: Product[] = []
+    const seen = new Set<string>()
+
+    for (const item of [...primary, ...fallback]) {
+      if (seen.has(item.id)) {
+        continue
+      }
+
+      seen.add(item.id)
+      merged.push(item)
+    }
+
+    return merged.slice(0, 3)
+  }
+
+  if (type === 'cacao-bomb') {
+    return mergeUnique([...bombs.slice(0, 2), ...giftSets.slice(0, 1)], otherProducts)
+  }
+
+  if (type === 'gift-set') {
+    return mergeUnique([...bombs.slice(0, 2), ...giftSets.slice(0, 1)], otherProducts)
+  }
+
+  return mergeUnique([...cups.slice(0, 2), ...bombs.slice(0, 1)], otherProducts)
+}
+
+const toAbsoluteImageUrl = (src: string) =>
+  src.startsWith('http') ? src : `https://chocopix.store${src.startsWith('/') ? src : `/${src}`}`
 
 export default function ProductPage() {
   const { slugOrId = '' } = useParams()
@@ -30,20 +82,56 @@ export default function ProductPage() {
     return <Navigate to={`/product/${canonicalSlug}`} replace />
   }
 
-  const similarProducts = products
-    .filter((item) => item.id !== product.id)
-    .filter((item) => item.id !== 'classic-mug')
-    .filter((item) => item.tags.includes('набори') || item.badge === 'sale')
-    .slice(0, 3)
+  const productType = detectProductType(product)
+  const similarProducts = pickRelatedProducts(product, products, productType)
+
+  const seoH1 =
+    productType === 'gift-set'
+      ? `Подарунковий набір ${product.name}`
+      : productType === 'cup'
+        ? `Чашка ${product.name}`
+        : `Какао бомбочка з маршмелоу ${product.name}`
+
+  const seoTitle =
+    productType === 'gift-set'
+      ? `Подарунковий набір ${product.name} купити | ChocoPix`
+      : productType === 'cup'
+        ? `Чашка ${product.name} купити | ChocoPix`
+        : `Какао бомбочка з маршмелоу ${product.name} купити | ChocoPix`
+
+  const seoDescription =
+    productType === 'gift-set'
+      ? `Подарунковий набір ${product.name} для приємних моментів: стильний набір з какао-смаками як вдалий подарунок з доставкою по Україні.`
+      : productType === 'cup'
+        ? `Чашка ${product.name} для щоденного використання: зручна подача гарячих напоїв, естетичний дизайн і комфортна сервіровка.`
+        : `Какао бомбочка з маршмелоу ${product.name} для гарячого шоколаду: насичений смак, ніжне маршмелоу та затишний ритуал приготування.`
+
+  const seoContentBlocks =
+    productType === 'gift-set'
+      ? [
+          `${product.name} створений як готовий подарунковий сценарій: стильна подача, продуманий набір смаків і відчуття турботи з першого відкриття коробки. Такий формат зручно дарувати на день народження, свята, корпоративні події або як приємний жест без приводу.`,
+          `Подарунковий набір легко обрати для різних випадків: він поєднує практичність, атмосферу затишку та емоцію сюрпризу. Замовляйте набір із доставкою по Україні, щоб швидко підготувати доречний подарунок для близьких, друзів або колег.`,
+        ]
+      : productType === 'cup'
+        ? [
+            `${product.name} розрахована на щоденне використання: зручно тримати в руці, комфортно подавати гарячі напої та легко поєднувати з домашньою чи святковою сервіровкою. Формат підходить для какао, кави та чаю.`,
+            `Акуратний дизайн чашки додає естетики подачі та робить ритуал напою приємнішим. Обирайте модель для себе або як практичний подарунок, щоб підкреслити стиль кухні чи робочого простору.`,
+          ]
+        : [
+            `Ця какао бомбочка з маршмелоу створена для затишного ритуалу гарячого шоколаду. Просто покладіть її в чашку, залийте гарячим молоком і спостерігайте, як шоколад розкривається та наповнює напій насиченим смаком.`,
+            `${product.name} підійде тим, хто хоче швидко приготувати десертний напій без складних рецептів. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе, родини або подарункового формату.`,
+          ]
+
   const productUrl = `https://chocopix.store/product/${canonicalSlug}`
-  const seoTitle = `Какао бомбочка з маршмелоу ${product.name} купити | ChocoPix`
-  const seoDescription = `Какао бомбочка з маршмелоу ${product.name}. Ідеальний подарунок та смачний гарячий шоколад. Доставка по Україні.`
+  const primaryImageUrl = product.images[0]?.src
+    ? toAbsoluteImageUrl(product.images[0].src)
+    : 'https://chocopix.store/images/107270_001.webp'
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
     description: product.description,
-    image: product.images.map((image) => `https://chocopix.store${image.src}`),
+    image: product.images.map((image) => toAbsoluteImageUrl(image.src)),
     sku: product.id,
     brand: {
       '@type': 'Brand',
@@ -58,13 +146,20 @@ export default function ProductPage() {
     },
   }
   const characteristics = [
-    {
-      key: 'weight',
-      label: 'Вага',
-      value: formatProductWeight(product),
-      details: 'Фактична вага порції може мати незначне технологічне відхилення.',
-      Icon: Scale,
-    },
+    ...(productType !== 'cup'
+      ? [
+          {
+            key: 'weight',
+            label: productType === 'gift-set' ? 'Вага набору' : 'Вага порції',
+            value: productType === 'gift-set' ? `~${product.weight} г` : '~30 г',
+            details:
+              productType === 'gift-set'
+                ? 'Фактична вага набору може мати незначне технологічне відхилення.'
+                : 'Фактична вага порції може мати незначне технологічне відхилення.',
+            Icon: Scale,
+          },
+        ]
+      : []),
     {
       key: 'shelf-life',
       label: 'Термін зберігання',
@@ -104,7 +199,7 @@ export default function ProductPage() {
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="product" />
         <meta property="og:url" content={productUrl} />
-        <meta property="og:image" content={`https://chocopix.store${product.images[0]?.src ?? ''}`} />
+        <meta property="og:image" content={primaryImageUrl} />
         <link rel="canonical" href={productUrl} />
         <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
       </Helmet>
@@ -119,7 +214,7 @@ export default function ProductPage() {
             </div>
           </div>
           <div>
-            <h1 className="font-display text-3xl sm:text-4xl">{product.name} - какао бомбочка з маршмелоу</h1>
+            <h1 className="font-display text-3xl sm:text-4xl">{seoH1}</h1>
             <p className="mt-4 text-base text-cocoa-900/72">{product.description}</p>
             <div className="mt-6 flex items-center justify-between">
               <p className="text-3xl font-semibold">{formatPrice(product.price)}</p>
@@ -188,17 +283,9 @@ export default function ProductPage() {
 
         <section className="mt-10 w-full rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 text-cocoa-900/72 shadow-soft sm:p-8">
           <div className="space-y-4 text-base leading-8">
-            <p>
-              Ця какао бомбочка з маршмелоу створена для затишних вечорів і смачних подарунків. Просто покладіть її в чашку, залийте гарячим
-              молоком і спостерігайте, як шоколад розкривається та наповнює напій насиченим смаком. Формат зручний для дому, святкового столу
-              або як приємний сюрприз близьким. Завдяки натуральним інгредієнтам і збалансованій солодкості напій виходить м&apos;яким, ароматним і
-              справді десертним.
-            </p>
-            <p>
-              {product.name} підійде тим, хто хоче швидко приготувати гарячий шоколад без складних рецептів. Достатньо однієї бомбочки, щоб
-              перетворити звичайне молоко на ефектний напій з маршмелоу. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе,
-              родини або подарункового набору.
-            </p>
+            {seoContentBlocks.map((content) => (
+              <p key={content}>{content}</p>
+            ))}
           </div>
         </section>
 

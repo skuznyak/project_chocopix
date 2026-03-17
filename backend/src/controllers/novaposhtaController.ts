@@ -7,7 +7,7 @@ const NOVA_POSHTA_API_URL = 'https://api.novaposhta.ua/v2.0/json/'
 console.log('Nova Poshta API Key loaded:', NOVA_POSHTA_API_KEY ? '***' + NOVA_POSHTA_API_KEY.slice(-8) : 'NOT SET')
 
 // Кеш для даних (спрощений, в пам'яті)
-const cache = new Map<string, { data: any; timestamp: number }>()
+const cache = new Map<string, { data: unknown; timestamp: number }>()
 const CACHE_TTL = 5 * 60 * 1000 // 5 хвилин
 
 const getLatestCacheByPrefix = (prefix: string) => {
@@ -26,6 +26,29 @@ interface NovaPoshtaResponse<T> {
   info: {
     total_count: number
   }
+}
+
+interface NovaPoshtaAreaDto {
+  Ref: string
+  Description: string
+}
+
+interface NovaPoshtaCityDto {
+  Ref: string
+  Description: string
+  Area?: string
+  AreaRef: string
+}
+
+interface NovaPoshtaWarehouseDto {
+  Ref: string
+  Description: string
+  ShortAddress: string
+  Number: string
+}
+
+interface NovaPoshtaDeliveryCostDto {
+  Cost?: string
 }
 
 const novaPoshtaApi = axios.create({
@@ -49,7 +72,7 @@ export const getAreasController = async (request: Request, response: Response) =
     }
 
     console.log('Fetching areas from Nova Poshta API...')
-    const areaResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, {
+    const areaResponse = await novaPoshtaApi.post<NovaPoshtaResponse<NovaPoshtaAreaDto>>(NOVA_POSHTA_API_URL, {
       apiKey: NOVA_POSHTA_API_KEY,
       modelName: 'Address',
       calledMethod: 'getAreas',
@@ -110,7 +133,7 @@ export const getCitiesController = async (request: Request, response: Response) 
       },
     }
 
-    const citiesResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, payload)
+    const citiesResponse = await novaPoshtaApi.post<NovaPoshtaResponse<NovaPoshtaCityDto>>(NOVA_POSHTA_API_URL, payload)
 
     if (!citiesResponse.data.success) {
       return response.status(400).json({ error: citiesResponse.data.errors })
@@ -155,7 +178,7 @@ export const getWarehousesController = async (request: Request, response: Respon
       return response.json(cached.data)
     }
 
-    const warehousesResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, {
+    const warehousesResponse = await novaPoshtaApi.post<NovaPoshtaResponse<NovaPoshtaWarehouseDto>>(NOVA_POSHTA_API_URL, {
       apiKey: NOVA_POSHTA_API_KEY,
       modelName: 'Address',
       calledMethod: 'getWarehouses',
@@ -216,7 +239,7 @@ export const getDeliveryCostController = async (request: Request, response: Resp
       return response.json(cached.data)
     }
 
-    const costResponse = await novaPoshtaApi.post<NovaPoshtaResponse<any>>(NOVA_POSHTA_API_URL, {
+    const costResponse = await novaPoshtaApi.post<NovaPoshtaResponse<NovaPoshtaDeliveryCostDto>>(NOVA_POSHTA_API_URL, {
       apiKey: NOVA_POSHTA_API_KEY,
       modelName: 'InternetDocument',
       calledMethod: 'getDocumentPrice',

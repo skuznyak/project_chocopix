@@ -26,7 +26,7 @@ promoCodeRouter.post('/validate', (request, response) => {
         error: result.error,
       })
     }
-  } catch (error) {
+  } catch {
     response.status(400).json({
       isValid: false,
       error: 'Некоректні дані промокоду',

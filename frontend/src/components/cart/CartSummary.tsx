@@ -17,7 +17,6 @@ interface CartSummaryProps {
 export const CartSummary = ({
   subtotal,
   discount,
-  delivery,
   isFreeDelivery,
   total,
   promoCode,

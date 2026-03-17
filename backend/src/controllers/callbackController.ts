@@ -11,7 +11,11 @@ const createCallbackSchema = z.object({
 export const createCallbackController = async (request: Request, response: Response) => {
   const payload = createCallbackSchema.parse(request.body)
 
-  await sendCallbackToTelegram(payload)
+  try {
+    await sendCallbackToTelegram(payload)
+  } catch (error) {
+    console.error('Failed to send callback notification to Telegram:', error)
+  }
 
   response.status(201).json({
     success: true,

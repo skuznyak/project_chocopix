@@ -8,7 +8,6 @@ const baseUrls = [
   'https://chocopix.store/gift-sets',
   'https://chocopix.store/promotions',
   'https://chocopix.store/contacts',
-  'https://chocopix.store/cups',
 ]
 
 const productUrls = productsCatalog.map((product) => {

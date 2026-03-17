@@ -19,6 +19,7 @@ export default function CupsPage() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chocopix.store/cups" />
         <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
+        <meta name="robots" content="noindex, nofollow" />
         <link rel="canonical" href="https://chocopix.store/cups" />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">

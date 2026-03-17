@@ -44,13 +44,16 @@ npm run build
 **Backend** (`backend/.env` or `backend/.env.production`):
 ```env
 PORT=3000
-CORS_ORIGIN=
+NODE_ENV=production
+CORS_ORIGIN=https://chocopix.store,https://www.chocopix.store
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
-NODE_ENV=production
+NOVA_POSHTA_API_KEY=your_nova_poshta_api_key
+ORDER_NOTIFICATION_EMAILS=orders@example.com,owner@example.com
 ```
 
-> Note: `CORS_ORIGIN` can be empty when frontend and backend share the same domain.
+> Note: `CORS_ORIGIN` is a comma-separated allow-list. If left empty in production, backend will allow all origins (not recommended).
+> Never commit real tokens/passwords into `.env.production`.
 
 **Frontend** (`frontend/.env.production`):
 ```env
@@ -105,7 +108,7 @@ npm run start
 Or use PM2 for process management:
 
 ```bash
-pm2 start backend/dist/app.js --name chocopix-api
+pm2 start deploy/pm2/ecosystem.config.cjs --update-env
 pm2 save
 pm2 startup
 ```

@@ -1,5 +1,5 @@
 const NOVA_POSHTA_API_URL = 'https://api.novaposhta.ua/v2.0/json/'
-const NOVA_POSHTA_API_KEY = process.env.NOVA_POSHTA_API_KEY || 'b092aa17ef8c57c5f163db33d5507598'
+const NOVA_POSHTA_API_KEY = process.env.NOVA_POSHTA_API_KEY || ''
 
 interface NovaPoshtaRequest {
   apiKey: string
@@ -9,6 +9,10 @@ interface NovaPoshtaRequest {
 }
 
 const novaPoshtaRequest = async <T>(payload: NovaPoshtaRequest): Promise<T> => {
+  if (!NOVA_POSHTA_API_KEY) {
+    throw new Error('NOVA_POSHTA_API_KEY is not configured')
+  }
+
   const response = await fetch(NOVA_POSHTA_API_URL, {
     method: 'POST',
     headers: {

@@ -94,7 +94,7 @@ export const normalizeOrderNotificationData = (
 
   const contactMethodText = order.contactMethod
     ? Object.entries(order.contactMethod)
-        .filter(([_, value]) => value)
+        .filter(([, value]) => value)
         .map(([key]) => {
           switch (key) {
             case 'noCall':

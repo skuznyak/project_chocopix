@@ -1,4 +1,7 @@
-import 'dotenv/config'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
@@ -9,13 +12,32 @@ import { callbackRouter } from './routes/callback.js'
 import { promoCodeRouter } from './routes/promoCodes.js'
 import { errorHandler } from './middleware/errorHandler.js'
 
+const currentFilePath = fileURLToPath(import.meta.url)
+const backendRoot = path.resolve(path.dirname(currentFilePath), '..')
+const envPath = path.join(backendRoot, '.env')
+const envProductionPath = path.join(backendRoot, '.env.production')
+
+if (fs.existsSync(envPath)) {
+  dotenv.config({ path: envPath })
+}
+
+if (process.env.NODE_ENV === 'production' && fs.existsSync(envProductionPath)) {
+  dotenv.config({ path: envProductionPath, override: true })
+}
+
 const app = express()
 const port = Number(process.env.PORT ?? 3000)
 const isDevelopment = process.env.NODE_ENV !== 'production'
-const allowedOrigins = (process.env.CORS_ORIGIN ?? '')
+const corsOriginRaw = (process.env.CORS_ORIGIN ?? '').trim()
+const allowedOrigins = corsOriginRaw
   .split(',')
   .map((origin) => origin.trim())
-  .filter(Boolean)
+  .filter((origin) => origin.length > 0 && origin !== '*')
+const allowAllOrigins = corsOriginRaw === '*' || (!isDevelopment && allowedOrigins.length === 0)
+
+if (allowAllOrigins && !isDevelopment) {
+  console.warn('CORS is open for all origins because CORS_ORIGIN is empty or set to "*"')
+}
 
 const isAllowedDevelopmentOrigin = (origin: string) => {
   try {
@@ -31,6 +53,11 @@ app.use(
   cors({
     origin(origin, callback) {
       if (!origin) {
+        callback(null, true)
+        return
+      }
+
+      if (allowAllOrigins) {
         callback(null, true)
         return
       }

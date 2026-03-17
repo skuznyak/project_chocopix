@@ -24,7 +24,7 @@ export const productsCatalog: Product[] = [
     description:
       'Шоколадна бомбочка з вершковою карамеллю, міні-маршмелоу та нотами ванілі. Ідеальна для вечірнього какао або святкового подарунка.',
     composition: ['молочний шоколад', 'карамель', 'маршмелоу', 'ваніль'],
-    weight: 90,
+    weight: 30,
     flavor: 'Карамель',
     price: 95,
     badge: 'hit',
@@ -46,7 +46,7 @@ export const productsCatalog: Product[] = [
     description:
       'Контрастна бомбочка на базі темного шоколаду з ягідним маршмелоу та легкою кислинкою полуниці.',
     composition: ['темний шоколад', 'сублімована полуниця', 'маршмелоу'],
-    weight: 88,
+    weight: 30,
     flavor: 'Полуниця',
     price: 95,
     badge: 'new',
@@ -67,7 +67,7 @@ export const productsCatalog: Product[] = [
     description:
       'Насичений смак фундука та шоколадного праліне для тих, хто любить виразні десертні комбінації.',
     composition: ['молочний шоколад', 'фундук', 'паста праліне', 'маршмелоу'],
-    weight: 95,
+    weight: 30,
     flavor: 'Фундук',
     price: 95,
     previousPrice: 104,
@@ -88,7 +88,7 @@ export const productsCatalog: Product[] = [
     description:
       'Ніжна бомбочка з білого шоколаду, збагачена натуральною ваніллю та повітряним маршмелоу.',
     composition: ['білий шоколад', 'ваніль', 'маршмелоу', 'вершки'],
-    weight: 85,
+    weight: 30,
     flavor: 'Ваніль',
     price: 95,
     category: 'classic',
@@ -108,7 +108,7 @@ export const productsCatalog: Product[] = [
     description:
       'Шоколадне серце з делікатним кокосовим смаком, вершковими нотами та ніжним маршмелоу всередині.',
     composition: ['молочний шоколад', 'кокосова стружка', 'маршмелоу', 'кокосове молоко'],
-    weight: 92,
+    weight: 30,
     flavor: 'Кокос',
     price: 110,
     category: 'premium',
@@ -128,7 +128,7 @@ export const productsCatalog: Product[] = [
     description:
       'Шоколадне серце з виразним мʼятним смаком і ніжним маршмелоу, для тих хто любить свіжі десертні поєднання.',
     composition: ['темний шоколад', 'мятний екстракт', 'маршмелоу', 'какао'],
-    weight: 88,
+    weight: 30,
     flavor: 'Мята',
     price: 110,
     badge: 'new',
@@ -149,7 +149,7 @@ export const productsCatalog: Product[] = [
         description:
           'Подарунковий сет з чотирьох авторських бомбочок: карамель, ягода, фундук і класичний какао-маршмелоу.',
         composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
-        weight: 360,
+        weight: 30,
         flavor: 'Асорті',
         price: 110,
         badge: 'hit',
@@ -174,7 +174,7 @@ export const productsCatalog: Product[] = [
     description:
       'Невеликий набір із чотирьох бомбочок у подарунковій коробці. Зручний формат для солодкого компліменту дитині.',
     composition: ['молочний шоколад', 'маршмелоу', 'декор', 'подарункове пакування'],
-    weight: 280,
+    weight: 120,
     flavor: 'Асорті',
     price: 309,
     previousPrice: 339,
@@ -193,7 +193,7 @@ export const productsCatalog: Product[] = [
     description:
       'Ідеальний набір для першого знайомства: карамель, ваніль, полуниця, шоколад, горіх і кокос.',
     composition: ['асорті шоколаду', 'маршмелоу', 'натуральні смаки'],
-    weight: 540,
+    weight: 180,
     flavor: 'Асорті',
     price: 509,
     badge: 'hit',
@@ -215,7 +215,7 @@ export const productsCatalog: Product[] = [
     description:
       'Вишуканий набір з трьох преміум бомбочок: трюфель, мятний шоколад і ягідний микс.',
     composition: ['преміум шоколад', 'ексклюзивні смаки', 'оксамитовий футляр'],
-    weight: 280,
+    weight: 90,
     flavor: 'Асорті',
     price: 299,
     badge: 'new',
@@ -224,6 +224,7 @@ export const productsCatalog: Product[] = [
     popularity: 88,
     images: [
       { id: '1', src: '/products/gift-set-premium-hearts-3.webp', alt: 'Преміум тріо сердець' },
+      { id: '2', src: '/products/three_heart.webp', alt: 'Червоне серце та асорті сердець' },
     ],
     reviewSummary: { rating: 4.8, reviewCount: 31 },
   },
@@ -235,7 +236,7 @@ export const productsCatalog: Product[] = [
     description:
       'Великий набір з 10+2 бомбочок різних смаків. Вистачить на всю родину або вечірку.',
     composition: ['асорті шоколаду', 'маршмелоу', 'різні смаки'],
-    weight: 900,
+    weight: 360,
     flavor: 'Асорті',
     price: 849,
     previousPrice: 1019,
@@ -256,7 +257,7 @@ export const productsCatalog: Product[] = [
     description:
       'Пастельний подарунковий набір із девʼяти шоколадних бомбочок з різними смаками. Ідеально для сімейного вечора та частувань.',
     composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
-    weight: 810,
+    weight: 270,
     flavor: 'Асорті',
     price: 765,
     category: 'gift-set',
@@ -273,7 +274,7 @@ export const productsCatalog: Product[] = [
     description:
       'Ніжний набір з 4 бомбочок: полуниця, ваніль, троянда і білий шоколад. Ідеально для побачення.',
     composition: ['шоколад асорті', 'романтичні смаки', 'святкове пакування'],
-    weight: 340,
+    weight: 120,
     flavor: 'Асорті',
     price: 389,
     category: 'gift-set',
@@ -292,7 +293,7 @@ export const productsCatalog: Product[] = [
     description:
       'Подарунковий набір із чотирьох шоколадних сердець у ніжному оформленні. Підійде для побачення, річниці або романтичного сюрпризу.',
     composition: ['шоколад асорті', 'серця ручної роботи', 'декор', 'подарункове пакування'],
-    weight: 340,
+    weight: 120,
     flavor: 'Асорті',
     price: 389,
     badge: 'new',
@@ -312,7 +313,7 @@ export const productsCatalog: Product[] = [
     description:
       'Яскравий набір з 5 дитячих смаків: полуниця, карамель, ваніль, банан і шоколад.',
     composition: ['молочний шоколад', 'дитячі смаки', 'кольорове маршмелоу'],
-    weight: 450,
+    weight: 150,
     flavor: 'Асорті',
     price: 765,
     category: 'gift-set',

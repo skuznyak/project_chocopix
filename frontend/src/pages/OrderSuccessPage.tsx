@@ -11,7 +11,21 @@ export default function OrderSuccessPage() {
   return (
     <>
       <Helmet>
-        <title>Замовлення підтверджено</title>
+        <title>Замовлення підтверджено | ChocoPix</title>
+        <meta
+          name="description"
+          content="Дякуємо за замовлення в ChocoPix. Ваше замовлення прийнято, ми зв'яжемося з вами для підтвердження деталей доставки та оплати."
+        />
+        <meta property="og:title" content="Замовлення підтверджено | ChocoPix" />
+        <meta
+          property="og:description"
+          content="Дякуємо за замовлення в ChocoPix. Ваше замовлення прийнято, ми зв'яжемося з вами для підтвердження деталей доставки та оплати."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chocopix.store/order-success" />
+        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
+        <link rel="canonical" href="https://chocopix.store/order-success" />
+        <meta name="robots" content="noindex,follow" />
       </Helmet>
       <div className="mx-auto flex max-w-3xl flex-col items-center px-4 py-20 text-center sm:px-6 lg:px-8">
         <motion.div initial={{ scale: 0.7, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>

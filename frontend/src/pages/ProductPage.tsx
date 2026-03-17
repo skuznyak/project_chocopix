@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { Clock3, Leaf, Scale, ShieldAlert, Thermometer } from 'lucide-react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { ProductGallery } from '@/components/product/ProductGallery'
 import { ProductCard } from '@/components/product/ProductCard'
@@ -7,9 +9,11 @@ import { useProduct, useProducts } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/cartStore'
 import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
+import { formatProductWeight } from '@/utils/formatProductWeight'
 
 export default function ProductPage() {
   const { slugOrId = '' } = useParams()
+  const [expandedCharacteristic, setExpandedCharacteristic] = useState<string | null>(null)
   const navigate = useNavigate()
   const { data: product } = useProduct(slugOrId)
   const { data: products = [] } = useProducts({ sort: 'popular' })
@@ -53,6 +57,43 @@ export default function ProductPage() {
       availability: 'https://schema.org/InStock',
     },
   }
+  const characteristics = [
+    {
+      key: 'weight',
+      label: 'Вага',
+      value: formatProductWeight(product),
+      details: 'Фактична вага порції може мати незначне технологічне відхилення.',
+      Icon: Scale,
+    },
+    {
+      key: 'shelf-life',
+      label: 'Термін зберігання',
+      value: '2 міс',
+      details: 'Рекомендований термін за умови дотримання температурного режиму та герметичного пакування.',
+      Icon: Clock3,
+    },
+    {
+      key: 'storage',
+      label: 'Умови зберігання',
+      value: '18±3°C',
+      details: 'Зберігайте у сухому місці, без прямих сонячних променів і різких перепадів температури.',
+      Icon: Thermometer,
+    },
+    {
+      key: 'composition',
+      label: 'Склад',
+      value: product.composition.join(', '),
+      details: 'Склад може трохи відрізнятися залежно від партії та обраного смаку.',
+      Icon: Leaf,
+    },
+    {
+      key: 'allergens',
+      label: 'Алергени',
+      value: 'Можливі сліди арахісу, інших горіхів, лактози, прянощів і глютену.',
+      details: 'Якщо маєте харчові обмеження, перевіряйте склад перед вживанням.',
+      Icon: ShieldAlert,
+    },
+  ]
 
   return (
     <>
@@ -72,26 +113,14 @@ export default function ProductPage() {
           <Link to="/">Головна</Link> / <span>Каталог</span> / <span>{product.name}</span>
         </div>
         <section className="mt-6 grid gap-10 lg:grid-cols-[1fr_0.9fr]">
-          <ProductGallery images={product.images} imageId={product.id} />
           <div>
-            <h1 className="font-display text-5xl">{product.name} - какао бомбочка з маршмелоу</h1>
-            <p className="mt-4 text-base text-cocoa-900/72">{product.description}</p>
-            <p className="mt-4 text-base text-cocoa-900/72">
-              Ця какао бомбочка з маршмелоу створена для затишних вечорів і смачних подарунків. Просто покладіть її в чашку, залийте гарячим
-              молоком і спостерігайте, як шоколад розкривається та наповнює напій насиченим смаком. Формат зручний для дому, святкового столу
-              або як приємний сюрприз близьким. Завдяки натуральним інгредієнтам і збалансованій солодкості напій виходить м&apos;яким, ароматним і
-              справді десертним.
-            </p>
-            <p className="mt-3 text-base text-cocoa-900/72">
-              {product.name} підійде тим, хто хоче швидко приготувати гарячий шоколад без складних рецептів. Достатньо однієї бомбочки, щоб
-              перетворити звичайне молоко на ефектний напій з маршмелоу. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе,
-              родини або подарункового набору.
-            </p>
-            <div className="mt-6 grid gap-3 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4]/90 p-5 shadow-soft">
-              <div className="flex justify-between"><span>Смак</span><span>{product.flavor}</span></div>
-              <div className="flex justify-between"><span>Вага</span><span>{product.weight} г</span></div>
-              <div className="flex justify-between"><span>Склад</span><span>{product.composition.join(', ')}</span></div>
+            <div className="mx-auto w-full max-w-[640px] lg:max-w-[560px]">
+              <ProductGallery images={product.images} imageId={product.id} />
             </div>
+          </div>
+          <div>
+            <h1 className="font-display text-3xl sm:text-4xl">{product.name} - какао бомбочка з маршмелоу</h1>
+            <p className="mt-4 text-base text-cocoa-900/72">{product.description}</p>
             <div className="mt-6 flex items-center justify-between">
               <p className="text-3xl font-semibold">{formatPrice(product.price)}</p>
             </div>
@@ -117,11 +146,64 @@ export default function ProductPage() {
                 Купити зараз
               </Button>
             </div>
+            <div className="mt-6 w-full max-w-[460px] rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4]/90 p-4 shadow-soft">
+              <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#4c1d11]">Характеристики</h2>
+              <div className="mt-3 space-y-2 text-sm text-[#5f3925]">
+                {characteristics.map((item) => {
+                  const isExpanded = expandedCharacteristic === item.key
+                  const Icon = item.Icon
+
+                  return (
+                    <div key={item.key} className="rounded-xl bg-white/55 px-3.5 py-2.5">
+                      <div className="flex items-center justify-between gap-3">
+                        <div className="inline-flex items-center gap-2 font-medium">
+                          {Icon ? <Icon size={18} className="text-[#8c5328]" /> : null}
+                          <span>{item.label}</span>
+                          <button
+                            type="button"
+                            aria-expanded={isExpanded}
+                            aria-label={`Детальніше про ${item.label}`}
+                            className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#cfae8f] text-base font-semibold leading-none text-[#7a4b2c] transition hover:bg-[#f3e6d3]"
+                            onClick={() => {
+                              setExpandedCharacteristic((prev) => (prev === item.key ? null : item.key))
+                            }}
+                          >
+                            {isExpanded ? '−' : '+'}
+                          </button>
+                        </div>
+                      </div>
+                      {isExpanded ? (
+                        <div className="mt-2 space-y-1 text-xs leading-5 text-[#7a6050]">
+                          <p className="font-medium text-[#6f4a31]">{item.value}</p>
+                          <p>{item.details}</p>
+                        </div>
+                      ) : null}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-10 w-full rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 text-cocoa-900/72 shadow-soft sm:p-8">
+          <div className="space-y-4 text-base leading-8">
+            <p>
+              Ця какао бомбочка з маршмелоу створена для затишних вечорів і смачних подарунків. Просто покладіть її в чашку, залийте гарячим
+              молоком і спостерігайте, як шоколад розкривається та наповнює напій насиченим смаком. Формат зручний для дому, святкового столу
+              або як приємний сюрприз близьким. Завдяки натуральним інгредієнтам і збалансованій солодкості напій виходить м&apos;яким, ароматним і
+              справді десертним.
+            </p>
+            <p>
+              {product.name} підійде тим, хто хоче швидко приготувати гарячий шоколад без складних рецептів. Достатньо однієї бомбочки, щоб
+              перетворити звичайне молоко на ефектний напій з маршмелоу. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе,
+              родини або подарункового набору.
+            </p>
           </div>
         </section>
 
         <section className="mt-16">
-          <h2 className="font-display text-4xl">З цим також купують</h2>
+          <h2 className="font-display text-3xl">З цим також купують</h2>
           <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {similarProducts.map((entry) => (
               <ProductCard key={entry.id} product={entry} />

@@ -68,7 +68,20 @@ export default function CheckoutPage() {
   return (
     <>
       <Helmet>
-        <title>Оформлення замовлення</title>
+        <title>Оформлення замовлення | ChocoPix</title>
+        <meta
+          name="description"
+          content="Оформлення замовлення какао бомбочок ChocoPix: перевірте товари в кошику, дані доставки та підтвердіть покупку."
+        />
+        <meta property="og:title" content="Оформлення замовлення | ChocoPix" />
+        <meta
+          property="og:description"
+          content="Оформлення замовлення какао бомбочок ChocoPix: перевірте товари в кошику, дані доставки та підтвердіть покупку."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chocopix.store/checkout" />
+        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
+        <link rel="canonical" href="https://chocopix.store/checkout" />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">

@@ -11,6 +11,15 @@ export default function CupsPage() {
           name="description"
           content="Стильні чашки для какао-бомбочок. Ідеальне доповнення до ваших улюблених бомбочок."
         />
+        <meta property="og:title" content="Чашки для какао — ChocoPix" />
+        <meta
+          property="og:description"
+          content="Стильні чашки для какао-бомбочок. Ідеальне доповнення до ваших улюблених бомбочок."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://chocopix.store/cups" />
+        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
+        <link rel="canonical" href="https://chocopix.store/cups" />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <div className="mb-8">

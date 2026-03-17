@@ -324,7 +324,7 @@ export const productsCatalog: Product[] = [
     ],
     reviewSummary: { rating: 4.8, reviewCount: 38 },
   },
-  // ==================== ЧАШКИ (5 products) ====================
+  /* ==================== ЧАШКИ (disabled) ====================
   {
     id: 'classic-mug',
     slug: 'classic-mug',
@@ -407,5 +407,6 @@ export const productsCatalog: Product[] = [
       { id: '2', src: 'https://images.unsplash.com/photo-1570554868546-5c403783457c?auto=format&fit=crop&w=900&q=80', alt: 'Grande чашка' },
     ],
     reviewSummary: { rating: 4.7, reviewCount: 33 },
-  },  
+  },
+  */
 ]

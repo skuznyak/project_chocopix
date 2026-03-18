@@ -22,7 +22,7 @@ if (fs.existsSync(envPath)) {
 }
 
 if (process.env.NODE_ENV === 'production' && fs.existsSync(envProductionPath)) {
-  dotenv.config({ path: envProductionPath, override: true })
+  dotenv.config({ path: envProductionPath })
 }
 
 const app = express()

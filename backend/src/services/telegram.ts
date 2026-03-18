@@ -15,12 +15,13 @@ export interface TelegramCallbackPayload {
 export const sendCallbackToTelegram = async (payload: TelegramCallbackPayload) => {
   const token = process.env.TELEGRAM_BOT_TOKEN
   const chatId = process.env.TELEGRAM_CHAT_ID
+  const hasPlaceholderCredentials = token === 'your_bot_token' || chatId === 'your_chat_id'
 
-  if (!token) {
+  if (!token || hasPlaceholderCredentials) {
     throw new Error('TELEGRAM_BOT_TOKEN is not configured')
   }
 
-  if (!chatId) {
+  if (!chatId || hasPlaceholderCredentials) {
     throw new Error('TELEGRAM_CHAT_ID is not configured')
   }
 

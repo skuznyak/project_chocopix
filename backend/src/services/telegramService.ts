@@ -7,9 +7,10 @@ const escapeTelegramMarkdown = (value: string) =>
 export const sendOrderToTelegram = async (order: OrderNotificationData) => {
   const telegramBotToken = process.env.TELEGRAM_BOT_TOKEN || ''
   const telegramChatId = process.env.TELEGRAM_CHAT_ID || ''
+  const hasPlaceholderCredentials = telegramBotToken === 'your_bot_token' || telegramChatId === 'your_chat_id'
 
-  if (!telegramBotToken || !telegramChatId) {
-    console.warn('Telegram credentials not configured')
+  if (!telegramBotToken || !telegramChatId || hasPlaceholderCredentials) {
+    console.warn('Telegram credentials are missing or use placeholder values. Skipping Telegram notification.')
     return
   }
 

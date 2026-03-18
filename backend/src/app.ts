@@ -15,14 +15,24 @@ import { errorHandler } from './middleware/errorHandler.js'
 const currentFilePath = fileURLToPath(import.meta.url)
 const backendRoot = path.resolve(path.dirname(currentFilePath), '..')
 const envPath = path.join(backendRoot, '.env')
+const envLocalPath = path.join(backendRoot, '.env.local')
 const envProductionPath = path.join(backendRoot, '.env.production')
+const envProductionLocalPath = path.join(backendRoot, '.env.production.local')
 
 if (fs.existsSync(envPath)) {
   dotenv.config({ path: envPath })
 }
 
+if (fs.existsSync(envLocalPath)) {
+  dotenv.config({ path: envLocalPath, override: true })
+}
+
 if (process.env.NODE_ENV === 'production' && fs.existsSync(envProductionPath)) {
   dotenv.config({ path: envProductionPath })
+}
+
+if (process.env.NODE_ENV === 'production' && fs.existsSync(envProductionLocalPath)) {
+  dotenv.config({ path: envProductionLocalPath, override: true })
 }
 
 const app = express()

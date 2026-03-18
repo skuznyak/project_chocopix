@@ -4,6 +4,7 @@ dist
 .DS_Store
 .env
 .env.local
+.env.production.local
 coverage
 *.tsbuildinfo
 frontend/dist

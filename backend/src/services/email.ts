@@ -4,9 +4,10 @@ import { normalizeOrderNotificationData, type OrderNotificationData } from './or
 export const sendOrderToEmail = async (order: OrderNotificationData, recipientEmails: string[]) => {
   const smtpUser = process.env.EMAIL_USER
   const smtpPass = process.env.EMAIL_APP_PASSWORD
+  const hasPlaceholderCredentials = smtpUser === 'your_gmail@gmail.com' || smtpPass === 'your_16_char_app_password'
 
-  if (!smtpUser || !smtpPass) {
-    console.warn('Gmail SMTP credentials are not configured. Skipping email notification.')
+  if (!smtpUser || !smtpPass || hasPlaceholderCredentials) {
+    console.warn('SMTP credentials are missing or use placeholder values. Skipping email notification.')
     return
   }
 

@@ -36,12 +36,13 @@ const createOrderSchema = z.object({
 })
 
 const orders = new Map<string, Order>()
-const orderNotificationEmails = (process.env.ORDER_NOTIFICATION_EMAILS ?? '')
-  .split(',')
-  .map((email) => email.trim())
-  .filter(Boolean)
 
 export const createOrderController = async (request: Request, response: Response) => {
+  const orderNotificationEmails = (process.env.ORDER_NOTIFICATION_EMAILS ?? '')
+    .split(',')
+    .map((email) => email.trim())
+    .filter(Boolean)
+
   const payload = createOrderSchema.parse(request.body)
   const subtotal = payload.items.reduce((sum, item) => {
     const product = productsCatalog.find((entry) => entry.id === item.productId)

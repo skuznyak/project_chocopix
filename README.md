@@ -49,11 +49,18 @@ CORS_ORIGIN=https://chocopix.store,https://www.chocopix.store
 TELEGRAM_BOT_TOKEN=your_bot_token
 TELEGRAM_CHAT_ID=your_chat_id
 NOVA_POSHTA_API_KEY=your_nova_poshta_api_key
+EMAIL_USER=your_gmail@gmail.com
+EMAIL_APP_PASSWORD=your_16_char_app_password
+EMAIL_FROM_NAME=ChocoPix Shop
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
 ORDER_NOTIFICATION_EMAILS=orders@example.com,owner@example.com
 ```
 
 > Note: `CORS_ORIGIN` is a comma-separated allow-list. If left empty in production, backend will allow all origins (not recommended).
 > Never commit real tokens/passwords into `.env.production`.
+> Store real production secrets in `backend/.env.production.local` (this file is gitignored and overrides `.env.production`).
 
 **Frontend** (`frontend/.env.production`):
 ```env

@@ -13,13 +13,7 @@ const PromotionsPage = lazy(() => import('@/pages/PromotionsPage'))
 const ContactsPage = lazy(() => import('@/pages/ContactsPage'))
 
 export const App = () => (
-  <Suspense
-    fallback={
-      <div className="mx-auto flex min-h-[40vh] max-w-7xl items-center justify-center px-4 text-[#7f4f2e] sm:px-6 lg:px-8">
-        Завантаження...
-      </div>
-    }
-  >
+  <Suspense fallback={null}>
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<HomePage />} />

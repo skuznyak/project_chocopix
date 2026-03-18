@@ -33,7 +33,6 @@ export const productsCatalog: Product[] = [
     popularity: 98,
     images: [
       { id: '1', src: '/products/caramel-cloud.webp', alt: 'Карамельна бомбочка' },
-      { id: '2', src: '/products/bomb_choco.webp', alt: 'Бомбочка у чашці' },      
     ],
     reviewSummary: { rating: 4.9, reviewCount: 47 },
     featured: true,
@@ -49,13 +48,12 @@ export const productsCatalog: Product[] = [
     weight: 30,
     flavor: 'Полуниця',
     price: 95,
-    badge: 'new',
+    badge: 'hit',
     category: 'premium',
     tags: ['полуниця', 'темний шоколад', 'бомбочки'],
     popularity: 87,
     images: [
       { id: '1', src: '/products/berry-kiss.webp', alt: 'Ягідна бомбочка' },
-      { id: '2', src: '/products/bomb_choco.webp', alt: 'Бомбочка у чашці' },  
     ],
     reviewSummary: { rating: 4.8, reviewCount: 28 },
   },
@@ -76,7 +74,6 @@ export const productsCatalog: Product[] = [
     popularity: 82,
     images: [
       { id: '1', src: '/products/hazelnut-dream.webp', alt: 'Горіхова бомбочка' },
-      { id: '2', src: '/products/bomb_choco.webp', alt: 'Бомбочка у чашці' },  
     ],
     reviewSummary: { rating: 4.7, reviewCount: 19 },
   },
@@ -91,12 +88,12 @@ export const productsCatalog: Product[] = [
     weight: 30,
     flavor: 'Ваніль',
     price: 95,
+    badge: 'new',
     category: 'classic',
     tags: ['ваніль', 'білий шоколад', 'бомбочки'],
     popularity: 91,
     images: [
       { id: '1', src: '/products/vanilla-sky.webp', alt: 'Ванільна бомбочка' },
-       { id: '2', src: '/products/bomb_choco.webp', alt: 'Бомбочка у чашці' }, 
     ],
     reviewSummary: { rating: 4.8, reviewCount: 35 },
   },
@@ -137,7 +134,6 @@ export const productsCatalog: Product[] = [
     popularity: 79,
     images: [
       { id: '1', src: '/products/heart_red.webp', alt: 'Мятна бомбочка' },
-       { id: '2', src: '/products/three_heart.webp', alt: 'Кокос і шоколад' },
     ],
     reviewSummary: { rating: 4.6, reviewCount: 18 },
   },
@@ -223,8 +219,8 @@ export const productsCatalog: Product[] = [
     tags: ['набір', 'преміум', 'ексклюзив', 'набори'],
     popularity: 88,
     images: [
-      { id: '1', src: '/products/gift-set-premium-hearts-3.webp', alt: 'Преміум тріо сердець' },
-      { id: '2', src: '/products/three_heart.webp', alt: 'Червоне серце та асорті сердець' },
+      { id: '1', src: '/products/three_heart.webp', alt: 'Червоне серце та асорті сердець' },
+      { id: '2', src: '/products/gift-set-premium-hearts-3.webp', alt: 'Преміум тріо сердець' },
     ],
     reviewSummary: { rating: 4.8, reviewCount: 31 },
   },
@@ -253,7 +249,7 @@ export const productsCatalog: Product[] = [
     id: 'family-pastel-box',
     slug: 'family-pastel-box',
     name: 'Сімейний пастельний бокс',
-    shortDescription: 'Ніжний сімейний набір із 9 бомбочок.',
+    shortDescription: 'Сімейний пастельний бокс, 270г.',
     description:
       'Пастельний подарунковий набір із девʼяти шоколадних бомбочок з різними смаками. Ідеально для сімейного вечора та частувань.',
     composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
@@ -270,7 +266,7 @@ export const productsCatalog: Product[] = [
     id: 'romantic-set',
     slug: 'romantic-set',
     name: 'Романтичний сет',
-    shortDescription: 'Для особливих вечорів удвох.',
+    shortDescription: 'Романтичний сет.',
     description:
       'Ніжний набір з 4 бомбочок: полуниця, ваніль, троянда і білий шоколад. Ідеально для побачення.',
     composition: ['шоколад асорті', 'романтичні смаки', 'святкове пакування'],
@@ -289,7 +285,7 @@ export const productsCatalog: Product[] = [
     id: 'hearts-for-two',
     slug: 'hearts-for-two',
     name: 'Серця для двох',
-    shortDescription: 'Романтичний набір із 4 сердець.',
+    shortDescription: 'Серця для двох.',
     description:
       'Подарунковий набір із чотирьох шоколадних сердець у ніжному оформленні. Підійде для побачення, річниці або романтичного сюрпризу.',
     composition: ['шоколад асорті', 'серця ручної роботи', 'декор', 'подарункове пакування'],
@@ -309,7 +305,7 @@ export const productsCatalog: Product[] = [
     id: 'kids-joy',
     slug: 'kids-joy',
     name: 'Дитяча радість',
-    shortDescription: '5 солодких смаків для дітей.',
+    shortDescription: 'Дитяча радість.',
     description:
       'Яскравий набір з 5 дитячих смаків: полуниця, карамель, ваніль, банан і шоколад.',
     composition: ['молочний шоколад', 'дитячі смаки', 'кольорове маршмелоу'],

@@ -13,7 +13,15 @@ import { formatPrice } from '@/utils/formatPrice'
 
 type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup'
 
-const detectProductType = (item: Pick<Product, 'slug' | 'name'>): DetectedProductType => {
+const detectProductType = (item: Pick<Product, 'slug' | 'name' | 'category'>): DetectedProductType => {
+  if (item.category === 'gift-set') {
+    return 'gift-set'
+  }
+
+  if (item.category === 'cups') {
+    return 'cup'
+  }
+
   const rawSource = `${item.slug} ${item.name}`.toLowerCase()
   const source = rawSource.replace(/\bsale\b/g, ' ')
 
@@ -250,23 +258,21 @@ export default function ProductPage() {
 
                   return (
                     <div key={item.key} className="rounded-xl bg-white/55 px-3.5 py-2.5">
-                      <div className="flex items-center justify-between gap-3">
-                        <div className="inline-flex items-center gap-2 font-medium">
-                          {Icon ? <Icon size={18} className="text-[#8c5328]" /> : null}
-                          <span>{item.label}</span>
-                          <button
-                            type="button"
-                            aria-expanded={isExpanded}
-                            aria-label={`Детальніше про ${item.label}`}
-                            className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-[#cfae8f] text-base font-semibold leading-none text-[#7a4b2c] transition hover:bg-[#f3e6d3]"
-                            onClick={() => {
-                              setExpandedCharacteristic((prev) => (prev === item.key ? null : item.key))
-                            }}
-                          >
-                            {isExpanded ? '−' : '+'}
-                          </button>
-                        </div>
-                      </div>
+                      <button
+                        type="button"
+                        aria-expanded={isExpanded}
+                        aria-label={`Детальніше про ${item.label}`}
+                        className="flex w-full items-center gap-2 text-left font-medium"
+                        onClick={() => {
+                          setExpandedCharacteristic((prev) => (prev === item.key ? null : item.key))
+                        }}
+                      >
+                        {Icon ? <Icon size={18} className="text-[#8c5328]" /> : null}
+                        <span>{item.label}</span>
+                        <span className="ml-auto inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#cfae8f] text-xl font-semibold leading-none text-[#7a4b2c] transition hover:bg-[#f3e6d3]">
+                          {isExpanded ? '−' : '+'}
+                        </span>
+                      </button>
                       {isExpanded ? (
                         <div className="mt-2 space-y-1 text-xs leading-5 text-[#7a6050]">
                           <p className="font-medium text-[#6f4a31]">{item.value}</p>

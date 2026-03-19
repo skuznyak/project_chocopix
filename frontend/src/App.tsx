@@ -11,6 +11,7 @@ const CacaoBombsPage = lazy(() => import('@/pages/CacaoBombsPage'))
 const GiftSetsPage = lazy(() => import('@/pages/GiftSetsPage'))
 const PromotionsPage = lazy(() => import('@/pages/PromotionsPage'))
 const ContactsPage = lazy(() => import('@/pages/ContactsPage'))
+const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
 export const App = () => (
   <Suspense fallback={null}>
@@ -26,7 +27,7 @@ export const App = () => (
         <Route path="/gift-sets" element={<GiftSetsPage />} />
         <Route path="/promotions" element={<PromotionsPage />} />
         <Route path="/contacts" element={<ContactsPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   </Suspense>

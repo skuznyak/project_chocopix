@@ -1,0 +1,19 @@
+{
+  "name": "ChocoPix",
+  "short_name": "ChocoPix",
+  "icons": [
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#fce7cf",
+  "background_color": "#fce7cf",
+  "display": "standalone"
+}

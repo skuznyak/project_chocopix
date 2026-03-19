@@ -8,7 +8,7 @@ const outputPath = resolve(outputDir, 'spa-routes.conf')
 const baseRoutes = [
   '/',
   '/404',
-  '/kakao-bombochky',
+  '/cacao-bombs',
   '/gift-sets',
   '/promotions',
   '/contacts',
@@ -19,7 +19,7 @@ const baseRoutes = [
 
 const productRoutes = productsCatalog.map((product) => {
   const slug = product.slug ?? product.id
-  return `/kakao-bombochka-${slug}`
+  return `/product/${slug}`
 })
 
 const canonicalRoutes = [...new Set([...baseRoutes, ...productRoutes])]

@@ -84,7 +84,7 @@ export default function CheckoutPage() {
         <meta name="robots" content="noindex,follow" />
         <link rel="canonical" href="https://chocopix.store/checkout" />
       </Helmet>
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
           <h1 className="text-3xl font-medium tracking-[-0.04em] text-[#5e3926] sm:text-5xl">Оформлення замовлення</h1>
           <button
@@ -97,7 +97,7 @@ export default function CheckoutPage() {
           </button>
         </div>
         <div className="grid gap-8 lg:grid-cols-[1fr_0.62fr]">
-          <div className="space-y-4">
+          <div className="order-2 space-y-4 lg:order-1">
             <CheckoutForm
               items={items}
               promoCode={promoCode}
@@ -129,7 +129,7 @@ export default function CheckoutPage() {
             />
             {submitError ? <p className="text-sm text-rose-600">{submitError}</p> : null}
           </div>
-          <aside className="h-fit rounded-[32px] border border-[#eadfcb] bg-[#f8f1e4] p-5 shadow-[0_20px_40px_rgba(91,28,2,0.06)] sm:p-7">
+          <aside className="order-1 min-h-[92svh] rounded-[30px] border border-[#eadfcb] bg-[#f8f1e4] p-5 shadow-[0_20px_40px_rgba(91,28,2,0.06)] sm:p-7 lg:order-2 lg:min-h-0 lg:h-fit lg:rounded-[32px]">
             <h2 className="text-2xl font-medium tracking-[-0.03em] text-[#5e3926] sm:text-3xl">Ваше замовлення</h2>
             <div className="mt-6 rounded-[24px] border border-[#eadfcb] bg-[#fbf5ea] p-5">
               <div className="flex flex-col gap-2 text-xs font-bold uppercase tracking-[0.05em] text-[#6b4331] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:text-sm">

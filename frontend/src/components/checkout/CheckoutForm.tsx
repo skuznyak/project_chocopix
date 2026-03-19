@@ -112,7 +112,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
 
   return (
     <form
-      className="space-y-8 pb-28 md:pb-0"
+      className="space-y-8 pb-8 md:pb-0"
       noValidate
       onSubmit={handleSubmit(async (values) => {
         if (!validateContactMethod()) {
@@ -360,7 +360,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
         </Button>
       </div>
 
-      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-[#e6dac6] bg-[#f4eddc]/95 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden">
+      <div className="sticky bottom-4 z-30 rounded-[24px] border border-[#e6dac6] bg-[#f4eddc]/95 px-4 py-3 shadow-[0_18px_40px_rgba(92,55,28,0.14)] backdrop-blur supports-[padding:max(0px)]:pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden">
         <Button type="submit" className="min-h-14 w-full rounded-[16px] bg-[#7d4a37] px-6 text-base font-extrabold hover:bg-[#6f4232]" disabled={isSubmitting}>
           {isSubmitting ? 'Обробка...' : 'Підтвердити замовлення'}
         </Button>

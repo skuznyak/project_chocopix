@@ -93,8 +93,8 @@ export const CartDrawer = () => {
         onClick={closeCart}
         aria-label="Закрити кошик"
       />
-      <aside className="fixed right-0 top-0 z-50 flex h-screen w-full max-w-[380px] flex-col rounded-l-[28px] border-l border-[#eadfcb] bg-[#f8f1e4] shadow-2xl">
-            <div className="flex items-center justify-between px-6 pb-4 pt-5">
+      <aside className="fixed right-0 top-0 z-50 flex h-[100dvh] w-full max-w-[380px] flex-col border-l border-[#eadfcb] bg-[#f8f1e4] shadow-2xl sm:rounded-l-[28px]">
+            <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#eadfcb]/80 bg-[#f8f1e4]/95 px-6 pb-4 pt-5 backdrop-blur">
               <h2 className="text-[21px] font-medium tracking-[-0.02em] text-[#6b4331]">Мій кошик</h2>
               <button
                 type="button"
@@ -141,7 +141,7 @@ export const CartDrawer = () => {
                     />
                   ))}
                 </div>
-                <div className="border-t border-cocoa-900/10 px-5 py-4 sm:px-6">
+                <div className="sticky bottom-0 border-t border-cocoa-900/10 bg-[#f8f1e4]/96 px-5 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] backdrop-blur sm:px-6">
                   <div className="mb-4">
                     <label className="flex flex-col gap-2 text-sm font-semibold text-[#5f3925]">
                       <span>Промокод</span>

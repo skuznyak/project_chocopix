@@ -77,10 +77,11 @@ server {
     listen 80;
     server_name chocopix.store;
     include /path/to/deploy/nginx/product-id-redirects.conf;
+    include /path/to/deploy/nginx/spa-routes.conf;
 
     location / {
         root /path/to/frontend/dist;
-        try_files $uri $uri/ /index.html;
+        try_files $uri =404;
     }
 
     location /api {
@@ -101,9 +102,11 @@ Generate `product-id-redirects.conf` before deploy:
 
 ```bash
 npm run redirects:generate
+npm run routes:generate
 ```
 
-This file contains exact-match HTTP `301` redirects from legacy `/product/:id` URLs to canonical `/product/:slug` URLs.
+`product-id-redirects.conf` contains exact-match HTTP `301` redirects from legacy `/product/:id` URLs to canonical `/product/:slug` URLs.
+`spa-routes.conf` serves `index.html` only for known SPA routes and returns `404` for unknown URLs (prevents SEO soft-404 issues).
 
 ### 4. Start Backend
 

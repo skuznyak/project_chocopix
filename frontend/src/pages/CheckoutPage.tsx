@@ -10,8 +10,10 @@ import { createOrder } from '@/api/orders'
 import { validatePromoCode } from '@/api/promoCodes'
 import { FREE_DELIVERY_THRESHOLD } from '@/store/cartStore'
 import { formatPrice } from '@/utils/formatPrice'
+import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
 
 export default function CheckoutPage() {
+  const pageUrl = buildAbsoluteUrl('/checkout')
   const navigate = useNavigate()
   const { items, detailedItems, totals, promoCode, clearCart, removeItem, setQuantity, setPromoCode } = useCart()
   const [submitError, setSubmitError] = useState<string | null>(null)
@@ -79,10 +81,10 @@ export default function CheckoutPage() {
           content="Оформлення замовлення какао бомбочок ChocoPix: перевірте товари в кошику, дані доставки та підтвердіть покупку."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chocopix.store/checkout" />
-        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
         <meta name="robots" content="noindex,follow" />
-        <link rel="canonical" href="https://chocopix.store/checkout" />
+        <link rel="canonical" href={pageUrl} />
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">

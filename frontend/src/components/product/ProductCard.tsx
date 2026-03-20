@@ -31,7 +31,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           <img
             ref={imageRef}
             src={product.images[0]?.src}
-            alt={product.images[0]?.alt}
+            alt={product.images[0]?.alt || `Шоколадна бомбочка ${product.name}`}
             loading="lazy"
             decoding="async"
             className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105"

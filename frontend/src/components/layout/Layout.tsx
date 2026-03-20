@@ -1,12 +1,15 @@
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { CartDrawer } from '@/components/cart/CartDrawer'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollToTopButton } from '@/components/layout/ScrollToTopButton'
+import { organizationSchema, shouldIncludeSitewideSchemas, websiteSchema } from '@/utils/seo'
 
 export const Layout = () => {
   const location = useLocation()
+  const includeSitewideSchemas = shouldIncludeSitewideSchemas(location.pathname)
 
   useEffect(() => {
     if (location.hash) return
@@ -15,6 +18,10 @@ export const Layout = () => {
 
   return (
     <div className="min-h-screen text-cocoa-900">
+      <Helmet>
+        {includeSitewideSchemas ? <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script> : null}
+        {includeSitewideSchemas ? <script type="application/ld+json">{JSON.stringify(websiteSchema)}</script> : null}
+      </Helmet>
       <Header />
       <CartDrawer />
       <ScrollToTopButton />

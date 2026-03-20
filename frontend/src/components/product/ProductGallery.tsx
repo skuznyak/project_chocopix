@@ -5,22 +5,27 @@ import { Modal } from '@/components/ui/Modal'
 interface ProductGalleryProps {
   images: ProductImage[]
   imageId?: string
+  productName: string
 }
 
-export const ProductGallery = ({ images, imageId }: ProductGalleryProps) => {
+export const ProductGallery = ({ images, imageId, productName }: ProductGalleryProps) => {
   const [selectedImage, setSelectedImage] = useState(images[0])
   const [isOpen, setIsOpen] = useState(false)
 
   return (
     <>
       <div>
-        <button type="button" className="block w-full overflow-hidden rounded-[32px]" onClick={() => setIsOpen(true)}>
+        <button
+          type="button"
+          aria-label={`Відкрити фото товару ${productName}`}
+          className="block w-full overflow-hidden rounded-[32px]"
+          onClick={() => setIsOpen(true)}
+        >
           <img
             src={selectedImage.src}
-            alt={selectedImage.alt}
+            alt={selectedImage.alt || `Фото товару ${productName} від ChocoPix`}
             data-product-image-id={imageId}
             loading="eager"
-            fetchPriority="high"
             decoding="async"
             className="aspect-square w-full object-cover"
           />
@@ -30,16 +35,29 @@ export const ProductGallery = ({ images, imageId }: ProductGalleryProps) => {
             <button
               key={image.id}
               type="button"
+              aria-label={`Переглянути інше фото товару ${productName}`}
               onClick={() => setSelectedImage(image)}
               className="overflow-hidden rounded-2xl border border-cocoa-900/10"
             >
-              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" className="aspect-square w-full object-cover" />
+              <img
+                src={image.src}
+                alt={image.alt || `Мініатюра товару ${productName}`}
+                loading="lazy"
+                decoding="async"
+                className="aspect-square w-full object-cover"
+              />
             </button>
           ))}
         </div>
       </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
-        <img src={selectedImage.src} alt={selectedImage.alt} loading="lazy" decoding="async" className="max-h-[75vh] w-full rounded-3xl object-cover" />
+        <img
+          src={selectedImage.src}
+          alt={selectedImage.alt || `Збільшене фото товару ${productName}`}
+          loading="lazy"
+          decoding="async"
+          className="max-h-[75vh] w-full rounded-3xl object-cover"
+        />
       </Modal>
     </>
   )

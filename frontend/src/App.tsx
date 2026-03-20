@@ -22,7 +22,7 @@ export const App = () => (
         <Route path="/cart" element={<CartPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/order-success" element={<OrderSuccessPage />} />
-        <Route path="/cups" element={<Navigate to="/" replace />} />
+        <Route path="/cups" element={<Navigate to="/cacao-bombs" replace />} />
         <Route path="/cacao-bombs" element={<CacaoBombsPage />} />
         <Route path="/gift-sets" element={<GiftSetsPage />} />
         <Route path="/promotions" element={<PromotionsPage />} />

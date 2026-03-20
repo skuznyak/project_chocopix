@@ -1,48 +1,55 @@
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 import { ProductCard } from '@/components/product/ProductCard'
 import { useProducts } from '@/hooks/useProducts'
+import { DEFAULT_OG_IMAGE, buildAbsoluteUrl, buildBreadcrumbSchema } from '@/utils/seo'
 
 export default function CacaoBombsPage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
   const cacaoBombs = products.filter((product) => product.tags.includes('бомбочки'))
+  const categoryUrl = buildAbsoluteUrl('/cacao-bombs')
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Головна', path: '/' },
+    { name: 'Шоколадні бомбочки', path: '/cacao-bombs' },
+  ])
 
   return (
     <>
       <Helmet>
-        <title>Какао бомбочки з маршмелоу купити в Україні | ChocoPix</title>
+        <title>Шоколадні бомбочки та какао бомбочки купити | ChocoPix</title>
         <meta
           name="description"
-          content="Какао бомбочки з маршмелоу купити онлайн в Україні. Ручна робота, натуральний шоколад, швидка доставка та великий вибір смаків."
+          content="Шоколадні бомбочки та какао бомбочки з маршмелоу купити онлайн. Ручна робота, різні смаки та доставка по Україні."
         />
-        <meta property="og:title" content="Какао бомбочки з маршмелоу купити в Україні | ChocoPix" />
+        <meta property="og:title" content="Шоколадні бомбочки та какао бомбочки купити | ChocoPix" />
         <meta
           property="og:description"
-          content="Какао бомбочки з маршмелоу купити онлайн в Україні. Ручна робота, натуральний шоколад, швидка доставка та великий вибір смаків."
+          content="Шоколадні бомбочки та какао бомбочки з маршмелоу купити онлайн. Ручна робота, різні смаки та доставка по Україні."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chocopix.store/cacao-bombs" />
-        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
-        <link rel="canonical" href="https://chocopix.store/cacao-bombs" />
+        <meta property="og:url" content={categoryUrl} />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+        <meta property="og:image:alt" content="Шоколадні бомбочки з маршмелоу ChocoPix" />
+        <link rel="canonical" href={categoryUrl} />
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Какао бомбочки з маршмелоу</h1>
+        <nav aria-label="breadcrumb" className="text-sm text-cocoa-900/55">
+          <Link to="/">Головна</Link> / <span>Шоколадні бомбочки</span>
+        </nav>
+        <p className="mt-3 text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
+        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Шоколадні бомбочки з маршмелоу</h1>
         <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
           <p>
-            Какао бомбочки з маршмелоу - це смачний і ефектний спосіб приготувати гарячий шоколад вдома. Шоколадна сфера розкривається у гарячому
-            молоці, наповнює чашку ароматом какао та додає ніжні маршмелоу. Такий формат чудово підходить для затишного вечора, частування гостей
-            або подарунка для близьких.
+            Шоколадні бомбочки з маршмелоу - це зручний спосіб приготувати ароматний гарячий шоколад вдома. Достатньо покласти бомбочку в чашку,
+            залити гарячим молоком і дочекатися, поки шоколад розкриється та випустить маршмелоу. Такий десертний формат підходить для сімейного
+            вечора, подарунка або святкового частування.
           </p>
           <p>
-            У цій категорії зібрані шоколадні бомбочки з різними смаками: від класичних до більш насичених і десертних. Усі позиції зручні у
-            приготуванні: достатньо покласти бомбочку в чашку і залити гарячим молоком. Через кілька секунд ви отримуєте густий, ароматний напій
-            з приємною солодкістю. Це вдалий варіант для дітей і дорослих, коли хочеться швидко створити момент комфорту.
-          </p>
-          <p>
-            Якщо ви хочете купити какао бомбочки з маршмелоу в Україні, обирайте смаки в каталозі ChocoPix. Ми готуємо продукцію невеликими
-            партіями, дбаємо про якість інгредієнтів та пакування, а також швидко відправляємо замовлення по країні. Замовляйте окремі позиції або
-            поєднуйте їх у подарункові сети для свят, родинних зустрічей і теплих домашніх вечорів.
+            У категорії зібрані какао бомбочки з різними смаками: від класичних до більш насичених десертних варіантів. Якщо ви хочете купити
+            шоколадні бомбочки з доставкою по Україні, обирайте позиції в каталозі ChocoPix і поєднуйте їх з <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарунковими наборами</Link> для
+            свят, гостей і теплих домашніх моментів.
           </p>
         </div>
 

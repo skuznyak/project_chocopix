@@ -1,21 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { HelmetProvider } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
 import { App } from '@/App'
+import { AppProviders } from '@/app/AppProviders'
+import { createQueryClient } from '@/app/createQueryClient'
 import '@/index.css'
 
-const queryClient = new QueryClient()
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const queryClient = createQueryClient()
+const dehydratedState = window.__PRERENDER_QUERY_STATE__
+const app = (
   <React.StrictMode>
-    <HelmetProvider>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </QueryClientProvider>
-    </HelmetProvider>
-  </React.StrictMode>,
+    <AppProviders queryClient={queryClient} dehydratedState={dehydratedState}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AppProviders>
+  </React.StrictMode>
 )
+const container = document.getElementById('root')!
+
+if (container.hasChildNodes()) {
+  ReactDOM.hydrateRoot(container, app)
+} else {
+  ReactDOM.createRoot(container).render(app)
+}

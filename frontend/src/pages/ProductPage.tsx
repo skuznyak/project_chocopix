@@ -10,6 +10,7 @@ import { useProduct, useProducts } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/cartStore'
 import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
+import { buildAbsoluteUrl, buildBreadcrumbSchema, toAbsoluteImageUrl } from '@/utils/seo'
 
 type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup'
 
@@ -67,9 +68,6 @@ const pickRelatedProducts = (current: Product, catalog: Product[], type: Detecte
 
   return mergeUnique([...cups.slice(0, 2), ...bombs.slice(0, 1)], otherProducts)
 }
-
-const toAbsoluteImageUrl = (src: string) =>
-  src.startsWith('http') ? src : `https://chocopix.store${src.startsWith('/') ? src : `/${src}`}`
 
 export default function ProductPage() {
   const { slugOrId = '' } = useParams()
@@ -130,17 +128,27 @@ export default function ProductPage() {
             `${product.name} підійде тим, хто хоче швидко приготувати десертний напій без складних рецептів. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе, родини або подарункового формату.`,
           ]
 
-  const productUrl = `https://chocopix.store/product/${canonicalSlug}`
+  const categoryPath = productType === 'gift-set' ? '/gift-sets' : productType === 'cup' ? '/cups' : '/cacao-bombs'
+  const categoryLabel = productType === 'gift-set' ? 'Подарункові набори' : productType === 'cup' ? 'Чашки' : 'Шоколадні бомбочки'
+  const productUrl = buildAbsoluteUrl(`/product/${canonicalSlug}`)
   const primaryImageUrl = product.images[0]?.src
     ? toAbsoluteImageUrl(product.images[0].src)
-    : 'https://chocopix.store/images/107270_001.webp'
+    : toAbsoluteImageUrl()
+  const breadcrumbSchema = buildBreadcrumbSchema([
+    { name: 'Головна', path: '/' },
+    { name: categoryLabel, path: categoryPath },
+    { name: product.name, path: `/product/${canonicalSlug}` },
+  ])
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    description: product.description,
+    description: seoDescription,
+    url: productUrl,
     image: product.images.map((image) => toAbsoluteImageUrl(image.src)),
     sku: product.id,
+    category: categoryLabel,
+    inLanguage: 'uk-UA',
     brand: {
       '@type': 'Brand',
       name: 'ChocoPix',
@@ -150,6 +158,7 @@ export default function ProductPage() {
       url: productUrl,
       priceCurrency: 'UAH',
       price: product.price,
+      itemCondition: 'https://schema.org/NewCondition',
       availability: 'https://schema.org/InStock',
     },
   }
@@ -208,17 +217,19 @@ export default function ProductPage() {
         <meta property="og:type" content="product" />
         <meta property="og:url" content={productUrl} />
         <meta property="og:image" content={primaryImageUrl} />
+        <meta property="og:image:alt" content={product.images[0]?.alt || seoH1} />
         <link rel="canonical" href={productUrl} />
         <script type="application/ld+json">{JSON.stringify(productSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <div className="text-sm text-cocoa-900/55">
-          <Link to="/">Головна</Link> / <span>Каталог</span> / <span>{product.name}</span>
-        </div>
+        <nav aria-label="breadcrumb" className="text-sm text-cocoa-900/55">
+          <Link to="/">Головна</Link> / <Link to={categoryPath}>{categoryLabel}</Link> / <span>{product.name}</span>
+        </nav>
         <section className="mt-6 grid gap-10 lg:grid-cols-[1fr_0.9fr]">
           <div>
             <div className="mx-auto w-full max-w-[640px] lg:max-w-[560px]">
-              <ProductGallery images={product.images} imageId={product.id} />
+              <ProductGallery images={product.images} imageId={product.id} productName={product.name} />
             </div>
           </div>
           <div>
@@ -293,6 +304,9 @@ export default function ProductPage() {
               <p key={content}>{content}</p>
             ))}
           </div>
+          <p className="mt-4 text-base leading-8">
+            Перегляньте також <Link to={categoryPath} className="font-semibold underline underline-offset-4">{categoryLabel.toLowerCase()}</Link>, щоб обрати інші смаки та формати з цієї категорії.
+          </p>
         </section>
 
         <section className="mt-16">

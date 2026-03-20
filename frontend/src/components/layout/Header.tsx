@@ -31,7 +31,6 @@ export const Header = () => {
               src="/favicon.svg"
               alt="ChocoPix"
               loading="eager"
-              fetchPriority="high"
               decoding="async"
               className="h-12 w-12 rounded-full object-contain transition duration-300 group-hover:scale-110"
             />

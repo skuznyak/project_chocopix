@@ -2,10 +2,12 @@ import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import { ArrowRight, CircleDashed, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
 import { lazy, Suspense, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ProductCard } from '@/components/product/ProductCard'
 import { Button } from '@/components/ui/Button'
 import { CallbackModal } from '@/components/layout/CallbackModal'
 import { useProducts } from '@/hooks/useProducts'
+import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
 
 const HeroBomb = lazy(() =>
   import('@/components/3d/HeroBomb').then((module) => ({ default: module.HeroBomb })),
@@ -54,6 +56,7 @@ const faqs = [
 export default function HomePage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
   const [isCallbackOpen, setIsCallbackOpen] = useState(false)
+  const isServerRender = import.meta.env.SSR
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -78,24 +81,39 @@ export default function HomePage() {
     })
   const giftSetProducts = products.filter((p) => p.tags.includes('набори'))
   const promoProducts = products.filter((p) => p.badge === 'sale')
+  const mobileHero = isServerRender ? (
+    <div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />
+  ) : (
+    <Suspense fallback={<div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />}>
+      <HeroBomb />
+    </Suspense>
+  )
+  const desktopHero = isServerRender ? (
+    <div className="h-[620px] w-full rounded-[42px] bg-[#f1e3ce]" />
+  ) : (
+    <Suspense fallback={<div className="h-[620px] w-full rounded-[42px] bg-[#f1e3ce]" />}>
+      <HeroBomb />
+    </Suspense>
+  )
 
   return (
     <>
       <Helmet>
-        <title>Какао бомбочки з маршмелоу купити | ChocoPix</title>
+        <title>Шоколадні бомбочки з маршмелоу — ChocoPix</title>
         <meta
           name="description"
-          content="Какао бомбочки з маршмелоу ручної роботи. Ідеальний подарунок та затишок вдома. Доставка по Україні."
+          content="Купити шоколадні бомбочки та какао бомбочки з маршмелоу. Ручна робота, подарункові набори та доставка по Україні."
         />
-        <meta property="og:title" content="Какао бомбочки з маршмелоу купити | ChocoPix" />
+        <meta property="og:title" content="Шоколадні бомбочки з маршмелоу — ChocoPix" />
         <meta
           property="og:description"
-          content="Какао бомбочки з маршмелоу ручної роботи. Ідеальний подарунок та затишок вдома. Доставка по Україні."
+          content="Купити шоколадні бомбочки та какао бомбочки з маршмелоу. Ручна робота, подарункові набори та доставка по Україні."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chocopix.store/" />
-        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
-        <link rel="canonical" href="https://chocopix.store/" />
+        <meta property="og:url" content={buildAbsoluteUrl('/')} />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+        <meta property="og:image:alt" content="Шоколадні бомбочки та какао бомбочки з маршмелоу ChocoPix" />
+        <link rel="canonical" href={buildAbsoluteUrl('/')} />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -110,9 +128,7 @@ export default function HomePage() {
               <span className="font-script text-[#d29b60] italic">бомбочки з маршмелоу</span>
             </h1>
             <div className="mt-6 lg:hidden">
-              <Suspense fallback={<div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />}>
-                <HeroBomb />
-              </Suspense>
+              {mobileHero}
             </div>
             <p className="mt-8 max-w-xl text-[19px] leading-10 text-[#8a5d3c]">
               Відчуйте справжній вибух смаку! Просто покладіть шоколадну бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
@@ -133,27 +149,25 @@ export default function HomePage() {
             </div>
           </div>
           <div className="hidden lg:block">
-            <Suspense fallback={<div className="h-[620px] w-full rounded-[42px] bg-[#f1e3ce]" />}>
-              <HeroBomb />
-            </Suspense>
+            {desktopHero}
           </div>
         </section>
 
         {/* Category Navigation Blocks */}
         <section className="py-8">
           <div className="grid gap-6 md:grid-cols-3">
-            <motion.a
-              href="#bombочки"
+            <motion.div
               className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
               initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
             >
+              <Link to="/cacao-bombs" className="absolute inset-0 z-10" aria-label="Перейти до категорії шоколадних бомбочок" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/107270_001.webp"
-                alt="Бомбочки"
+                alt="Шоколадні бомбочки з маршмелоу ChocoPix"
                 loading="lazy"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
@@ -162,20 +176,20 @@ export default function HomePage() {
                 <h3 className="font-display text-3xl font-semibold text-white">Бомбочки</h3>
                 <p className="mt-2 text-sm text-white">Шоколадні бомбочки з маршмелоу</p>
               </div>
-            </motion.a>
+            </motion.div>
 
-            <motion.a
-              href="#набори"
+            <motion.div
               className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
               initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
             >
+              <Link to="/gift-sets" className="absolute inset-0 z-10" aria-label="Перейти до категорії подарункових наборів" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/photo_2024-11-12_01-.webp"
-                alt="Набори"
+                alt="Подарункові набори шоколадних бомбочок ChocoPix"
                 loading="lazy"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
@@ -184,20 +198,20 @@ export default function HomePage() {
                 <h3 className="font-display text-3xl font-semibold text-white">Набори</h3>
                 <p className="mt-2 text-sm text-white">Подарункові набори</p>
               </div>
-            </motion.a>
+            </motion.div>
 
-            <motion.a
-              href="#акції"
+            <motion.div
               className="group relative overflow-hidden rounded-[32px] shadow-[0_20px_50px_rgba(92,55,28,0.12)] transition duration-500 hover:-translate-y-2 hover:shadow-[0_30px_70px_rgba(92,55,28,0.2)]"
               initial={{ opacity: 0.7, y: 30, scale: 0.98 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
             >
+              <Link to="/promotions" className="absolute inset-0 z-10" aria-label="Перейти до сторінки акцій" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/shares.webp"
-                alt="Акції"
+                alt="Акції на шоколадні бомбочки ChocoPix"
                 loading="lazy"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
@@ -206,7 +220,7 @@ export default function HomePage() {
                 <h3 className="font-display text-3xl font-semibold text-white">Акції</h3>
                 <p className="mt-2 text-sm text-white">Вигідні пропозиції</p>
               </div>
-            </motion.a>
+            </motion.div>
           </div>
         </section>
 
@@ -316,6 +330,10 @@ export default function HomePage() {
             <li>Формат, що ідеально підходить для подарунка та створює WOW-ефект.</li>
             <li>Швидка доставка по Україні та акуратне пакування замовлення.</li>
           </ul>
+          <p className="mt-6 text-[17px] leading-8 text-[#6f4a31]">
+            Перейдіть у <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">категорію шоколадних бомбочок</Link>, щоб обрати окремі смаки, або перегляньте
+            <Link to="/gift-sets" className="ml-1 font-semibold underline underline-offset-4">подарункові набори</Link> для свят і замовлень з доставкою по Україні.
+          </p>
 
         </section>
 

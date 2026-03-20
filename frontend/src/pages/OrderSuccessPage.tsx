@@ -3,10 +3,12 @@ import { CheckCircle2 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
+import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
 
 export default function OrderSuccessPage() {
   const [searchParams] = useSearchParams()
   const orderNumber = searchParams.get('orderNumber')
+  const pageUrl = buildAbsoluteUrl('/order-success')
 
   return (
     <>
@@ -22,9 +24,9 @@ export default function OrderSuccessPage() {
           content="Дякуємо за замовлення в ChocoPix. Ваше замовлення прийнято, ми зв'яжемося з вами для підтвердження деталей доставки та оплати."
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://chocopix.store/order-success" />
-        <meta property="og:image" content="https://chocopix.store/images/107270_001.webp" />
-        <link rel="canonical" href="https://chocopix.store/order-success" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+        <link rel="canonical" href={pageUrl} />
         <meta name="robots" content="noindex,follow" />
       </Helmet>
       <div className="mx-auto flex max-w-3xl flex-col items-center px-4 py-20 text-center sm:px-6 lg:px-8">

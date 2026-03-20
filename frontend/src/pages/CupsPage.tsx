@@ -48,7 +48,6 @@ export default function CupsPage() {
                 src="https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=600&q=80"
                 alt="Класична біла чашка"
                 loading="eager"
-                fetchPriority="high"
                 decoding="async"
                 className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
               />

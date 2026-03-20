@@ -11,7 +11,6 @@ export default function NotFoundPage() {
           content="Сторінку не знайдено. Поверніться на головну або відкрийте каталог какао бомбочок."
         />
         <meta name="robots" content="noindex,follow" />
-        <link rel="canonical" href="https://chocopix.store/404" />
       </Helmet>
 
       <section className="mx-auto flex min-h-[55vh] max-w-7xl flex-col items-start justify-center px-4 py-14 sm:px-6 lg:px-8">
@@ -28,7 +27,7 @@ export default function NotFoundPage() {
             На головну
           </Link>
           <Link
-            to="/kakao-bombochky"
+            to="/cacao-bombs"
             className="rounded-[16px] border border-[#a4693f] px-6 py-3 text-sm font-semibold text-[#7a4b2c] transition hover:bg-[#f3e6d3]"
           >
             До каталогу

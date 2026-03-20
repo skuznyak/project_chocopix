@@ -3,5 +3,5 @@ Allow: /
 Disallow: /cart
 Disallow: /checkout
 Disallow: /order-success
-Disallow: /cups
+Disallow: /*?*orderNumber=
 Sitemap: https://chocopix.store/sitemap.xml

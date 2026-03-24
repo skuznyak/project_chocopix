@@ -16,12 +16,12 @@ export default function CacaoBombsPage() {
   return (
     <>
       <Helmet>
-        <title>Шоколадні бомбочки та какао бомбочки купити | ChocoPix</title>
+        <title>Шоколадні бомбочки з маршмелоу купити | Какао бомбочки | ChocoPix</title>
         <meta
           name="description"
           content="Шоколадні бомбочки та какао бомбочки з маршмелоу купити онлайн. Ручна робота, різні смаки та доставка по Україні."
         />
-        <meta property="og:title" content="Шоколадні бомбочки та какао бомбочки купити | ChocoPix" />
+        <meta property="og:title" content="Шоколадні бомбочки з маршмелоу купити | Какао бомбочки | ChocoPix" />
         <meta
           property="og:description"
           content="Шоколадні бомбочки та какао бомбочки з маршмелоу купити онлайн. Ручна робота, різні смаки та доставка по Україні."

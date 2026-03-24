@@ -72,6 +72,18 @@ export const Footer = () => (
               <span className="text-base font-bold text-white">MasterCard</span>
             </div>
           </div>
+          <p className="mt-4 text-sm text-white/80">
+            розробив{' '}
+            <a
+              href="https://kuznyak.dev/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-xl leading-none transition hover:opacity-80"
+              style={{ color: 'rgb(232, 255, 0)', fontFamily: '"Bebas Neue", sans-serif' }}
+            >
+              KUZNYAK.DEV
+            </a>
+          </p>
         </div>
       </div>
     </div>

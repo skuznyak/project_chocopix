@@ -40,20 +40,26 @@ export const ProductCard = ({ product }: { product: Product }) => {
         {product.badge ? <div className="absolute left-5 top-5"><Badge badge={product.badge} /></div> : null}
       </div>
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center justify-between gap-3">
-          <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#4c1d11]">{product.name}</h3>
-          <div className="flex items-center gap-1 text-sm text-cocoa-900/70">
-            <Star size={14} className="fill-gold text-gold" />
-            {product.reviewSummary.rating}
+        <Link
+          to={productPath}
+          aria-label={`Відкрити ${product.name}`}
+          className="block rounded-[22px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8c5328] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f1e4] md:pointer-events-none"
+        >
+          <div className="flex items-center justify-between gap-3">
+            <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#4c1d11]">{product.name}</h3>
+            <div className="flex items-center gap-1 text-sm text-cocoa-900/70">
+              <Star size={14} className="fill-gold text-gold" />
+              {product.reviewSummary.rating}
+            </div>
           </div>
-        </div>
-        <p className="mt-2 text-sm leading-6 text-[#7c5338]">{product.shortDescription}</p>
-        <div className="mt-3 flex items-baseline gap-2">
-          <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
-          {product.previousPrice ? (
-            <span className="text-sm text-cocoa-900/40 line-through">{formatPrice(product.previousPrice)}</span>
-          ) : null}
-        </div>
+          <p className="mt-2 text-sm leading-6 text-[#7c5338]">{product.shortDescription}</p>
+          <div className="mt-3 flex items-baseline gap-2">
+            <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
+            {product.previousPrice ? (
+              <span className="text-sm text-cocoa-900/40 line-through">{formatPrice(product.previousPrice)}</span>
+            ) : null}
+          </div>
+        </Link>
         <div className="mt-2 flex items-center justify-between gap-4">
           <Link
             to={productPath}

@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import { Link } from 'react-router-dom'
 
 export default function ContactsPage() {
   return (
@@ -47,6 +48,28 @@ export default function ContactsPage() {
               Написати у Viber
             </a>
           </div>
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <article className="rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4] p-5 text-[#5f3925]">
+            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#4c1d11]">Як оформити замовлення</h2>
+            <p className="mt-2 text-sm leading-6">
+              Допоможемо обрати формат: окремі <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочки</Link>{' '}
+              або <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарункові набори</Link>.
+            </p>
+          </article>
+          <article className="rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4] p-5 text-[#5f3925]">
+            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#4c1d11]">Швидкість відповіді</h2>
+            <p className="mt-2 text-sm leading-6">
+              Відповідаємо в месенджерах і телефоном у робочий час, щоб ви могли швидко уточнити наявність і доставку.
+            </p>
+          </article>
+          <article className="rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4] p-5 text-[#5f3925]">
+            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#4c1d11]">Доставка і комунікація</h2>
+            <p className="mt-2 text-sm leading-6">
+              Підтверджуємо деталі замовлення перед відправкою та супроводжуємо вас до отримання посилки.
+            </p>
+          </article>
         </div>
       </div>
     </>

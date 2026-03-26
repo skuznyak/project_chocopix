@@ -116,7 +116,7 @@ export default function ProductPage() {
     productType === 'gift-set'
       ? [
           `${product.name} створений як готовий подарунковий сценарій: стильна подача, продуманий набір смаків і відчуття турботи з першого відкриття коробки. Такий формат зручно дарувати на день народження, свята, корпоративні події або як приємний жест без приводу.`,
-          `Подарунковий набір легко обрати для різних випадків: він поєднує практичність, атмосферу затишку та емоцію сюрпризу. Замовляйте набір із доставкою по Україні, щоб швидко підготувати доречний подарунок для близьких, друзів або колег.`,
+          `Смакова добірка набору: ${product.flavor.toLowerCase()} (${product.composition.join(', ')}). Замовляйте набір із доставкою по Україні, щоб швидко підготувати доречний подарунок для близьких, друзів або колег.`,
         ]
       : productType === 'cup'
         ? [
@@ -125,7 +125,7 @@ export default function ProductPage() {
           ]
         : [
             `Ця какао бомбочка з маршмелоу створена для затишного ритуалу гарячого шоколаду. Просто покладіть її в чашку, залийте гарячим молоком і спостерігайте, як шоколад розкривається та наповнює напій насиченим смаком.`,
-            `${product.name} підійде тим, хто хоче швидко приготувати десертний напій без складних рецептів. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе, родини або подарункового формату.`,
+            `Смаковий профіль ${product.name.toLowerCase()}: ${product.flavor.toLowerCase()} з нотами ${product.composition.slice(0, 3).join(', ')}. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе, родини або подарункового формату.`,
           ]
 
   const categoryPath = productType === 'gift-set' ? '/gift-sets' : productType === 'cup' ? '/cups' : '/cacao-bombs'
@@ -306,6 +306,21 @@ export default function ProductPage() {
           </div>
           <p className="mt-4 text-base leading-8">
             Перегляньте також <Link to={categoryPath} className="font-semibold underline underline-offset-4">{categoryLabel.toLowerCase()}</Link>, щоб обрати інші смаки та формати з цієї категорії.
+            {productType === 'gift-set'
+              ? (
+                  <>
+                    {' '}Якщо потрібні окремі позиції, дивіться{' '}
+                    <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочки з маршмелоу</Link>.
+                  </>
+                )
+              : productType === 'cacao-bomb'
+                ? (
+                    <>
+                      {' '}Для подарункового формату перейдіть у{' '}
+                      <Link to="/gift-sets" className="font-semibold underline underline-offset-4">набори</Link>.
+                    </>
+                  )
+                : null}
           </p>
         </section>
 

@@ -163,7 +163,7 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
             >
-              <Link to="/cacao-bombs" className="absolute inset-0 z-10" aria-label="Перейти до категорії шоколадних бомбочок" />
+              <a href="#bombочки" className="absolute inset-0 z-10" aria-label="Перейти до секції шоколадних бомбочок" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/107270_001.webp"
@@ -185,7 +185,7 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
             >
-              <Link to="/gift-sets" className="absolute inset-0 z-10" aria-label="Перейти до категорії подарункових наборів" />
+              <a href="#набори" className="absolute inset-0 z-10" aria-label="Перейти до секції подарункових наборів" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/photo_2024-11-12_01-.webp"
@@ -207,7 +207,7 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
             >
-              <Link to="/promotions" className="absolute inset-0 z-10" aria-label="Перейти до сторінки акцій" />
+              <a href="#акції" className="absolute inset-0 z-10" aria-label="Перейти до секції акцій" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/shares.webp"
@@ -334,7 +334,6 @@ export default function HomePage() {
             Перейдіть у <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">категорію шоколадних бомбочок</Link>, щоб обрати окремі смаки, або перегляньте
             <Link to="/gift-sets" className="ml-1 font-semibold underline underline-offset-4">подарункові набори</Link> для свят і замовлень з доставкою по Україні.
           </p>
-
         </section>
 
         <section id="how-it-works" className="py-12">

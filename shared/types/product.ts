@@ -1,6 +1,6 @@
 export type ProductBadge = 'hit' | 'new' | 'sale'
 
-export type ProductCategory = 'classic' | 'premium' | 'gift-set' | 'cups'
+export type ProductCategory = 'classic' | 'premium' | 'gift-set' | 'cups' | 'marshmallow'
 
 export type ProductCatalogType = 'bombочки' | 'набори' | 'чашки'
 

@@ -19,6 +19,7 @@ const PlusIcon = ({ isHovered }: { isHovered: boolean }) => (
 
 export const ProductCard = ({ product }: { product: Product }) => {
   const productPath = `/product/${product.slug ?? product.id}`
+  const isMarshmallow = product.category === 'marshmallow'
   const addItem = useCartStore((state) => state.addItem)
   const imageRef = useRef<HTMLImageElement | null>(null)
   const [isAdded, setIsAdded] = useState(false)
@@ -53,11 +54,14 @@ export const ProductCard = ({ product }: { product: Product }) => {
             </div>
           </div>
           <p className="mt-2 text-sm leading-6 text-[#7c5338]">{product.shortDescription}</p>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
-            {product.previousPrice ? (
-              <span className="text-sm text-cocoa-900/40 line-through">{formatPrice(product.previousPrice)}</span>
-            ) : null}
+          <div className="mt-3 flex items-center justify-between gap-3">
+            <div className="flex items-baseline gap-2">
+              <span className="text-lg font-semibold">{formatPrice(product.price)}</span>
+              {product.previousPrice ? (
+                <span className="text-sm text-cocoa-900/40 line-through">{formatPrice(product.previousPrice)}</span>
+              ) : null}
+            </div>
+            {isMarshmallow ? <p className="text-right text-xs font-medium uppercase tracking-[0.12em] text-[#d97aa6]">Мін заказ від 3шт</p> : null}
           </div>
         </Link>
         <div className="mt-2 flex items-center justify-between gap-4">

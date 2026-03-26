@@ -12,7 +12,15 @@ import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
 import { buildAbsoluteUrl, buildBreadcrumbSchema, toAbsoluteImageUrl } from '@/utils/seo'
 
-type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup'
+type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup' | 'marshmallow'
+
+const marshmallowBaseComposition = ['цукор', 'глюкозний сироп / інвертний сироп', 'желатин', 'вода']
+const marshmallowAdditionalComposition = [
+  'ваніль / фруктові / карамельні ароматизатори',
+  'барвники',
+  'цукрова пудра',
+  'крохмаль',
+]
 
 const detectProductType = (item: Pick<Product, 'slug' | 'name' | 'category'>): DetectedProductType => {
   if (item.category === 'gift-set') {
@@ -21,6 +29,10 @@ const detectProductType = (item: Pick<Product, 'slug' | 'name' | 'category'>): D
 
   if (item.category === 'cups') {
     return 'cup'
+  }
+
+  if (item.category === 'marshmallow') {
+    return 'marshmallow'
   }
 
   const rawSource = `${item.slug} ${item.name}`.toLowerCase()
@@ -42,6 +54,7 @@ const pickRelatedProducts = (current: Product, catalog: Product[], type: Detecte
   const bombs = otherProducts.filter((entry) => detectProductType(entry) === 'cacao-bomb')
   const giftSets = otherProducts.filter((entry) => detectProductType(entry) === 'gift-set')
   const cups = otherProducts.filter((entry) => detectProductType(entry) === 'cup')
+  const marshmallows = otherProducts.filter((entry) => detectProductType(entry) === 'marshmallow')
   const mergeUnique = (primary: Product[], fallback: Product[]) => {
     const merged: Product[] = []
     const seen = new Set<string>()
@@ -64,6 +77,10 @@ const pickRelatedProducts = (current: Product, catalog: Product[], type: Detecte
 
   if (type === 'gift-set') {
     return mergeUnique([...bombs.slice(0, 2), ...giftSets.slice(0, 1)], otherProducts)
+  }
+
+  if (type === 'marshmallow') {
+    return mergeUnique([...marshmallows.slice(0, 2), ...bombs.slice(0, 1)], otherProducts)
   }
 
   return mergeUnique([...cups.slice(0, 2), ...bombs.slice(0, 1)], otherProducts)
@@ -94,6 +111,8 @@ export default function ProductPage() {
   const seoH1 =
     productType === 'gift-set'
       ? `Подарунковий набір ${product.name}`
+      : productType === 'marshmallow'
+        ? `Авторське маршмелоу ${product.name}`
       : productType === 'cup'
         ? `Чашка ${product.name}`
         : `Какао бомбочка з маршмелоу ${product.name}`
@@ -101,6 +120,8 @@ export default function ProductPage() {
   const seoTitle =
     productType === 'gift-set'
       ? `Подарунковий набір ${product.name} купити | ChocoPix`
+      : productType === 'marshmallow'
+        ? `Маршмелоу ${product.name} купити | Gourmet Marshmallow | ChocoPix`
       : productType === 'cup'
         ? `Чашка ${product.name} купити | ChocoPix`
         : `Какао бомбочка з маршмелоу ${product.name} купити | ChocoPix`
@@ -108,6 +129,8 @@ export default function ProductPage() {
   const seoDescription =
     productType === 'gift-set'
       ? `Подарунковий набір ${product.name} для приємних моментів: стильний набір з какао-смаками як вдалий подарунок з доставкою по Україні.`
+      : productType === 'marshmallow'
+        ? `Маршмелоу ${product.name} з ніжною текстурою та десертним смаковим профілем. Підійде для подарунка, какао або солодкої паузи з доставкою по Україні.`
       : productType === 'cup'
         ? `Чашка ${product.name} для щоденного використання: зручна подача гарячих напоїв, естетичний дизайн і комфортна сервіровка.`
         : `Какао бомбочка з маршмелоу ${product.name} для гарячого шоколаду: насичений смак, ніжне маршмелоу та затишний ритуал приготування.`
@@ -118,7 +141,12 @@ export default function ProductPage() {
           `${product.name} створений як готовий подарунковий сценарій: стильна подача, продуманий набір смаків і відчуття турботи з першого відкриття коробки. Такий формат зручно дарувати на день народження, свята, корпоративні події або як приємний жест без приводу.`,
           `Смакова добірка набору: ${product.flavor.toLowerCase()} (${product.composition.join(', ')}). Замовляйте набір із доставкою по Україні, щоб швидко підготувати доречний подарунок для близьких, друзів або колег.`,
         ]
-      : productType === 'cup'
+      : productType === 'marshmallow'
+        ? [
+            `${product.name} - це окремий десертний формат ChocoPix: мʼяке авторське маршмелоу з виразним смаком, який доречно виглядає в подарунковій коробці, на святковому столі або як солодкий комплімент до гарячих напоїв.`,
+            `Смаковий профіль ${product.name.toLowerCase()}: ${product.flavor.toLowerCase()} з нотами ${product.composition.slice(0, 3).join(', ')}. Обирайте цю позицію для себе або перегляньте інші варіанти в категорії маршмелоу.`,
+          ]
+        : productType === 'cup'
         ? [
             `${product.name} розрахована на щоденне використання: зручно тримати в руці, комфортно подавати гарячі напої та легко поєднувати з домашньою чи святковою сервіровкою. Формат підходить для какао, кави та чаю.`,
             `Акуратний дизайн чашки додає естетики подачі та робить ритуал напою приємнішим. Обирайте модель для себе або як практичний подарунок, щоб підкреслити стиль кухні чи робочого простору.`,
@@ -128,8 +156,10 @@ export default function ProductPage() {
             `Смаковий профіль ${product.name.toLowerCase()}: ${product.flavor.toLowerCase()} з нотами ${product.composition.slice(0, 3).join(', ')}. Замовляйте з доставкою по Україні та обирайте улюблені смаки для себе, родини або подарункового формату.`,
           ]
 
-  const categoryPath = productType === 'gift-set' ? '/gift-sets' : productType === 'cup' ? '/cups' : '/cacao-bombs'
-  const categoryLabel = productType === 'gift-set' ? 'Подарункові набори' : productType === 'cup' ? 'Чашки' : 'Шоколадні бомбочки'
+  const categoryPath =
+    productType === 'gift-set' ? '/gift-sets' : productType === 'marshmallow' ? '/marshmallow' : productType === 'cup' ? '/cups' : '/cacao-bombs'
+  const categoryLabel =
+    productType === 'gift-set' ? 'Подарункові набори' : productType === 'marshmallow' ? 'Маршмелоу' : productType === 'cup' ? 'Чашки' : 'Шоколадні бомбочки'
   const productUrl = buildAbsoluteUrl(`/product/${canonicalSlug}`)
   const primaryImageUrl = product.images[0]?.src
     ? toAbsoluteImageUrl(product.images[0].src)
@@ -162,15 +192,26 @@ export default function ProductPage() {
       availability: 'https://schema.org/InStock',
     },
   }
+  const compositionValue =
+    productType === 'marshmallow'
+      ? [
+          `Основа: ${marshmallowBaseComposition.join(', ')}`,
+          `Смак / добавки: ${product.composition.join(', ')}`,
+          `Додатково: ${marshmallowAdditionalComposition.join(', ')}`,
+        ].join('\n')
+      : product.composition.join(', ')
+
   const characteristics = [
     ...(productType !== 'cup'
       ? [
           {
             key: 'weight',
-            label: productType === 'gift-set' ? 'Вага набору' : 'Вага порції',
-            value: productType === 'gift-set' ? `~${product.weight} г` : '~30 г',
+            label: productType === 'marshmallow' ? 'Розмір кусочка' : productType === 'gift-set' ? 'Вага набору' : 'Вага порції',
+            value: productType === 'marshmallow' ? 'приблизно 50х50х50мм' : productType === 'gift-set' ? `~${product.weight} г` : '~30 г',
             details:
-              productType === 'gift-set'
+              productType === 'marshmallow'
+                ? 'Форма й розмір можуть трохи відрізнятися залежно від партії, але орієнтир для одного шматочка саме такий.'
+                : productType === 'gift-set'
                 ? 'Фактична вага набору може мати незначне технологічне відхилення.'
                 : 'Фактична вага порції може мати незначне технологічне відхилення.',
             Icon: Scale,
@@ -180,8 +221,11 @@ export default function ProductPage() {
     {
       key: 'shelf-life',
       label: 'Термін зберігання',
-      value: '2 міс',
-      details: 'Рекомендований термін за умови дотримання температурного режиму та герметичного пакування.',
+      value: productType === 'marshmallow' ? 'до 3 місяців' : '2 міс',
+      details:
+        productType === 'marshmallow'
+          ? 'За умови дотримання температурного режиму та герметичного пакування маршмелоу можна зберігати до 3 місяців.'
+          : 'Рекомендований термін за умови дотримання температурного режиму та герметичного пакування.',
       Icon: Clock3,
     },
     {
@@ -194,8 +238,17 @@ export default function ProductPage() {
     {
       key: 'composition',
       label: 'Склад',
-      value: product.composition.join(', '),
-      details: 'Склад може трохи відрізнятися залежно від партії та обраного смаку.',
+      value: compositionValue,
+      details:
+        productType === 'marshmallow'
+          ? [
+              'Цукор дає солодкість і структуру.',
+              'Глюкозний або інвертний сироп не дає цукру кристалізуватись і робить текстуру тягучою.',
+              'Желатин формує пружний каркас.',
+              'Вода потрібна для сиропу та набухання желатину.',
+              'Цукрова пудра та крохмаль допомагають, щоб маршмелоу не липло.',
+            ].join('\n')
+          : 'Склад може трохи відрізнятися залежно від партії та обраного смаку.',
       Icon: Leaf,
     },
     {
@@ -235,8 +288,11 @@ export default function ProductPage() {
           <div>
             <h1 className="font-display text-3xl sm:text-4xl">{seoH1}</h1>
             <p className="mt-4 text-base text-cocoa-900/72">{product.description}</p>
-            <div className="mt-6 flex items-center justify-between">
+            <div className="mt-6 flex items-center justify-between gap-4">
               <p className="text-3xl font-semibold">{formatPrice(product.price)}</p>
+              {productType === 'marshmallow' ? (
+                <p className="text-right text-sm font-medium uppercase tracking-[0.12em] text-[#d97aa6]">Мін заказ від 3 шт</p>
+              ) : null}
             </div>
             <div className="mt-6 flex flex-wrap gap-4">
               <Button
@@ -286,8 +342,8 @@ export default function ProductPage() {
                       </button>
                       {isExpanded ? (
                         <div className="mt-2 space-y-1 text-xs leading-5 text-[#7a6050]">
-                          <p className="font-medium text-[#6f4a31]">{item.value}</p>
-                          <p>{item.details}</p>
+                          <p className="whitespace-pre-line font-medium text-[#6f4a31]">{item.value}</p>
+                          <p className="whitespace-pre-line">{item.details}</p>
                         </div>
                       ) : null}
                     </div>
@@ -313,6 +369,13 @@ export default function ProductPage() {
                     <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочки з маршмелоу</Link>.
                   </>
                 )
+              : productType === 'marshmallow'
+                ? (
+                    <>
+                      {' '}Для поєднання з гарячим шоколадом перегляньте також{' '}
+                      <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочки</Link>.
+                    </>
+                  )
               : productType === 'cacao-bomb'
                 ? (
                     <>

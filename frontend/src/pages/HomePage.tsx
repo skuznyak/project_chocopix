@@ -80,6 +80,7 @@ export default function HomePage() {
       return aIsHeart - bIsHeart
     })
   const giftSetProducts = products.filter((p) => p.tags.includes('набори'))
+  const marshmallowProducts = products.filter((p) => p.category === 'marshmallow' || p.tags.includes('маршмелоу'))
   const promoProducts = products.filter((p) => p.badge === 'sale')
   const mobileHero = isServerRender ? (
     <div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />
@@ -207,18 +208,18 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
             >
-              <a href="#акції" className="absolute inset-0 z-10" aria-label="Перейти до секції акцій" />
+              <a href="#маршмелоу" className="absolute inset-0 z-10" aria-label="Перейти до секції маршмелоу" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
-                src="/images/shares.webp"
-                alt="Акції на шоколадні бомбочки ChocoPix"
+                src="/products/marshmallow/Marshmallow_ magic_ bread.webp"
+                alt="Маршмелоу Магічний Хліб ChocoPix"
                 loading="lazy"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
               <div className="absolute bottom-0 left-0 right-0 rounded-b-[32px] bg-black/40 p-6 backdrop-blur-sm">
-                <h3 className="font-display text-3xl font-semibold text-white">Акції</h3>
-                <p className="mt-2 text-sm text-white">Вигідні пропозиції</p>
+                <h3 className="font-display text-3xl font-semibold text-white">Маршмелоу</h3>
+                <p className="mt-2 text-sm text-white">Авторські смаки</p>
               </div>
             </motion.div>
           </div>
@@ -272,12 +273,32 @@ export default function HomePage() {
                 Готові подарункові набори з кількох смаків. Чудовий вибір для свята або щоб порадувати близьких.
               </p>
             </div>
+            <a href="#маршмелоу" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
+              До маршмелоу →
+            </a>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {giftSetProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        <section id="маршмелоу" className="scroll-mt-24 py-12">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Авторське</p>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Маршмелоу</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+                Усі смаки авторського маршмелоу в одному блоці: ягідні, цитрусові, шоколадні та святкові десертні поєднання.
+              </p>
+            </div>
             <a href="#акції" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
               До акцій →
             </a>
           </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {giftSetProducts.map((product) => (
+            {marshmallowProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>

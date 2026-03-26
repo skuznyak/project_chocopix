@@ -11,6 +11,7 @@ const baseRoutes = [
   '/',
   '/404',
   '/cacao-bombs',
+  '/marshmallow',
   '/gift-sets',
   '/promotions',
   '/contacts',

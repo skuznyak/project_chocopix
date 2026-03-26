@@ -8,6 +8,7 @@ const CartPage = lazy(() => import('@/pages/CartPage'))
 const CheckoutPage = lazy(() => import('@/pages/CheckoutPage'))
 const OrderSuccessPage = lazy(() => import('@/pages/OrderSuccessPage'))
 const CacaoBombsPage = lazy(() => import('@/pages/CacaoBombsPage'))
+const MarshmallowPage = lazy(() => import('@/pages/MarshmallowPage'))
 const GiftSetsPage = lazy(() => import('@/pages/GiftSetsPage'))
 const PromotionsPage = lazy(() => import('@/pages/PromotionsPage'))
 const ContactsPage = lazy(() => import('@/pages/ContactsPage'))
@@ -24,6 +25,7 @@ export const App = () => (
         <Route path="/order-success" element={<OrderSuccessPage />} />
         <Route path="/cups" element={<Navigate to="/cacao-bombs" replace />} />
         <Route path="/cacao-bombs" element={<CacaoBombsPage />} />
+        <Route path="/marshmallow" element={<MarshmallowPage />} />
         <Route path="/gift-sets" element={<GiftSetsPage />} />
         <Route path="/promotions" element={<PromotionsPage />} />
         <Route path="/contacts" element={<ContactsPage />} />

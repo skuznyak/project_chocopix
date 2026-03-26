@@ -7,6 +7,7 @@ import { useCartStore } from '@/store/cartStore'
 const navItems = [
   { label: 'Головна', to: '/' },
   { label: 'Бомбочки', to: '/cacao-bombs' },
+  { label: 'Маршмелоу', to: '/marshmallow' },
   { label: 'Набори', to: '/gift-sets' },
   { label: 'Акції', to: '/promotions', isPromo: true },
   { label: 'Контакти', to: '/contacts' },

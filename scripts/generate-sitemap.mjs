@@ -5,6 +5,7 @@ import { productsCatalog } from '../shared/dist/catalog/products.js'
 const baseUrls = [
   'https://chocopix.store/',
   'https://chocopix.store/cacao-bombs',
+  'https://chocopix.store/marshmallow',
   'https://chocopix.store/gift-sets',
   'https://chocopix.store/promotions',
   'https://chocopix.store/contacts',

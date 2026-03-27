@@ -5,7 +5,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Helmet>
-        <title>404 — Сторінку не знайдено | ChocoPix</title>
+        <title>404 - Сторінку не знайдено | ChocoPix</title>
         <meta
           name="description"
           content="Сторінку не знайдено. Поверніться на головну або відкрийте каталог какао бомбочок."

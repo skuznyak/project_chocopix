@@ -49,6 +49,10 @@ export default function GiftSetsPage() {
             <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">
               категорію шоколадних бомбочок
             </Link>
+            , а для мʼякого десертного доповнення до боксу відкрийте{' '}
+            <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
+              маршмелоу ручної роботи
+            </Link>
             .
           </p>
         </div>
@@ -62,7 +66,11 @@ export default function GiftSetsPage() {
         <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
           <p>
             Якщо потрібен солодкий подарунок без зайвого вибору, подарунковий набір з шоколаду закриває одразу кілька сценаріїв: день народження,
-            свята, комплімент дівчині або затишний вечір удома з готовим асорті смаків.
+            свята, комплімент дівчині або затишний вечір удома з готовим асорті смаків. Окремі смаки{' '}
+            <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
+              маршмелоу до подарунка
+            </Link>{' '}
+            теж легко додати до замовлення.
           </p>
         </div>
       </div>

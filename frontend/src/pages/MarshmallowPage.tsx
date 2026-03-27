@@ -32,7 +32,7 @@ export default function MarshmallowPage() {
   const marshmallowProducts = products.filter((product) => product.category === 'marshmallow' || product.tags.includes('маршмелоу'))
   const featuredProducts = marshmallowProducts.slice(0, 3)
   const categoryUrl = buildAbsoluteUrl('/marshmallow')
-  const categoryTitle = 'Маршмелоу купити — крафтове для какао та подарунків | ChocoPix'
+  const categoryTitle = 'Маршмелоу купити - крафтове для какао та подарунків | ChocoPix'
   const categoryDescription =
     'Крафтове маршмелоу ручної роботи для какао, подарунків і десертів. Купити маршмелоу від ChocoPix з доставкою по Україні.'
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -110,9 +110,7 @@ export default function MarshmallowPage() {
             <p>
               Якщо хочете зібрати теплий солодкий комплект, поєднуйте маршмелоу з{' '}
               <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочками</Link> або додавайте до{' '}
-              <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарункових наборів</Link>. Якщо потрібна допомога з
-              вибором смаку чи замовленням, перейдіть у{' '}
-              <Link to="/contacts" className="font-semibold underline underline-offset-4">контакти</Link>.
+              <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарункових наборів</Link>.
             </p>
           </div>
         </section>
@@ -147,25 +145,6 @@ export default function MarshmallowPage() {
               <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">категорії какао бомбочок</Link>, а для готового
               подарунка перегляньте{' '}
               <Link to="/gift-sets" className="font-semibold underline underline-offset-4">набори ChocoPix</Link>.
-            </p>
-          </div>
-        </section>
-
-        <section className="mt-10 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Замовлення</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#4c1d11]">
-            Маршмелоу для какао, подарункових наборів і десертів
-          </h2>
-          <div className="mt-4 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
-            <p>
-              Маршмелоу з цієї категорії зручно замовляти для домашнього какао, кавових пауз, солодких боксів або як маленький подарунок без
-              зайвого перевантаження великим набором. Смаки відрізняються за настроєм: є ягідні, шоколадні, святкові та авторські варіанти.
-            </p>
-            <p>
-              Якщо шукаєте вигідну добірку, перевірте{' '}
-              <Link to="/promotions" className="font-semibold underline underline-offset-4">акції</Link>. Якщо потрібен персональний підбір під
-              подарунок чи сезонний набір, напишіть через{' '}
-              <Link to="/contacts" className="font-semibold underline underline-offset-4">сторінку контактів</Link>.
             </p>
           </div>
         </section>

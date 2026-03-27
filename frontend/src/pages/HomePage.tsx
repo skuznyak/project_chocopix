@@ -47,9 +47,9 @@ const faqs = [
   { question: 'Як зберігати?', answer: 'У сухому прохолодному місці при температурі до 20°C.' },
   { question: 'Скільки зберігаються?', answer: 'До 2-х місяців.' },
   { question: 'Коли відправки?', answer: '1-3 дні. Виготовляємо щодня, щоб все було свіжим!' },
-  { question: 'Чи можна змінити вміст набору?', answer: 'Готові набори не змінюються — тільки ті варіанти, що є на сайті. Але ви можете створити власний набір, обравши різні смаки бомбочок окремо.' },
+  { question: 'Чи можна змінити вміст набору?', answer: 'Готові набори не змінюються - тільки ті варіанти, що є на сайті. Але ви можете створити власний набір, обравши різні смаки бомбочок окремо.' },
   { question: 'Яка доставка?', answer: 'Нова Пошта, відділення, поштомат або курʼєр.' },
-  { question: 'Як оплатити?', answer: 'Оплата при отриманні або на карту. При оплаті на карту — дешевша доставка.' },
+  { question: 'Як оплатити?', answer: 'Оплата при отриманні або на карту. При оплаті на карту - дешевша доставка.' },
   { question: 'Чи можна дітям?', answer: 'Так, але зважайте на індивідуальні алергії та вміст цукру.' },
 ]
 
@@ -100,12 +100,12 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Шоколадні бомбочки з маршмелоу — ChocoPix</title>
+        <title>Шоколадні бомбочки з маршмелоу - ChocoPix</title>
         <meta
           name="description"
           content="Купити шоколадні бомбочки та какао бомбочки з маршмелоу. Ручна робота, подарункові набори та доставка по Україні."
         />
-        <meta property="og:title" content="Шоколадні бомбочки з маршмелоу — ChocoPix" />
+        <meta property="og:title" content="Шоколадні бомбочки з маршмелоу - ChocoPix" />
         <meta
           property="og:description"
           content="Купити шоколадні бомбочки та какао бомбочки з маршмелоу. Ручна робота, подарункові набори та доставка по Україні."
@@ -131,8 +131,8 @@ export default function HomePage() {
             <div className="mt-6 lg:hidden">
               {mobileHero}
             </div>
-            <p className="mt-8 max-w-xl text-[19px] leading-10 text-[#8a5d3c]">
-              Відчуйте справжній вибух смаку! Просто покладіть шоколадну бомбочку в чашку, залийте гарячим молоком і спостерігайте, як народжується диво.
+            <p className="mt-4 max-w-xl text-[17px] leading-8 text-[#8a5d3c]">
+              Какао бомбочки з маршмелоу - це десерт, який перетворює звичайне какао на емоцію. Ідеально для подарунка або затишного вечора.
             </p>
             <div className="mt-10 flex flex-wrap gap-4">
               <a href="#bombочки">
@@ -208,7 +208,7 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.2, ease: 'easeOut' }}
             >
-              <a href="#маршмелоу" className="absolute inset-0 z-10" aria-label="Перейти до секції маршмелоу" />
+              <Link to="/marshmallow" className="absolute inset-0 z-10" aria-label="Перейти до сторінки маршмелоу" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/products/marshmallow/Marshmallow_ magic_ bread.webp"
@@ -249,7 +249,14 @@ export default function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Каталог</p>
               <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Бомбочки</h2>
               <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
-                Шоколадні бомбочки з маршмелоу — вибух смаку у вашій чашці. Просто киньте в гаряче молоко і насолоджуйтесь!
+                Шоколадні бомбочки з маршмелоу - вибух смаку у вашій чашці. Просто киньте в гаряче молоко і насолоджуйтесь!
+              </p>
+              <p className="mt-3 max-w-xl text-base text-[#8a5d3c]">
+                Для ще ніжнішої подачі до напою спробуйте{' '}
+                <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
+                  маршмелоу для какао
+                </Link>
+                .
               </p>
             </div>
             <a href="#набори" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
@@ -272,6 +279,13 @@ export default function HomePage() {
               <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
                 Готові подарункові набори з кількох смаків. Чудовий вибір для свята або щоб порадувати близьких.
               </p>
+              <p className="mt-3 max-w-xl text-base text-[#8a5d3c]">
+                А якщо хочете доповнити солодкий бокс, перегляньте{' '}
+                <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
+                  маршмелоу до подарунка
+                </Link>
+                .
+              </p>
             </div>
             <a href="#маршмелоу" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
               До маршмелоу →
@@ -291,6 +305,13 @@ export default function HomePage() {
               <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Маршмелоу</h2>
               <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
                 Усі смаки авторського маршмелоу в одному блоці: ягідні, цитрусові, шоколадні та святкові десертні поєднання.
+              </p>
+              <p className="mt-3 max-w-xl text-base text-[#8a5d3c]">
+                Відкрийте повну категорію з усіма смаками{' '}
+                <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
+                  крафтового маршмелоу
+                </Link>
+                .
               </p>
             </div>
             <a href="#акції" className="hidden text-sm font-semibold uppercase tracking-[0.14em] text-cocoa-900/70 transition hover:text-cocoa-900 lg:block">
@@ -327,7 +348,7 @@ export default function HomePage() {
 
         <section className="rounded-[30px] bg-gradient-to-b from-[#fff9ef] via-[#f7ead6] to-[#efdbc2] p-7 shadow-[0_16px_36px_rgba(90,53,25,0.09)] sm:p-10">
           <h2 className="font-display text-4xl font-semibold tracking-[-0.03em] text-[#4c1d11] sm:text-5xl">
-            Какао бомбочки з маршмелоу — ідеальний подарунок та затишок вдома
+            Какао бомбочки з маршмелоу - ідеальний подарунок та затишок вдома
           </h2>
           <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
             <p>
@@ -353,7 +374,8 @@ export default function HomePage() {
           </ul>
           <p className="mt-6 text-[17px] leading-8 text-[#6f4a31]">
             Перейдіть у <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">категорію шоколадних бомбочок</Link>, щоб обрати окремі смаки, або перегляньте
-            <Link to="/gift-sets" className="ml-1 font-semibold underline underline-offset-4">подарункові набори</Link> для свят і замовлень з доставкою по Україні.
+            <Link to="/gift-sets" className="ml-1 font-semibold underline underline-offset-4">подарункові набори</Link> для свят і замовлень з доставкою по Україні. Для десертного доповнення окремо зібрали також{' '}
+            <Link to="/marshmallow" className="font-semibold underline underline-offset-4">маршмелоу ручної роботи</Link>.
           </p>
         </section>
 

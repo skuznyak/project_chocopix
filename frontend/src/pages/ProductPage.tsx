@@ -380,10 +380,19 @@ export default function ProductPage() {
                 ? (
                     <>
                       {' '}Для подарункового формату перейдіть у{' '}
-                      <Link to="/gift-sets" className="font-semibold underline underline-offset-4">набори</Link>.
+                      <Link to="/gift-sets" className="font-semibold underline underline-offset-4">набори</Link>. Якщо хочете більше начинки до гарячого какао, окремо перегляньте{' '}
+                      <Link to="/marshmallow" className="font-semibold underline underline-offset-4">маршмелоу для какао</Link>.
                     </>
                   )
-                : null}
+              : null}
+            {productType === 'gift-set'
+              ? (
+                  <>
+                    {' '}До такого набору також пасує{' '}
+                    <Link to="/marshmallow" className="font-semibold underline underline-offset-4">авторське маршмелоу</Link>.
+                  </>
+                )
+              : null}
           </p>
         </section>
 

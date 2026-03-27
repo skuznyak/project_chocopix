@@ -6,12 +6,12 @@ export default function CupsPage() {
   return (
     <>
       <Helmet>
-        <title>Чашки для какао — ChocoPix</title>
+        <title>Чашки для какао - ChocoPix</title>
         <meta
           name="description"
           content="Стильні чашки для какао-бомбочок. Ідеальне доповнення до ваших улюблених бомбочок."
         />
-        <meta property="og:title" content="Чашки для какао — ChocoPix" />
+        <meta property="og:title" content="Чашки для какао - ChocoPix" />
         <meta
           property="og:description"
           content="Стильні чашки для какао-бомбочок. Ідеальне доповнення до ваших улюблених бомбочок."

@@ -9,7 +9,7 @@ export default {
           100: '#f5e6d3',
           500: '#7a4b2e',
           700: '#52240d',
-          900: '#3d1c02',
+          900: '#3D2616',
         },
         gold: '#d4a017',
         cream: '#fff8ef',
@@ -18,6 +18,8 @@ export default {
         display: ['"Cormorant Garamond"', 'serif'],
         script: ['"Cormorant Garamond"', 'serif'],
         body: ['Manrope', 'sans-serif'],
+        heroDisplay: ['"Playfair Display"', 'serif'],
+        heroBody: ['Inter', 'sans-serif'],
       },
       boxShadow: {
         soft: '0 20px 45px rgba(61, 28, 2, 0.12)',

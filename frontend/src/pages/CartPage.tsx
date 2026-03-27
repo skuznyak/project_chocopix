@@ -25,8 +25,8 @@ export default function CartPage() {
         <meta name="robots" content="noindex,follow" />
       </Helmet>
       <section className="mx-auto max-w-3xl px-4 py-16 text-center sm:px-6 lg:px-8">
-        <h1 className="font-display text-4xl font-semibold tracking-[-0.04em] text-[#4c1d11] sm:text-5xl">Кошик</h1>
-        <p className="mt-4 text-lg leading-8 text-[#6f4a31]">
+        <h1 className="font-display text-4xl font-semibold tracking-[-0.04em] text-[#3D2616] sm:text-5xl">Кошик</h1>
+        <p className="mt-4 text-lg leading-8 text-[#3D2616]">
           Кошик ChocoPix відкривається у бічній панелі. Поверніться до каталогу, щоб додати товари, або переходьте до оформлення замовлення.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-4">

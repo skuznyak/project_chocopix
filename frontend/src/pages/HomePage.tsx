@@ -1,17 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
-import { ArrowRight, CircleDashed, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
-import { lazy, Suspense, useState } from 'react'
+import { CircleDashed, Gift, HandHeart, Leaf, Milk, Soup, Sparkles, Truck } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { ProductCard } from '@/components/product/ProductCard'
-import { Button } from '@/components/ui/Button'
-import { CallbackModal } from '@/components/layout/CallbackModal'
+import { PremiumHero } from '@/components/home/PremiumHero'
 import { useProducts } from '@/hooks/useProducts'
 import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
-
-const HeroBomb = lazy(() =>
-  import('@/components/3d/HeroBomb').then((module) => ({ default: module.HeroBomb })),
-)
 
 const uspItems = [
   { icon: HandHeart, title: 'Ручна робота', text: 'Кожна бомбочка відливається вручну невеликими партіями.' },
@@ -55,8 +49,6 @@ const faqs = [
 
 export default function HomePage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
-  const [isCallbackOpen, setIsCallbackOpen] = useState(false)
-  const isServerRender = import.meta.env.SSR
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -82,20 +74,6 @@ export default function HomePage() {
   const giftSetProducts = products.filter((p) => p.tags.includes('набори'))
   const marshmallowProducts = products.filter((p) => p.category === 'marshmallow' || p.tags.includes('маршмелоу'))
   const promoProducts = products.filter((p) => p.badge === 'sale')
-  const mobileHero = isServerRender ? (
-    <div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />
-  ) : (
-    <Suspense fallback={<div className="h-[430px] w-full rounded-[32px] bg-[#f1e3ce]" />}>
-      <HeroBomb />
-    </Suspense>
-  )
-  const desktopHero = isServerRender ? (
-    <div className="h-[620px] w-full rounded-[42px] bg-[#f1e3ce]" />
-  ) : (
-    <Suspense fallback={<div className="h-[620px] w-full rounded-[42px] bg-[#f1e3ce]" />}>
-      <HeroBomb />
-    </Suspense>
-  )
 
   return (
     <>
@@ -118,41 +96,7 @@ export default function HomePage() {
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <section className="grid gap-10 py-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:py-14">
-          <div>
-            <div className="inline-flex rounded-full bg-[#ead7b8] px-6 py-2.5 text-base font-semibold uppercase tracking-[0.22em] text-[#9a6435]">
-              Новинка 2026
-            </div>
-            <h1 className="mt-8 max-w-2xl font-display text-[78px] font-semibold leading-[0.82] tracking-[-0.05em] text-[#4c1d11] sm:text-[96px] xl:text-[108px]">
-              Какао
-              <br />
-              <span className="font-script text-[#d29b60] italic">бомбочки з маршмелоу</span>
-            </h1>
-            <div className="mt-6 lg:hidden">
-              {mobileHero}
-            </div>
-            <p className="mt-4 max-w-xl text-[17px] leading-8 text-[#8a5d3c]">
-              Какао бомбочки з маршмелоу - це десерт, який перетворює звичайне какао на емоцію. Ідеально для подарунка або затишного вечора.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#bombочки">
-                <Button className="min-h-16 rounded-[22px] bg-[#8c5328] px-9 text-[19px] font-extrabold shadow-[0_18px_40px_rgba(91,28,2,0.18)] hover:bg-[#74411f]">
-                  Спробувати зараз <ArrowRight className="ml-3" size={22} />
-                </Button>
-              </a>
-              <Button
-                variant="ghost"
-                onClick={() => setIsCallbackOpen(true)}
-                className="flex min-h-16 items-center gap-2 rounded-[22px] border border-[#a4693f] bg-transparent px-9 text-[19px] font-extrabold text-[#c78f59] transition hover:bg-[#EAD7B8] hover:text-[#c78f59]"
-              >
-                Хочу солодкого
-              </Button>
-            </div>
-          </div>
-          <div className="hidden lg:block">
-            {desktopHero}
-          </div>
-        </section>
+        <PremiumHero />
 
         {/* Category Navigation Blocks */}
         <section className="py-8">
@@ -236,7 +180,7 @@ export default function HomePage() {
               transition={{ delay: index * 0.08 }}
             >
               <item.icon size={30} className="text-[#c78f59]" />
-              <h2 className="mt-4 font-display text-[2.05rem] font-semibold leading-[1.08] text-[#4c1d11]">{item.title}</h2>
+              <h2 className="mt-4 font-display text-[2.05rem] font-semibold leading-[1.08] text-[#3D2616]">{item.title}</h2>
               <p className="mt-3 text-base text-[#805339]">{item.text}</p>
             </motion.article>
           ))}
@@ -247,11 +191,11 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Каталог</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Бомбочки</h2>
-              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Бомбочки</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
                 Шоколадні бомбочки з маршмелоу - вибух смаку у вашій чашці. Просто киньте в гаряче молоко і насолоджуйтесь!
               </p>
-              <p className="mt-3 max-w-xl text-base text-[#8a5d3c]">
+              <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 Для ще ніжнішої подачі до напою спробуйте{' '}
                 <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
                   маршмелоу для какао
@@ -275,11 +219,11 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Подарунки</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Набори</h2>
-              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Набори</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
                 Готові подарункові набори з кількох смаків. Чудовий вибір для свята або щоб порадувати близьких.
               </p>
-              <p className="mt-3 max-w-xl text-base text-[#8a5d3c]">
+              <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 А якщо хочете доповнити солодкий бокс, перегляньте{' '}
                 <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
                   маршмелоу до подарунка
@@ -302,11 +246,11 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Авторське</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Маршмелоу</h2>
-              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Маршмелоу</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
                 Усі смаки авторського маршмелоу в одному блоці: ягідні, цитрусові, шоколадні та святкові десертні поєднання.
               </p>
-              <p className="mt-3 max-w-xl text-base text-[#8a5d3c]">
+              <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 Відкрийте повну категорію з усіма смаками{' '}
                 <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
                   крафтового маршмелоу
@@ -330,8 +274,8 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Аксесуари</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Акції</h2>
-              <p className="mt-3 max-w-xl text-lg text-[#8a5d3c]">
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Акції</h2>
+              <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
                 Спеціальні пропозиції, знижки та вигідні добірки для ваших улюблених смаків. Обирайте найкращу акцію для себе.
               </p>
             </div>
@@ -347,10 +291,10 @@ export default function HomePage() {
         </section>
 
         <section className="rounded-[30px] bg-gradient-to-b from-[#fff9ef] via-[#f7ead6] to-[#efdbc2] p-7 shadow-[0_16px_36px_rgba(90,53,25,0.09)] sm:p-10">
-          <h2 className="font-display text-4xl font-semibold tracking-[-0.03em] text-[#4c1d11] sm:text-5xl">
+          <h2 className="font-display text-4xl font-semibold tracking-[-0.03em] text-[#3D2616] sm:text-5xl">
             Какао бомбочки з маршмелоу - ідеальний подарунок та затишок вдома
           </h2>
-          <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+          <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#3D2616]">
             <p>
               Какао бомбочки з маршмелоу давно стали улюбленим ритуалом для холодного сезону та приємних домашніх вечорів. Коли шоколадна сфера
               потрапляє в гаряче молоко, вона поступово розкривається, а всередині з&apos;являються ніжні маршмелоу і насичений какао-аромат. Саме
@@ -363,16 +307,16 @@ export default function HomePage() {
             </p>
           </div>
 
-          <h3 className="mt-8 font-display text-3xl font-semibold tracking-[-0.02em] text-[#4c1d11]">
+          <h3 className="mt-8 font-display text-3xl font-semibold tracking-[-0.02em] text-[#3D2616]">
             Чому варто обрати наші какао бомбочки?
           </h3>
-          <ul className="mt-4 list-disc space-y-2 pl-6 text-[17px] leading-8 text-[#6f4a31] marker:text-[#9f6638]">
+          <ul className="mt-4 list-disc space-y-2 pl-6 text-[17px] leading-8 text-[#3D2616] marker:text-[#9f6638]">
             <li>Натуральний шоколад високої якості з приємним збалансованим смаком.</li>
             <li>Ніжні маршмелоу всередині, які красиво розкриваються у гарячому молоці.</li>
             <li>Формат, що ідеально підходить для подарунка та створює WOW-ефект.</li>
             <li>Швидка доставка по Україні та акуратне пакування замовлення.</li>
           </ul>
-          <p className="mt-6 text-[17px] leading-8 text-[#6f4a31]">
+          <p className="mt-6 text-[17px] leading-8 text-[#3D2616]">
             Перейдіть у <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">категорію шоколадних бомбочок</Link>, щоб обрати окремі смаки, або перегляньте
             <Link to="/gift-sets" className="ml-1 font-semibold underline underline-offset-4">подарункові набори</Link> для свят і замовлень з доставкою по Україні. Для десертного доповнення окремо зібрали також{' '}
             <Link to="/marshmallow" className="font-semibold underline underline-offset-4">маршмелоу ручної роботи</Link>.
@@ -431,7 +375,6 @@ export default function HomePage() {
           </div>
         </section>
       </div>
-      <CallbackModal isOpen={isCallbackOpen} onClose={() => setIsCallbackOpen(false)} />
     </>
   )
 }

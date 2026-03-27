@@ -23,7 +23,7 @@ export const CartItemRow = ({
     <div className="min-w-0 flex-1">
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
-          <h3 className="line-clamp-2 text-[15px] font-semibold leading-5 text-[#5f3925]">{product.name}</h3>
+          <h3 className="line-clamp-2 text-[15px] font-semibold leading-5 text-[#3D2616]">{product.name}</h3>
         </div>
         <Button variant="ghost" onClick={onRemove} aria-label="Видалити товар" className="min-h-8 rounded-full p-2">
           <Trash2 size={16} />
@@ -31,15 +31,15 @@ export const CartItemRow = ({
       </div>
       <div className="mt-3 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 rounded-[12px] bg-[#f2e9da] px-2 py-1.5">
-          <button type="button" onClick={onDecrease} className="rounded-[8px] bg-[#fffaf2] p-1 text-[#6a4331]">
+          <button type="button" onClick={onDecrease} className="rounded-[8px] bg-[#fffaf2] p-1 text-[#3D2616]">
             <Minus size={16} />
           </button>
-          <span className="min-w-5 text-center text-sm font-semibold text-[#5f3925]">{quantity}</span>
-          <button type="button" onClick={onIncrease} className="rounded-[8px] bg-[#fffaf2] p-1 text-[#6a4331]">
+          <span className="min-w-5 text-center text-sm font-semibold text-[#3D2616]">{quantity}</span>
+          <button type="button" onClick={onIncrease} className="rounded-[8px] bg-[#fffaf2] p-1 text-[#3D2616]">
             <Plus size={16} />
           </button>
         </div>
-        <p className="whitespace-nowrap text-sm font-bold text-[#5f3925]">{formatPrice(product.price * quantity)}</p>
+        <p className="whitespace-nowrap text-sm font-bold text-[#3D2616]">{formatPrice(product.price * quantity)}</p>
       </div>
     </div>
   </article>

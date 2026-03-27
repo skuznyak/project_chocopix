@@ -3,9 +3,10 @@
 @tailwind utilities;
 
 :root {
-  color: #4f2413;
+  color: #3D2616;
   background: #f4eddc;
   font-family: Manrope, sans-serif;
+  --brand-text: #3D2616;
 }
 
 html {
@@ -16,9 +17,24 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  color: var(--brand-text);
   background:
     radial-gradient(circle at top right, rgba(215, 170, 106, 0.14), transparent 24%),
     linear-gradient(180deg, #f4eddc 0%, #efe3cf 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+summary {
+  color: var(--brand-text);
+}
+
+header nav a,
+[data-brand-logo='true'] {
+  color: var(--brand-text);
 }
 
 * {

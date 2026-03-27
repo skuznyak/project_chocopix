@@ -317,7 +317,7 @@ export default function ProductPage() {
               </Button>
             </div>
             <div className="mt-6 w-full max-w-[460px] rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4]/90 p-4 shadow-soft">
-              <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#4c1d11]">Характеристики</h2>
+              <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Характеристики</h2>
               <div className="mt-3 space-y-2 text-sm text-[#5f3925]">
                 {characteristics.map((item) => {
                   const isExpanded = expandedCharacteristic === item.key
@@ -342,7 +342,7 @@ export default function ProductPage() {
                       </button>
                       {isExpanded ? (
                         <div className="mt-2 space-y-1 text-xs leading-5 text-[#7a6050]">
-                          <p className="whitespace-pre-line font-medium text-[#6f4a31]">{item.value}</p>
+                          <p className="whitespace-pre-line font-medium text-[#3D2616]">{item.value}</p>
                           <p className="whitespace-pre-line">{item.details}</p>
                         </div>
                       ) : null}

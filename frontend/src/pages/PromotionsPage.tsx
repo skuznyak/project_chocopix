@@ -28,8 +28,8 @@ export default function PromotionsPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Акції</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Спеціальні пропозиції</h1>
-        <div className="mt-4 max-w-3xl space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Спеціальні пропозиції</h1>
+        <div className="mt-4 max-w-3xl space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
             На цій сторінці зібрані лише акційні пропозиції: знижки на окремі позиції, сезонні спецпропозиції та вигідні набори. Асортимент
             оновлюється, тому варто періодично перевіряти добірку.

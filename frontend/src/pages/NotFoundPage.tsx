@@ -15,8 +15,8 @@ export default function NotFoundPage() {
 
       <section className="mx-auto flex min-h-[55vh] max-w-7xl flex-col items-start justify-center px-4 py-14 sm:px-6 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Помилка 404</p>
-        <h1 className="mt-4 font-display text-5xl font-semibold tracking-[-0.04em] text-[#4c1d11] sm:text-6xl">Сторінку не знайдено</h1>
-        <p className="mt-5 max-w-xl text-lg leading-8 text-[#6f4a31]">
+        <h1 className="mt-4 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616] sm:text-6xl">Сторінку не знайдено</h1>
+        <p className="mt-5 max-w-xl text-lg leading-8 text-[#3D2616]">
           Можливо, посилання застаріло або URL введено з помилкою. Перейдіть на головну або відкрийте категорію какао бомбочок.
         </p>
         <div className="mt-8 flex flex-wrap gap-4">

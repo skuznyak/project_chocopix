@@ -146,8 +146,8 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
     >
       <section>
         <div className="mb-5 flex items-center gap-3 sm:gap-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#6a4331] sm:h-10 sm:w-10 sm:text-lg">1</div>
-          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Контактні дані</h2>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#3D2616] sm:h-10 sm:w-10 sm:text-lg">1</div>
+          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#3D2616] sm:text-[36px]">Контактні дані</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <Input label="Ім'я та прізвище" placeholder="Олена Петренко" error={errors.fullName?.message} {...register('fullName')} />
@@ -158,11 +158,11 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
 
       <section>
         <div className="mb-5 mt-6 flex items-center gap-3 sm:gap-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#6a4331] sm:h-10 sm:w-10 sm:text-lg">2</div>
-          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Спосіб доставки</h2>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#3D2616] sm:h-10 sm:w-10 sm:text-lg">2</div>
+          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#3D2616] sm:text-[36px]">Спосіб доставки</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#d8c2b0] bg-[#fbf5ea] px-4 py-8 text-center text-[#6b4331] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
+          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#d8c2b0] bg-[#fbf5ea] px-4 py-8 text-center text-[#3D2616] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
             <input
               type="radio"
               className="sr-only"
@@ -174,7 +174,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
             <Truck size={48} className="mb-3 text-[#7d4a37]" />
             <span className="mt-3 text-sm font-bold uppercase">Нова Пошта</span>
           </label>
-          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#eadfcb] bg-[#fbf5ea] px-4 py-8 text-center text-[#6b4331] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
+          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#eadfcb] bg-[#fbf5ea] px-4 py-8 text-center text-[#3D2616] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
             <input
               type="radio"
               className="sr-only"
@@ -259,11 +259,11 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
 
       <section>
         <div className="mb-5 mt-6 flex items-center gap-3 sm:gap-4">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#6a4331] sm:h-10 sm:w-10 sm:text-lg">3</div>
-          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#5e3926] sm:text-[36px]">Оплата</h2>
+          <div className="flex h-9 w-9 items-center justify-center rounded-full border border-[#a98a74] text-base font-bold text-[#3D2616] sm:h-10 sm:w-10 sm:text-lg">3</div>
+          <h2 className="text-[28px] font-medium tracking-[-0.04em] text-[#3D2616] sm:text-[36px]">Оплата</h2>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
-          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#eadfcb] bg-[#fbf5ea] px-4 py-6 text-center text-[#6b4331] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
+          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#eadfcb] bg-[#fbf5ea] px-4 py-6 text-center text-[#3D2616] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
             <input
               type="radio"
               className="sr-only"
@@ -274,7 +274,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
             <Wallet size={32} className="mb-2 text-[#7d4a37]" />
             <span className="text-xs font-bold uppercase">Переказ на картку</span>
           </label>
-          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#d8c2b0] bg-[#fbf5ea] px-4 py-6 text-center text-[#6b4331] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
+          <label className="flex cursor-pointer flex-col items-center justify-center rounded-[22px] border border-[#d8c2b0] bg-[#fbf5ea] px-4 py-6 text-center text-[#3D2616] shadow-sm transition hover:border-[#7d4a37] hover:bg-[#f5ebe0] has-[:checked]:border-[#7d4a37] has-[:checked]:bg-[#f0e4d4]">
             <input
               type="radio"
               className="sr-only"
@@ -288,7 +288,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
         </div>
         {(watchedPaymentMethod === 'cod' || watchedPaymentMethod === 'card-transfer') && (
           <div className="mt-6 rounded-[24px] border border-[#eadfcb] bg-[#fbf5ea]/70 p-5">
-            <p className="text-sm font-semibold text-[#5f3925]">Як з вами зв'язатися?</p>
+            <p className="text-sm font-semibold text-[#3D2616]">Як з вами зв'язатися?</p>
             <div className="mt-4 space-y-3">
               {watchedPaymentMethod === 'cod' && (
                 <label className="flex cursor-pointer items-center gap-3">
@@ -302,7 +302,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                     <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                   </div>
                   <PhoneOff size={20} className="text-[#7d4a37]" />
-                  <span className="text-sm text-[#5f3925]">Не дзвонити мені</span>
+                  <span className="text-sm text-[#3D2616]">Не дзвонити мені</span>
                 </label>
               )}
               <label className="flex cursor-pointer items-center gap-3">
@@ -316,7 +316,7 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                   <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                 </div>
                 <MessageCircle size={20} className="text-[#7d4a37]" />
-                <span className="text-sm text-[#5f3925]">
+                <span className="text-sm text-[#3D2616]">
                   {watchedPaymentMethod === 'card-transfer'
                     ? 'Надіслати реквізити для оплати в месенджер (Viber / Telegram / WhatsApp)'
                     : 'Написати в месенджер (Viber / Telegram / WhatsApp)'}
@@ -333,14 +333,14 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
                   <div className="relative flex h-6 w-6 items-center justify-center rounded-[8px] border-2 border-[#c79263] bg-[#f5f5f5] transition-all peer-checked:border-[#8c5328] peer-checked:bg-[#8c5328] after:absolute after:h-2.5 after:w-1.5 after:-translate-y-px after:rotate-45 after:border-b-[2.5px] after:border-r-[2.5px] after:border-white after:opacity-0 after:transition-opacity peer-checked:after:opacity-100 after:content-['']" />
                 </div>
                 <Phone size={20} className="text-[#7d4a37]" />
-                <span className="text-sm text-[#5f3925]">Подзвонити мені</span>
+                <span className="text-sm text-[#3D2616]">Подзвонити мені</span>
               </label>
             </div>
             {contactError && (
               <p className="mt-3 text-sm text-rose-600 font-medium">{contactError}</p>
             )}
             <div className="mt-5">
-              <label className="block text-sm font-semibold text-[#5f3925]">Коментар до замовлення</label>
+              <label className="block text-sm font-semibold text-[#3D2616]">Коментар до замовлення</label>
               <textarea
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}

@@ -76,8 +76,8 @@ export default function CacaoBombsPage() {
           <Link to="/">Головна</Link> / <span>Шоколадні бомбочки</span>
         </nav>
         <p className="mt-3 text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Шоколадні бомбочки з маршмелоу</h1>
-        <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Шоколадні бомбочки з маршмелоу</h1>
+        <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
             Шоколадні бомбочки з маршмелоу - це зручний спосіб приготувати ароматний гарячий шоколад вдома. Достатньо покласти бомбочку в чашку,
             залити гарячим молоком і дочекатися, поки шоколад розкриється та випустить маршмелоу. Такий десертний формат підходить для сімейного
@@ -98,7 +98,7 @@ export default function CacaoBombsPage() {
           ))}
         </div>
 
-        <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+        <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
             Для швидкого старту перегляньте популярні смаки:{' '}
             {featuredBombs.map((product, index) => (
@@ -121,13 +121,13 @@ export default function CacaoBombsPage() {
 
         <section className="mt-14 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">FAQ</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#4c1d11]">
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">
             Поширені запитання про какао бомбочки
           </h2>
           <div className="mt-6 space-y-4">
             {faqItems.map((item) => (
               <details key={item.question} className="rounded-[24px] border border-[#eadfcb] bg-white/60 p-5">
-                <summary className="cursor-pointer list-none font-semibold text-[#4c1d11]">{item.question}</summary>
+                <summary className="cursor-pointer list-none font-semibold text-[#3D2616]">{item.question}</summary>
                 <p className="mt-3 text-sm leading-7 text-cocoa-900/72">{item.answer}</p>
               </details>
             ))}

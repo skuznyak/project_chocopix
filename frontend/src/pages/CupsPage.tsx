@@ -33,10 +33,10 @@ export default function CupsPage() {
           </Link>
         </div>
         <div className="text-center">
-          <h1 className="font-display text-6xl font-semibold tracking-[-0.04em] text-[#4c1d11]">
+          <h1 className="font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">
             Чашки для какао
           </h1>
-          <p className="mt-4 text-lg text-[#8a5d3c]">
+          <p className="mt-4 text-lg text-[#3D2616]">
             Найкращі чашки для ваших улюблених какао-бомбочок
           </p>
         </div>
@@ -53,7 +53,7 @@ export default function CupsPage() {
               />
             </div>
             <div className="flex flex-1 flex-col p-5">
-              <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#4c1d11]">
+              <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#3D2616]">
                 Класична біла
               </h3>
               <p className="mt-3 text-sm leading-7 text-[#7c5338]">
@@ -77,7 +77,7 @@ export default function CupsPage() {
               />
             </div>
             <div className="flex flex-1 flex-col p-5">
-              <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#4c1d11]">
+              <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#3D2616]">
                 Прозора скляна
               </h3>
               <p className="mt-3 text-sm leading-7 text-[#7c5338]">
@@ -101,7 +101,7 @@ export default function CupsPage() {
               />
             </div>
             <div className="flex flex-1 flex-col p-5">
-              <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#4c1d11]">
+              <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#3D2616]">
                 Мармурова
               </h3>
               <p className="mt-3 text-sm leading-7 text-[#7c5338]">

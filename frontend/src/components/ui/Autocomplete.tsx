@@ -88,7 +88,7 @@ export const Autocomplete = ({
 
   return (
     <div className="relative flex flex-col gap-2" ref={wrapperRef}>
-      <span className="text-sm font-semibold text-[#5f3925]">{label}</span>
+      <span className="text-sm font-semibold text-[#3D2616]">{label}</span>
       <div
         className={clsx(
           'relative flex min-h-14 items-center gap-2 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-2 transition',
@@ -100,7 +100,7 @@ export const Autocomplete = ({
         <input
           ref={inputRef}
           type="text"
-          className="flex-1 bg-transparent text-base text-[#2d1f1a] placeholder:text-[#9a8b7f] outline-none"
+          className="flex-1 bg-transparent text-base text-[#3D2616] placeholder:text-[#9a8b7f] outline-none"
           placeholder={placeholder}
           value={value?.label || searchQuery || ''}
           onChange={(e) => {
@@ -117,7 +117,7 @@ export const Autocomplete = ({
           <button
             type="button"
             onClick={handleClear}
-            className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ddd9d5] text-[#6a4331] transition hover:bg-[#c79263] hover:text-white"
+            className="flex h-6 w-6 items-center justify-center rounded-full bg-[#ddd9d5] text-[#3D2616] transition hover:bg-[#c79263] hover:text-white"
             aria-label="Очистити"
           >
             ×
@@ -131,7 +131,7 @@ export const Autocomplete = ({
       {isOpen && !disabled && (
         <div className="absolute left-0 top-full z-50 mt-2 max-h-64 w-full overflow-auto rounded-[18px] border border-[#ddd9d5] bg-white shadow-xl">
           {loading ? (
-            <div className="flex items-center justify-center py-8 text-[#6a4331]">Завантаження...</div>
+            <div className="flex items-center justify-center py-8 text-[#3D2616]">Завантаження...</div>
           ) : options.length === 0 ? (
             <div className="flex items-center justify-center py-8 text-[#9a8b7f]">Нічого не знайдено</div>
           ) : (
@@ -140,7 +140,7 @@ export const Autocomplete = ({
                 <li
                   key={option.value}
                   onClick={() => handleSelect(option)}
-                  className="flex cursor-pointer items-center justify-between px-4 py-3 text-sm text-[#2d1f1a] transition hover:bg-[#f5f5f5]"
+                  className="flex cursor-pointer items-center justify-between px-4 py-3 text-sm text-[#3D2616] transition hover:bg-[#f5f5f5]"
                 >
                   <span className="flex-1">{option.label}</span>
                   {value?.value === option.value && <Check size={18} className="text-[#7d4a37]" />}

@@ -88,11 +88,11 @@ export default function CheckoutPage() {
       </Helmet>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
-          <h1 className="text-3xl font-medium tracking-[-0.04em] text-[#5e3926] sm:text-5xl">Оформлення замовлення</h1>
+          <h1 className="text-3xl font-medium tracking-[-0.04em] text-[#3D2616] sm:text-5xl">Оформлення замовлення</h1>
           <button
             type="button"
             onClick={() => navigate('/')}
-            className="inline-flex items-center gap-2 text-base font-semibold text-[#6b4331]"
+            className="inline-flex items-center gap-2 text-base font-semibold text-[#3D2616]"
           >
             <ArrowLeft size={18} />
             Повернутись до покупок
@@ -132,9 +132,9 @@ export default function CheckoutPage() {
             {submitError ? <p className="text-sm text-rose-600">{submitError}</p> : null}
           </div>
           <aside className="order-1 min-h-[92svh] rounded-[30px] border border-[#eadfcb] bg-[#f8f1e4] p-5 shadow-[0_20px_40px_rgba(91,28,2,0.06)] sm:p-7 lg:order-2 lg:min-h-0 lg:h-fit lg:rounded-[32px]">
-            <h2 className="text-2xl font-medium tracking-[-0.03em] text-[#5e3926] sm:text-3xl">Ваше замовлення</h2>
+            <h2 className="text-2xl font-medium tracking-[-0.03em] text-[#3D2616] sm:text-3xl">Ваше замовлення</h2>
             <div className="mt-6 rounded-[24px] border border-[#eadfcb] bg-[#fbf5ea] p-5">
-              <div className="flex flex-col gap-2 text-xs font-bold uppercase tracking-[0.05em] text-[#6b4331] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:text-sm">
+              <div className="flex flex-col gap-2 text-xs font-bold uppercase tracking-[0.05em] text-[#3D2616] sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:text-sm">
                 <div className="flex items-center gap-2">
                   <Package size={16} />
                   Безкоштовна доставка
@@ -143,7 +143,7 @@ export default function CheckoutPage() {
               </div>
               <div className="relative mt-4 pt-6">
                 <div
-                  className="absolute left-0 top-0 -translate-y-1 text-[#8c5328] transition-[left] duration-500 ease-out"
+                  className="absolute left-0 top-0 -translate-y-1 text-[#D39B60] transition-[left] duration-500 ease-out"
                   style={{ left: `${truckProgress}%`, transform: 'translateX(-50%)' }}
                   aria-hidden="true"
                 >
@@ -170,7 +170,7 @@ export default function CheckoutPage() {
                   <div className="flex items-center justify-between gap-3">
                     <img src={product.images[0]?.src} alt={product.name} loading="lazy" decoding="async" className="h-14 w-14 rounded-[16px] object-cover" />
                     <div className="min-w-0 flex-1">
-                      <p className="line-clamp-2 font-semibold text-[#5f3925]">{product.name}</p>
+                      <p className="line-clamp-2 font-semibold text-[#3D2616]">{product.name}</p>
                     </div>
                     <Button
                       variant="ghost"
@@ -186,32 +186,32 @@ export default function CheckoutPage() {
                       <button
                         type="button"
                         onClick={() => setQuantity(product.id, item.quantity - 1)}
-                        className="rounded-[8px] bg-[#fffaf2] p-1 text-[#6a4331]"
+                        className="rounded-[8px] bg-[#fffaf2] p-1 text-[#3D2616]"
                       >
                         <Minus size={16} />
                       </button>
-                      <span className="min-w-5 text-center text-sm font-semibold text-[#5f3925]">{item.quantity}</span>
+                      <span className="min-w-5 text-center text-sm font-semibold text-[#3D2616]">{item.quantity}</span>
                       <button
                         type="button"
                         onClick={() => setQuantity(product.id, item.quantity + 1)}
-                        className="rounded-[8px] bg-[#fffaf2] p-1 text-[#6a4331]"
+                        className="rounded-[8px] bg-[#fffaf2] p-1 text-[#3D2616]"
                       >
                         <Plus size={16} />
                       </button>
                     </div>
-                    <span className="font-semibold text-[#5f3925]">{formatPrice(product.price * item.quantity)}</span>
+                    <span className="font-semibold text-[#3D2616]">{formatPrice(product.price * item.quantity)}</span>
                   </div>
                 </div>
               ))}
             </div>
             <div className="mt-6">
-              <label className="flex flex-col gap-2 text-sm font-semibold text-[#5f3925]">
+              <label className="flex flex-col gap-2 text-sm font-semibold text-[#3D2616]">
                 <span>Промокод</span>
                 <div className="flex flex-col gap-2 sm:flex-row">
                   <input
                     value={promoInput}
                     onChange={(event) => setPromoInput(event.target.value.toUpperCase())}
-                    className="min-h-14 flex-1 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base uppercase text-[#2d1f1a] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]"
+                    className="min-h-14 flex-1 rounded-[18px] border border-[#ddd9d5] bg-[#f5f5f5] px-4 py-3 text-base uppercase text-[#3D2616] outline-none transition focus:border-[#c79263] focus:ring-2 focus:ring-[#ead3bb]"
                   />
                   <Button
                     type="button"
@@ -240,7 +240,7 @@ export default function CheckoutPage() {
                 </span>
               </div>
               <div className="flex justify-between text-[#7a6050]"><span>Знижка:</span><span>-{formatPrice(totals.discount)}</span></div>
-              <div className="flex justify-between pt-2 text-[28px] font-bold tracking-[-0.04em] text-[#5e3926] sm:text-[34px]"><span>Разом</span><span>{formatPrice(totals.total)}</span></div>
+              <div className="flex justify-between pt-2 text-[28px] font-bold tracking-[-0.04em] text-[#3D2616] sm:text-[34px]"><span>Разом</span><span>{formatPrice(totals.total)}</span></div>
             </div>
           </aside>
         </div>

@@ -47,7 +47,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           className="block rounded-[22px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8c5328] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f1e4] md:pointer-events-none"
         >
           <div className="flex items-center justify-between gap-3">
-            <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#4c1d11]">{product.name}</h3>
+            <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#3D2616]">{product.name}</h3>
             <div className="flex items-center gap-1 text-sm text-cocoa-900/70">
               <Star size={14} className="fill-gold text-gold" />
               {product.reviewSummary.rating}

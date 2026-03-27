@@ -29,8 +29,8 @@ export default function GiftSetsPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#4c1d11]">Подарункові набори</h1>
-        <div className="mt-4 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Подарункові набори</h1>
+        <div className="mt-4 space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
             Обирайте готові подарункові набори какао бомбочок з маршмелоу для різних ситуацій: день народження, сезонні свята, сімейний подарунок
             чи затишний вечір удома. У колекції є класичні, преміум і дитячі формати з різною кількістю смаків.
@@ -63,7 +63,7 @@ export default function GiftSetsPage() {
           ))}
         </div>
 
-        <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#6f4a31]">
+        <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
             Якщо потрібен солодкий подарунок без зайвого вибору, подарунковий набір з шоколаду закриває одразу кілька сценаріїв: день народження,
             свята, комплімент дівчині або затишний вечір удома з готовим асорті смаків. Окремі смаки{' '}

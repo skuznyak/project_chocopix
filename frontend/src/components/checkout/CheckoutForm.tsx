@@ -286,6 +286,37 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
             <span className="text-xs font-bold uppercase">Накладений платіж</span>
           </label>
         </div>
+        {watchedPaymentMethod === 'card-transfer' && (
+          <div className="mt-4 flex flex-wrap items-center gap-3 rounded-[22px] border border-[#eadfcb] bg-[#fbf5ea]/70 p-4">
+            <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#e1d3c1] bg-white/80 p-1">
+              <img
+                src="/symbol.svg"
+                alt="Card transfer"
+                loading="lazy"
+                decoding="async"
+                className="h-9 w-9 object-contain"
+              />
+            </div>
+            <div className="flex h-11 w-[72px] items-center justify-center rounded-xl border border-[#d8c2b0] bg-[#F0E4D4] px-2">
+              <img
+                src="/visa.svg"
+                alt="Visa"
+                loading="lazy"
+                decoding="async"
+                className="h-6 w-auto object-contain"
+              />
+            </div>
+            <div className="flex h-11 w-[72px] items-center justify-center rounded-xl border border-[#e1d3c1] bg-white/80 px-3">
+              <img
+                src="/mastercard.svg"
+                alt="Mastercard"
+                loading="lazy"
+                decoding="async"
+                className="h-[22px] w-auto object-contain"
+              />
+            </div>
+          </div>
+        )}
         {(watchedPaymentMethod === 'cod' || watchedPaymentMethod === 'card-transfer') && (
           <div className="mt-6 rounded-[24px] border border-[#eadfcb] bg-[#fbf5ea]/70 p-5">
             <p className="text-sm font-semibold text-[#3D2616]">Як з вами зв'язатися?</p>

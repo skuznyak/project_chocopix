@@ -64,12 +64,24 @@ export const Footer = () => (
 
         <div className="text-left lg:text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold">Спосіб оплати</p>
-          <div className="mt-3 flex gap-2 lg:justify-center">
-            <div className="flex h-10 items-center justify-center rounded-lg bg-white/10 px-4">
-              <span className="text-base font-bold text-white">Visa</span>
+          <div className="mt-3 flex items-center gap-3 lg:justify-center">
+            <div className="flex h-11 w-[92px] items-center justify-center rounded-xl border border-white/10 bg-white/12 px-3">
+              <img
+                src="/visa.svg"
+                alt="Visa"
+                loading="lazy"
+                decoding="async"
+                className="h-[18px] w-auto object-contain"
+              />
             </div>
-            <div className="flex h-10 items-center justify-center rounded-lg bg-white/10 px-4">
-              <span className="text-base font-bold text-white">MasterCard</span>
+            <div className="flex h-11 w-[72px] items-center justify-center rounded-xl border border-white/10 bg-white/12 px-3">
+              <img
+                src="/mastercard.svg"
+                alt="Mastercard"
+                loading="lazy"
+                decoding="async"
+                className="h-[22px] w-auto object-contain"
+              />
             </div>
           </div>
           <p className="mt-4 text-sm text-white/80">

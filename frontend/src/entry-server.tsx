@@ -7,7 +7,7 @@ import { createQueryClient } from '@/app/createQueryClient'
 import { AppServer } from '@/AppServer'
 import { productsMock } from '@/data/products.mock'
 
-const ROUTES_WITH_PRODUCT_LIST = new Set(['/', '/cacao-bombs', '/gift-sets', '/promotions'])
+const ROUTES_WITH_PRODUCT_LIST = new Set(['/', '/cacao-bombs', '/marshmallow', '/gift-sets', '/promotions'])
 const PRODUCT_ROUTE_PREFIX = '/product/'
 
 const sortProductsByPopularity = (products: Product[]) => [...products].sort((left, right) => right.popularity - left.popularity)

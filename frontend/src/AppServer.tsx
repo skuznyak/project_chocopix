@@ -6,6 +6,7 @@ import CartPage from '@/pages/CartPage'
 import CheckoutPage from '@/pages/CheckoutPage'
 import OrderSuccessPage from '@/pages/OrderSuccessPage'
 import CacaoBombsPage from '@/pages/CacaoBombsPage'
+import MarshmallowPage from '@/pages/MarshmallowPage'
 import GiftSetsPage from '@/pages/GiftSetsPage'
 import PromotionsPage from '@/pages/PromotionsPage'
 import ContactsPage from '@/pages/ContactsPage'
@@ -21,6 +22,7 @@ export const AppServer = () => (
       <Route path="/order-success" element={<OrderSuccessPage />} />
       <Route path="/cups" element={<Navigate to="/cacao-bombs" replace />} />
       <Route path="/cacao-bombs" element={<CacaoBombsPage />} />
+      <Route path="/marshmallow" element={<MarshmallowPage />} />
       <Route path="/gift-sets" element={<GiftSetsPage />} />
       <Route path="/promotions" element={<PromotionsPage />} />
       <Route path="/contacts" element={<ContactsPage />} />

@@ -67,7 +67,7 @@ export const Header = () => {
               className="h-12 w-12 rounded-full object-contain transition duration-300 group-hover:scale-110"
             />
             <span className="text-[26px] font-extrabold tracking-[-0.05em]">
-              <span>Choco</span>
+              <span className="text-[#5d4037]">Choco</span>
               <span className="text-[#D39B60]">Pix</span>
             </span>
           </Link>

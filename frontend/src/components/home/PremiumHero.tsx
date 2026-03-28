@@ -8,7 +8,6 @@ type HeroSlide = {
   title: string
   accent: string
   description: string
-  tag: string
   secret: string
   image: string
   imageAlt: string
@@ -24,7 +23,6 @@ const slides: HeroSlide[] = [
     accent: 'з маршмелоу',
     description:
       'Какао бомбочки з маршмелоу - це десерт, який перетворює звичайне какао на емоцію. Ідеально для подарунка або затишного вечора.',
-    tag: 'НОВИНКА 2026',
     secret: 'Секретний інгредієнт: любов та бельгійський шоколад',
     image: '/products/heart_chocolate.webp',
     imageAlt: 'Какао бомбочки з маршмелоу ChocoPix',
@@ -36,7 +34,6 @@ const slides: HeroSlide[] = [
     accent: 'для справжніх гурманів',
     description:
       'Відкрийте для себе різноманіття смаків у наших подарункових наборах. Кожна бомбочка - це маленьке свято.',
-    tag: 'ПОПУЛЯРНЕ',
     secret: 'Тільки натуральні інгредієнти та преміальний какао',
     image: '/products/gift-set-family-classic-10.webp',
     imageAlt: 'Подарунковий набір какао бомбочок ChocoPix',
@@ -48,7 +45,6 @@ const slides: HeroSlide[] = [
     accent: 'ручної роботи',
     description:
       'Ніжні, повітряні та неймовірно смачні. Наші маршмелоу ідеально доповнюють будь-який гарячий напій.',
-    tag: 'ЕКСКЛЮЗИВ',
     secret: 'Унікальна рецептура та ручна робота',
     image: '/products/marshmallow/Marshmallow_with_cinnamon.webp',
     imageAlt: 'Маршмелоу ручної роботи ChocoPix',
@@ -78,10 +74,7 @@ function useIsDesktop() {
 function HeroTextBlock({ slide, animated }: { slide: HeroSlide; animated: boolean }) {
   const content = (
     <>
-      <div className="inline-flex rounded-full border border-[#d8c4aa] bg-[#f6efe4] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.28em] text-[#8d6544] sm:px-5">
-        {slide.tag}
-      </div>
-      <h1 className="mt-6 max-w-[11.5ch] whitespace-pre-line font-display text-[3rem] font-semibold leading-[0.9] tracking-[-0.055em] text-[#3D2616] sm:max-w-[12ch] sm:text-[3.8rem] lg:max-w-[13.5ch] lg:text-[4.2rem] xl:max-w-[13ch] xl:text-[93px]">
+      <h1 className="max-w-[11.5ch] whitespace-pre-line font-display text-[3rem] font-semibold leading-[0.9] tracking-[-0.055em] text-[#3D2616] sm:max-w-[12ch] sm:text-[3.8rem] lg:max-w-[13.5ch] lg:text-[4.2rem] xl:max-w-[13ch] xl:text-[93px]">
         {slide.title}
         {'\n'}
         <span className="font-display italic text-[#D39B60]">{slide.accent}</span>

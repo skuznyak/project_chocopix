@@ -10,7 +10,7 @@ import { useProduct, useProducts } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/cartStore'
 import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
-import { buildAbsoluteUrl, buildBreadcrumbSchema, toAbsoluteImageUrl } from '@/utils/seo'
+import { buildAbsoluteUrl, buildBreadcrumbSchema, buildProductSchema, toAbsoluteImageUrl } from '@/utils/seo'
 
 type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup' | 'marshmallow'
 
@@ -169,29 +169,15 @@ export default function ProductPage() {
     { name: categoryLabel, path: categoryPath },
     { name: product.name, path: `/product/${canonicalSlug}` },
   ])
-  const productSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Product',
+  const productSchema = buildProductSchema({
     name: product.name,
     description: seoDescription,
     url: productUrl,
     image: product.images.map((image) => toAbsoluteImageUrl(image.src)),
     sku: product.id,
     category: categoryLabel,
-    inLanguage: 'uk-UA',
-    brand: {
-      '@type': 'Brand',
-      name: 'ChocoPix',
-    },
-    offers: {
-      '@type': 'Offer',
-      url: productUrl,
-      priceCurrency: 'UAH',
-      price: product.price,
-      itemCondition: 'https://schema.org/NewCondition',
-      availability: 'https://schema.org/InStock',
-    },
-  }
+    price: product.price,
+  })
   const compositionValue =
     productType === 'marshmallow'
       ? [
@@ -291,7 +277,7 @@ export default function ProductPage() {
             <div className="mt-6 flex items-center justify-between gap-4">
               <p className="text-3xl font-semibold">{formatPrice(product.price)}</p>
               {productType === 'marshmallow' ? (
-                <p className="text-right text-sm font-medium uppercase tracking-[0.12em] text-[#d97aa6]">Мін заказ від 3 шт</p>
+                <p className="text-right text-sm font-medium uppercase tracking-[0.12em] text-[#d97aa6]">За упаковку (3шт)</p>
               ) : null}
             </div>
             <div className="mt-6 flex flex-wrap gap-4">

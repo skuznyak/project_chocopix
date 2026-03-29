@@ -10,11 +10,6 @@ export interface ProductImage {
   alt: string
 }
 
-export interface ProductReviewSummary {
-  rating: number
-  reviewCount: number
-}
-
 export interface Product {
   id: string
   slug: string
@@ -31,6 +26,5 @@ export interface Product {
   tags: string[]
   popularity: number
   images: ProductImage[]
-  reviewSummary: ProductReviewSummary
   featured?: boolean
 }

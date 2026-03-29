@@ -5,10 +5,9 @@ import { CallbackModal } from '@/components/layout/CallbackModal'
 import { useCartStore } from '@/store/cartStore'
 
 const navItems = [
-  { label: 'Головна', to: '/' },
   { label: 'Бомбочки', to: '/cacao-bombs' },
-  { label: 'Маршмелоу', to: '/marshmallow' },
   { label: 'Набори', to: '/gift-sets' },
+  { label: 'Маршмелоу', to: '/marshmallow' },
   { label: 'Акції', to: '/promotions', isPromo: true },
   { label: 'Контакти', to: '/contacts' },
 ]

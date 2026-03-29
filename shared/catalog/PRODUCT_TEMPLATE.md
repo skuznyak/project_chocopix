@@ -28,7 +28,6 @@
     { id: '1', src: '/products/slug/1.jpg', alt: 'Фото 1' },
     { id: '2', src: '/products/slug/2.jpg', alt: 'Фото 2' },
   ],
-  reviewSummary: { rating: 4.8, reviewCount: 25 },
   // featured: true,                    // Розкоментуйте для рекомендованих товарів
 },
 ```
@@ -54,7 +53,6 @@
 | `tags` | string[] | `['карамель', 'бомбочки']` | Теги для фільтрації |
 | `popularity` | number | `95` | Популярність (1-100) |
 | `images` | array | `[{id, src, alt}]` | Масив зображень |
-| `reviewSummary` | object | `{rating, reviewCount}` | Рейтинг та кількість відгуків |
 
 ### Опціональні поля
 
@@ -129,7 +127,6 @@ images: [
   images: [
     { id: '1', src: '/products/caramel-cloud/1.jpg', alt: 'Карамельна бомбочка' },
   ],
-  reviewSummary: { rating: 4.9, reviewCount: 47 },
   featured: true,
 }
 ```
@@ -153,7 +150,6 @@ images: [
   images: [
     { id: '1', src: '/products/winter-box/1.jpg', alt: 'Подарунковий набір' },
   ],
-  reviewSummary: { rating: 5, reviewCount: 54 },
   featured: true,
 }
 ```
@@ -177,7 +173,6 @@ images: [
   images: [
     { id: '1', src: '/products/classic-mug/1.jpg', alt: 'Класична чашка' },
   ],
-  reviewSummary: { rating: 4.8, reviewCount: 52 },
   featured: true,
 }
 ```

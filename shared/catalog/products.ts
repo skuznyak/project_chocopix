@@ -34,7 +34,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/caramel-cloud.webp', alt: 'Карамельна бомбочка' },
     ],
-    reviewSummary: { rating: 4.9, reviewCount: 47 },
     featured: true,
   },
   {
@@ -55,7 +54,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/berry-kiss.webp', alt: 'Ягідна бомбочка' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 28 },
   },
   {
     id: 'hazelnut-dream',
@@ -75,7 +73,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/hazelnut-dream.webp', alt: 'Горіхова бомбочка' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 19 },
   },
   {
     id: 'vanilla-sky',
@@ -95,7 +92,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/vanilla-sky.webp', alt: 'Ванільна бомбочка' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 35 },
   },
   {
     id: 'coconut-paradise',
@@ -115,7 +111,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/heart_white.webp', alt: 'Кокосова бомбочка' },
       { id: '2', src: '/products/three_heart.webp', alt: 'Кокос і шоколад' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 22 },
   },
   {
     id: 'mint-choco',
@@ -135,7 +130,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/heart_red.webp', alt: 'Мятна бомбочка' },
     ],
-    reviewSummary: { rating: 4.6, reviewCount: 18 },
   },
     {
         id: 'winter-box',
@@ -144,7 +138,7 @@ export const productsCatalog: Product[] = [
         shortDescription: '4 смаки в преміальному боксі.',
         description:
           'Подарунковий сет з чотирьох авторських бомбочок: карамель, ягода, фундук і класичний какао-маршмелоу.',
-        composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
+        composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
         weight: 30,
         flavor: 'Асорті',
         price: 99,
@@ -156,7 +150,6 @@ export const productsCatalog: Product[] = [
           { id: '1', src: '/products/heart_chocolate.webp', alt: 'Подарунковий набір' },
           { id: '2', src: '/products/three_heart.webp', alt: 'Кокос і шоколад' },
         ],
-        reviewSummary: { rating: 5, reviewCount: 54 },
         featured: true,
       },
 
@@ -169,7 +162,7 @@ export const productsCatalog: Product[] = [
     shortDescription: 'Компактний набір з 4 бомбочок.',
     description:
       'Невеликий набір із чотирьох бомбочок у подарунковій коробці. Зручний формат для солодкого компліменту дитині.',
-    composition: ['молочний шоколад', 'маршмелоу', 'декор', 'подарункове пакування'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 120,
     flavor: 'Асорті',
     price: 309,
@@ -179,7 +172,6 @@ export const productsCatalog: Product[] = [
     tags: ['набір', 'діти', 'міні', 'набори'],
     popularity: 83,
     images: [{ id: '1', src: '/products/gift-set-4-assorted-box.webp', alt: 'Дитячий міні-бокс з 4 бомбочок' }],
-    reviewSummary: { rating: 4.7, reviewCount: 14 },
   },
   {
     id: 'classic-collection',
@@ -188,7 +180,7 @@ export const productsCatalog: Product[] = [
     shortDescription: '6 класичних смаків для знайомства.',
     description:
       'Ідеальний набір для першого знайомства: карамель, ваніль, полуниця, шоколад, горіх і кокос.',
-    composition: ['асорті шоколаду', 'маршмелоу', 'натуральні смаки'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 180,
     flavor: 'Асорті',
     price: 509,
@@ -200,7 +192,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/gift-set-classic-6-open-box.webp', alt: 'Класична колекція з 6 бомбочок' },
       { id: '2', src: '/products/gift-set-classic-6-closeup.webp', alt: 'Класичний набір бомбочок крупним планом' },
     ],
-    reviewSummary: { rating: 4.9, reviewCount: 67 },
     featured: true,
   },
   {
@@ -210,7 +201,7 @@ export const productsCatalog: Product[] = [
     shortDescription: '3 ексклюзивні смаки в оксамитовому футлярі.',
     description:
       'Вишуканий набір з трьох преміум бомбочок: трюфель, мятний шоколад і ягідний микс.',
-    composition: ['преміум шоколад', 'ексклюзивні смаки', 'оксамитовий футляр'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 90,
     flavor: 'Асорті',
     price: 287,
@@ -222,7 +213,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/three_heart.webp', alt: 'Червоне серце та асорті сердець' },
       { id: '2', src: '/products/gift-set-premium-hearts-3.webp', alt: 'Преміум тріо сердець' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 31 },
   },
   {
     id: 'family-pack',
@@ -231,7 +221,7 @@ export const productsCatalog: Product[] = [
     shortDescription: '10+2 бомбочок для великої компанії.',
     description:
       'Великий набір з 10+2 бомбочок різних смаків. Вистачить на всю родину або вечірку.',
-    composition: ['асорті шоколаду', 'маршмелоу', 'різні смаки'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 360,
     flavor: 'Асорті',
     price: 849,
@@ -243,7 +233,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/gift-set-family-classic-10.webp', alt: 'Сімейний пакунок з 10 бомбочок' },
     ],
-    reviewSummary: { rating: 4.9, reviewCount: 43 },
   },
   {
     id: 'family-pastel-box',
@@ -252,7 +241,7 @@ export const productsCatalog: Product[] = [
     shortDescription: 'Сімейний пастельний бокс, 270г.',
     description:
       'Пастельний подарунковий набір із девʼяти шоколадних бомбочок з різними смаками. Ідеально для сімейного вечора та частувань.',
-    composition: ['асорті шоколаду', 'маршмелоу', 'декор', 'подарункове пакування'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 270,
     flavor: 'Асорті',
     price: 765,
@@ -260,7 +249,6 @@ export const productsCatalog: Product[] = [
     tags: ['набір', 'сімейний', 'асорті', 'набори'],
     popularity: 89,
     images: [{ id: '1', src: '/products/gift-set-family-pastel-9.webp', alt: 'Сімейний пастельний бокс з 9 бомбочок' }],
-    reviewSummary: { rating: 4.8, reviewCount: 21 },
   },
   {
     id: 'romantic-set',
@@ -269,7 +257,7 @@ export const productsCatalog: Product[] = [
     shortDescription: 'Романтичний сет.',
     description:
       'Ніжний набір з 4 бомбочок: полуниця, ваніль, троянда і білий шоколад. Ідеально для побачення.',
-    composition: ['шоколад асорті', 'романтичні смаки', 'святкове пакування'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 120,
     flavor: 'Асорті',
     price: 379,
@@ -279,7 +267,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/gift-set-romantic-pink-hearts-4.webp', alt: 'Романтичний сет із рожевими серцями' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 26 },
   },
   {
     id: 'hearts-for-two',
@@ -288,7 +275,7 @@ export const productsCatalog: Product[] = [
     shortDescription: 'Серця для двох.',
     description:
       'Подарунковий набір із чотирьох шоколадних сердець у ніжному оформленні. Підійде для побачення, річниці або романтичного сюрпризу.',
-    composition: ['шоколад асорті', 'серця ручної роботи', 'декор', 'подарункове пакування'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 120,
     flavor: 'Асорті',
     price: 389,
@@ -299,7 +286,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/gift-set-romantic-hearts-4.webp', alt: 'Серця для двох у подарунковій коробці' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 18 },
   },
   {
     id: 'kids-joy',
@@ -308,7 +294,7 @@ export const productsCatalog: Product[] = [
     shortDescription: 'Дитяча радість.',
     description:
       'Яскравий набір з 5 дитячих смаків: полуниця, карамель, ваніль, банан і шоколад.',
-    composition: ['молочний шоколад', 'дитячі смаки', 'кольорове маршмелоу'],
+    composition: ['бельгійський шоколад', 'какао Nesquik', 'маршмелоу', 'декор'],
     weight: 150,
     flavor: 'Асорті',
     price: 765,
@@ -318,7 +304,6 @@ export const productsCatalog: Product[] = [
     images: [
       { id: '1', src: '/products/gift-set-kids-colorful-8.webp', alt: 'Дитяча радість з яскравими бомбочками' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 38 },
   },
   // ==================== MARSHMALLOW (8 products) ====================
   {
@@ -331,8 +316,8 @@ export const productsCatalog: Product[] = [
     composition: ['ваніль', 'маршмелоу', 'кондитерський декор'],
     weight: 120,
     flavor: 'Fairy Bread',
-    price: 39,
-    previousPrice: 49,
+    price: 119,
+    previousPrice: 129,
     badge: 'sale',
     category: 'marshmallow',
     tags: ['маршмелоу', 'святкове', 'подарунок'],
@@ -341,7 +326,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/marshmallow/Marshmallow_ magic_ bread.webp', alt: 'Маршмелоу Fairy Bread у святковому стилі' },
       { id: '2', src: '/products/marshmallow/Marshmallow_ magic_ bread2.webp', alt: 'Ніжне маршмелоу Fairy Bread крупним планом' },
     ],
-    reviewSummary: { rating: 4.9, reviewCount: 16 },
     featured: true,
   },
   {
@@ -354,7 +338,7 @@ export const productsCatalog: Product[] = [
     composition: ['полуниця', 'вершковий крем', 'маршмелоу'],
     weight: 120,
     flavor: 'Strawberry Cheesecake',
-    price: 49,
+    price: 129,
     badge: 'hit',
     category: 'marshmallow',
     tags: ['маршмелоу', 'полуниця', 'десерт'],
@@ -363,7 +347,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/marshmallow/Strawberry_marshmallow.webp', alt: 'Маршмелоу Strawberry Cheesecake з полуничним профілем' },
       { id: '2', src: '/products/marshmallow/Strawberry_marshmallow2.webp', alt: 'Маршмелоу Strawberry Cheesecake у розрізі' },
     ],
-    reviewSummary: { rating: 4.9, reviewCount: 21 },
     featured: true,
   },
   {
@@ -376,7 +359,7 @@ export const productsCatalog: Product[] = [
     composition: ['цукрова вата', 'ваніль', 'маршмелоу'],
     weight: 120,
     flavor: 'Cotton Candy',
-    price: 49,
+    price: 129,
     category: 'marshmallow',
     tags: ['маршмелоу', 'цукрова вата', 'для какао'],
     popularity: 90,
@@ -385,7 +368,6 @@ export const productsCatalog: Product[] = [
       { id: '2', src: '/products/marshmallow/Marshmallow_cotton_candy2.webp', alt: 'Повітряне маршмелоу Cotton Candy' },
       { id: '3', src: '/products/marshmallow/Marshmallow_cotton_candy3.webp', alt: 'Маршмелоу Cotton Candy для подарунка або какао' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 14 },
   },
   {
     id: 'marshmallow-choc-banana',
@@ -397,14 +379,13 @@ export const productsCatalog: Product[] = [
     composition: ['ананас', 'ваніль', 'маршмелоу'],
     weight: 120,
     flavor: 'Pineapple',
-    price: 49,
+    price: 129,
     category: 'marshmallow',
     tags: ['маршмелоу', 'ананас', 'тропічний смак'],
     popularity: 88,
     images: [
       { id: '1', src: '/products/marshmallow/Marshmallow_with_pineapple.webp', alt: 'Маршмелоу з ананасом для какао та десертів' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 12 },
   },
   {
     id: 'marshmallow-rocky-road',
@@ -416,7 +397,7 @@ export const productsCatalog: Product[] = [
     composition: ['какао', 'шоколад', 'маршмелоу'],
     weight: 120,
     flavor: 'Rocky Road',
-    price: 49,
+    price: 129,
     badge: 'hit',
     category: 'marshmallow',
     tags: ['маршмелоу', 'шоколадний десерт', 'преміум'],
@@ -425,7 +406,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/marshmallow/Hot_chocolate.webp', alt: 'Маршмелоу Rocky Road з насиченим шоколадним смаком' },
       { id: '2', src: '/products/marshmallow/Hot_chocolate2.webp', alt: 'Маршмелоу Rocky Road крупним планом' },
     ],
-    reviewSummary: { rating: 4.9, reviewCount: 19 },
   },
   {
     id: 'marshmallow-lemon-meringue',
@@ -437,7 +417,7 @@ export const productsCatalog: Product[] = [
     composition: ['лимон', 'ваніль', 'маршмелоу'],
     weight: 120,
     flavor: 'Lemon Meringue',
-    price: 49,
+    price: 129,
     badge: 'new',
     category: 'marshmallow',
     tags: ['маршмелоу', 'лимон', 'ніжний смак'],
@@ -447,7 +427,6 @@ export const productsCatalog: Product[] = [
       { id: '2', src: '/products/marshmallow/Lemon_marshmallow2.webp', alt: 'Маршмелоу Lemon Meringue з легкою меренговою нотою' },
       { id: '3', src: '/products/marshmallow/Lemon_marshmallow3.webp', alt: 'Маршмелоу Lemon Meringue для десертної подачі' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 15 },
   },
   {
     id: 'marshmallow-vanilla-bean-creme',
@@ -459,14 +438,13 @@ export const productsCatalog: Product[] = [
     composition: ['кориця', 'ваніль', 'маршмелоу'],
     weight: 120,
     flavor: 'Cinnamon',
-    price: 49,
+    price: 129,
     category: 'marshmallow',
     tags: ['маршмелоу', 'кориця', 'для какао'],
     popularity: 87,
     images: [
       { id: '1', src: '/products/marshmallow/Marshmallow_with_cinnamon.webp', alt: 'Маршмелоу з корицею ручної роботи' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 11 },
   },
   {
     id: 'marshmallow-dubai-chocolate-domes',
@@ -478,7 +456,7 @@ export const productsCatalog: Product[] = [
     composition: ['шоколад', 'мʼята', 'маршмелоу'],
     weight: 120,
     flavor: 'Mint Chocolate',
-    price: 49,
+    price: 129,
     badge: 'hit',
     category: 'marshmallow',
     tags: ['маршмелоу', 'мʼята', 'шоколад', 'подарунок'],
@@ -487,7 +465,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: '/products/marshmallow/Mint_chocolate_marshmallow.webp', alt: 'Мʼятно-шоколадне маршмелоу ручної роботи' },
       { id: '2', src: '/products/marshmallow/Mint_chocolate_marshmallow2.webp', alt: 'Мʼятно-шоколадне маршмелоу для подарунка або какао' },
     ],
-    reviewSummary: { rating: 5, reviewCount: 23 },
     featured: true,
   },
   /* ==================== ЧАШКИ (disabled) ====================
@@ -510,7 +487,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Класична чашка' },
       { id: '2', src: 'https://images.unsplash.com/photo-1577937927633-291d1e0959b6?auto=format&fit=crop&w=900&q=80', alt: 'Чашка з какао' },
     ],
-    reviewSummary: { rating: 4.8, reviewCount: 52 },
     featured: true,
   },
   {
@@ -532,7 +508,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: 'https://images.unsplash.com/photo-1570554868546-5c403783457c?auto=format&fit=crop&w=900&q=80', alt: 'Термочашка' },
       { id: '2', src: 'https://images.unsplash.com/photo-1517668851879-8b1a26746c93?auto=format&fit=crop&w=900&q=80', alt: 'Travel чашка' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 34 },
   },
   {
     id: 'glass-mug',
@@ -552,7 +527,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: 'https://images.unsplash.com/photo-1577937927633-291d1e0959b6?auto=format&fit=crop&w=900&q=80', alt: 'Скляна чашка' },
       { id: '2', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Чашка з подвійним дном' },
     ],
-    reviewSummary: { rating: 4.6, reviewCount: 28 },
   },
   {
     id: 'latte-mug',
@@ -572,7 +546,6 @@ export const productsCatalog: Product[] = [
       { id: '1', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Чашка для лате' },
       { id: '2', src: 'https://images.unsplash.com/photo-1570554868546-5c403783457c?auto=format&fit=crop&w=900&q=80', alt: 'Grande чашка' },
     ],
-    reviewSummary: { rating: 4.7, reviewCount: 33 },
   },
   */
 ]

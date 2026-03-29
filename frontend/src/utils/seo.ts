@@ -59,4 +59,69 @@ export const buildBreadcrumbSchema = (items: Array<{ name: string; path: string 
   })),
 })
 
+type ProductSchemaInput = {
+  name: string
+  description: string
+  url: string
+  image: string[]
+  sku: string
+  category: string
+  price: number
+}
+
+const MERCHANT_RETURN_POLICY = {
+  '@type': 'MerchantReturnPolicy',
+  applicableCountry: 'UA',
+  returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+}
+
+const OFFER_SHIPPING_DETAILS = {
+  '@type': 'OfferShippingDetails',
+  shippingDestination: {
+    '@type': 'DefinedRegion',
+    addressCountry: 'UA',
+  },
+  deliveryTime: {
+    '@type': 'ShippingDeliveryTime',
+    handlingTime: {
+      '@type': 'QuantitativeValue',
+      minValue: 0,
+      maxValue: 1,
+      unitCode: 'DAY',
+    },
+    transitTime: {
+      '@type': 'QuantitativeValue',
+      minValue: 1,
+      maxValue: 3,
+      unitCode: 'DAY',
+    },
+  },
+}
+
+export const buildProductSchema = ({ name, description, url, image, sku, category, price }: ProductSchemaInput) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name,
+  description,
+  url,
+  image,
+  sku,
+  category,
+  inLanguage: 'uk-UA',
+  brand: {
+    '@type': 'Brand',
+    name: 'ChocoPix',
+  },
+  offers: {
+    '@type': 'Offer',
+    url,
+    priceCurrency: 'UAH',
+    price,
+    itemCondition: 'https://schema.org/NewCondition',
+    availability: 'https://schema.org/InStock',
+    hasMerchantReturnPolicy: MERCHANT_RETURN_POLICY,
+    shippingDetails: OFFER_SHIPPING_DETAILS,
+  },
+})
+
 export const shouldIncludeSitewideSchemas = (pathname: string) => !UTILITY_ROUTES.has(pathname)

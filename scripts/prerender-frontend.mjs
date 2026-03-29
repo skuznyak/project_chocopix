@@ -130,6 +130,10 @@ const validateProductRoute = (route, html) => {
   assertIncludes(html, `<meta data-rh="true" property="og:url" content="${canonical}"/>`, `${route} rendered the wrong og:url`)
   assertIncludes(html, `<link rel="canonical" href="${canonical}" />`, `${route} rendered the wrong canonical`)
   assertIncludes(html, '"@type":"Product"', `${route} did not render product schema`)
+  assertIncludes(html, '"hasMerchantReturnPolicy"', `${route} did not render merchant return policy`)
+  assertIncludes(html, '"shippingDetails"', `${route} did not render shipping details`)
+  assertExcludes(html, '"aggregateRating"', `${route} unexpectedly rendered aggregateRating`)
+  assertExcludes(html, '"review"', `${route} unexpectedly rendered review`)
   assertIncludes(html, '<h1', `${route} did not render product body content`)
 }
 

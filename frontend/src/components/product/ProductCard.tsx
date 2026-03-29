@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Check, Plus, Star } from 'lucide-react'
+import { Check, Plus } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import type { Product } from '@chocopix/shared'
@@ -46,13 +46,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
           aria-label={`Відкрити ${product.name}`}
           className="block rounded-[22px] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#8c5328] focus-visible:ring-offset-2 focus-visible:ring-offset-[#f8f1e4] md:pointer-events-none"
         >
-          <div className="flex items-center justify-between gap-3">
-            <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#3D2616]">{product.name}</h3>
-            <div className="flex items-center gap-1 text-sm text-cocoa-900/70">
-              <Star size={14} className="fill-gold text-gold" />
-              {product.reviewSummary.rating}
-            </div>
-          </div>
+          <h3 className="font-display text-[34px] font-semibold leading-none tracking-[-0.04em] text-[#3D2616]">{product.name}</h3>
           <p className="mt-2 text-sm leading-6 text-[#7c5338]">{product.shortDescription}</p>
           <div className="mt-3 flex items-center justify-between gap-3">
             <div className="flex items-baseline gap-2">
@@ -61,7 +55,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
                 <span className="text-sm text-cocoa-900/40 line-through">{formatPrice(product.previousPrice)}</span>
               ) : null}
             </div>
-            {isMarshmallow ? <p className="text-right text-xs font-medium uppercase tracking-[0.12em] text-[#d97aa6]">Мін заказ від 3шт</p> : null}
+            {isMarshmallow ? <p className="text-right text-xs font-medium uppercase tracking-[0.12em] text-[#d97aa6]">За упаковку (3шт)</p> : null}
           </div>
         </Link>
         <div className="mt-2 flex items-center justify-between gap-4">

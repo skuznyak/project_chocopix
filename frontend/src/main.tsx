@@ -1,16 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import type { Product } from '@chocopix/shared'
 import { App } from '@/App'
 import { AppProviders } from '@/app/AppProviders'
 import { createQueryClient } from '@/app/createQueryClient'
 import '@/index.css'
 
 const queryClient = createQueryClient()
-const dehydratedState = window.__PRERENDER_QUERY_STATE__
+const seoData = window.__SEO_DATA__
+
+if (seoData?.popularProducts) {
+  queryClient.setQueryData(['products', { sort: 'popular' }], seoData.popularProducts as Product[])
+}
+
+if (seoData?.product && seoData.productKey) {
+  queryClient.setQueryData(['product', seoData.productKey], seoData.product as Product)
+}
+
 const app = (
   <React.StrictMode>
-    <AppProviders queryClient={queryClient} dehydratedState={dehydratedState}>
+    <AppProviders queryClient={queryClient}>
       <BrowserRouter>
         <App />
       </BrowserRouter>

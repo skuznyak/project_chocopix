@@ -15,6 +15,7 @@ export default function PromotionsPage() {
           name="description"
           content="Актуальні акції на какао бомбочки з маршмелоу та подарункові набори. Вигідні ціни, спеціальні пропозиції, доставка по Україні."
         />
+        <meta name="robots" content="noindex,follow" />
         <meta property="og:title" content="Акції на какао бомбочки та набори | ChocoPix" />
         <meta
           property="og:description"

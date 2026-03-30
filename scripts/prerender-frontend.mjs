@@ -69,7 +69,7 @@ const stripCanonicalLink = (markup) => markup.replace(/<link\b[^>]*rel=["']canon
 const sanitizeTemplate = (template) =>
   stripDynamicHeadTags(template)
     .replace(/<div id="root">[\s\S]*?<\/div>/i, '<div id="root"></div>')
-    .replace(/<script>window\.__PRERENDER_QUERY_STATE__=[\s\S]*?<\/script>\s*/gi, '')
+    .replace(/<script>window\.__SEO_DATA__=[\s\S]*?<\/script>\s*/gi, '')
 
 const applyHeadMarkup = (template, headMarkup, route) =>
   template.replace(
@@ -77,13 +77,14 @@ const applyHeadMarkup = (template, headMarkup, route) =>
     `${stripCanonicalLink(headMarkup)}<link rel="canonical" href="${buildCanonicalUrl(route)}" />\n  </head>`,
   )
 
-const buildHtmlDocument = (template, appHtml, headMarkup, dehydratedState, route) => {
+const buildHtmlDocument = (template, appHtml, headMarkup, seoData, route) => {
   const withHead = applyHeadMarkup(template, headMarkup, route)
-  const stateScript = `<script>window.__PRERENDER_QUERY_STATE__=${escapeInlineJson(dehydratedState)}</script>`
+  const hasSeoData = seoData && Object.keys(seoData).length > 0
+  const seoDataScript = hasSeoData ? `\n    <script>window.__SEO_DATA__=${escapeInlineJson(seoData)}</script>` : ''
 
   return withHead.replace(
     '<div id="root"></div>',
-    `<div id="root">${appHtml}</div>\n    ${stateScript}`,
+    `<div id="root">${appHtml}</div>${seoDataScript}`,
   )
 }
 
@@ -145,8 +146,8 @@ const { renderRoute } = await import(pathToFileURL(ssrEntryPath).href)
 
 for (const route of PRERENDER_ROUTES) {
   const outputPath = routeToOutputPath(route)
-  const { appHtml, headMarkup, dehydratedState } = await renderRoute(route)
-  const html = buildHtmlDocument(template, appHtml, headMarkup, dehydratedState, route)
+  const { appHtml, headMarkup, seoData } = await renderRoute(route)
+  const html = buildHtmlDocument(template, appHtml, headMarkup, seoData, route)
 
   validateUtilityRoute(route, html)
   validateProductRoute(route, html)

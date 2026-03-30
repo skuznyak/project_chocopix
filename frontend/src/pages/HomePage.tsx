@@ -78,15 +78,15 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Шоколадні бомбочки з маршмелоу - ChocoPix</title>
+        <title>Какао бомбочки купити | Шоколадні бомбочки з маршмелоу - ChocoPix</title>
         <meta
           name="description"
-          content="Купити шоколадні бомбочки та какао бомбочки з маршмелоу. Ручна робота, подарункові набори та доставка по Україні."
+          content="Какао бомбочки купити онлайн від ChocoPix: шоколадні бомбочки з маршмелоу, ручна робота, подарункові набори та доставка по Україні."
         />
-        <meta property="og:title" content="Шоколадні бомбочки з маршмелоу - ChocoPix" />
+        <meta property="og:title" content="Какао бомбочки купити | Шоколадні бомбочки з маршмелоу - ChocoPix" />
         <meta
           property="og:description"
-          content="Купити шоколадні бомбочки та какао бомбочки з маршмелоу. Ручна робота, подарункові набори та доставка по Україні."
+          content="Какао бомбочки купити онлайн від ChocoPix: шоколадні бомбочки з маршмелоу, ручна робота, подарункові набори та доставка по Україні."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={buildAbsoluteUrl('/')} />
@@ -108,12 +108,13 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, ease: 'easeOut' }}
             >
-              <a href="#bombочки" className="absolute inset-0 z-10" aria-label="Перейти до секції шоколадних бомбочок" />
+              <Link to="/cacao-bombs" className="absolute inset-0 z-10" aria-label="Перейти до сторінки шоколадних бомбочок" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/107270_001.webp"
                 alt="Шоколадні бомбочки з маршмелоу ChocoPix"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
@@ -130,12 +131,13 @@ export default function HomePage() {
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: 0.1, ease: 'easeOut' }}
             >
-              <a href="#набори" className="absolute inset-0 z-10" aria-label="Перейти до секції подарункових наборів" />
+              <Link to="/gift-sets" className="absolute inset-0 z-10" aria-label="Перейти до сторінки подарункових наборів" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90 transition duration-500 group-hover:opacity-95" />
               <img
                 src="/images/photo_2024-11-12_01-.webp"
                 alt="Подарункові набори шоколадних бомбочок ChocoPix"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
@@ -157,7 +159,8 @@ export default function HomePage() {
               <img
                 src="/products/marshmallow/Marshmallow_ magic_ bread.webp"
                 alt="Маршмелоу Магічний Хліб ChocoPix"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
                 decoding="async"
                 className="h-72 w-full object-cover transition duration-700 group-hover:scale-110"
               />
@@ -193,7 +196,7 @@ export default function HomePage() {
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Каталог</p>
               <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Бомбочки</h2>
               <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
-                Шоколадні бомбочки з маршмелоу - вибух смаку у вашій чашці. Просто киньте в гаряче молоко і насолоджуйтесь!
+                Какао бомбочки купити можна для домашнього какао, подарунка або святкового настрою. Просто киньте шоколадну бомбочку в гаряче молоко і насолоджуйтесь!
               </p>
               <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 Для ще ніжнішої подачі до напою спробуйте{' '}

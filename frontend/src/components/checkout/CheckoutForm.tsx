@@ -381,6 +381,9 @@ export const CheckoutForm = ({ onSubmit, items, promoCode }: CheckoutFormProps) 
               />
               <p className="mt-2 text-xs text-[#8a6b59]">Наприклад: "Не дзвоніть, напишіть у Viber" або інше побажання</p>
             </div>
+            <div className="mt-5 rounded-[22px] border-y border-[#d6b18b] border-l-[5px] border-r-[5px] bg-[#fff4e8] px-5 py-4 text-sm font-medium leading-6 text-[#6a3b1f] shadow-[0_12px_28px_rgba(125,74,55,0.08)]">
+              Замовлення виготовляється індивідуально, відправка протягом 1-2 днів.
+            </div>
           </div>
         )}
       </section>

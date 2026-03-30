@@ -69,6 +69,12 @@ type ProductSchemaInput = {
   price: number
 }
 
+const buildPriceValidUntil = () => {
+  const date = new Date()
+  date.setFullYear(date.getFullYear() + 1)
+  return date.toISOString().slice(0, 10)
+}
+
 const MERCHANT_RETURN_POLICY = {
   '@type': 'MerchantReturnPolicy',
   applicableCountry: 'UA',
@@ -80,6 +86,11 @@ const OFFER_SHIPPING_DETAILS = {
   shippingDestination: {
     '@type': 'DefinedRegion',
     addressCountry: 'UA',
+  },
+  shippingRate: {
+    '@type': 'MonetaryAmount',
+    value: 0,
+    currency: 'UAH',
   },
   deliveryTime: {
     '@type': 'ShippingDeliveryTime',
@@ -117,8 +128,13 @@ export const buildProductSchema = ({ name, description, url, image, sku, categor
     url,
     priceCurrency: 'UAH',
     price,
+    priceValidUntil: buildPriceValidUntil(),
     itemCondition: 'https://schema.org/NewCondition',
     availability: 'https://schema.org/InStock',
+    seller: {
+      '@type': 'Organization',
+      name: 'ChocoPix',
+    },
     hasMerchantReturnPolicy: MERCHANT_RETURN_POLICY,
     shippingDetails: OFFER_SHIPPING_DETAILS,
   },

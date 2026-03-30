@@ -22,7 +22,7 @@ export const Footer = () => (
           <div className="mt-3 flex flex-col gap-2 text-sm text-white/80">
             <Link to="/cacao-bombs" className="transition hover:text-white">Шоколадні бомбочки</Link>
             <Link to="/gift-sets" className="transition hover:text-white">Подарункові набори</Link>
-            <Link to="/promotions" className="transition hover:text-white">Акції</Link>
+            <Link to="/marshmallow" className="transition hover:text-white">Маршмелоу</Link>
             <Link to="/contacts" className="transition hover:text-white">Контакти</Link>
           </div>
         </div>

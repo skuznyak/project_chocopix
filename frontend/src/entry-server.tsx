@@ -1,25 +1,10 @@
-import type { Product } from '@chocopix/shared'
-import { dehydrate } from '@tanstack/react-query'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom/server'
+import type { Product } from '@chocopix/shared'
 import { AppProviders } from '@/app/AppProviders'
 import { createQueryClient } from '@/app/createQueryClient'
 import { AppServer } from '@/AppServer'
-import { productsMock } from '@/data/products.mock'
-
-const ROUTES_WITH_PRODUCT_LIST = new Set(['/', '/cacao-bombs', '/marshmallow', '/gift-sets', '/promotions'])
-const PRODUCT_ROUTE_PREFIX = '/product/'
-
-const sortProductsByPopularity = (products: Product[]) => [...products].sort((left, right) => right.popularity - left.popularity)
-const sortedProducts = sortProductsByPopularity(productsMock)
-
-const extractProductSlug = (url: string) => {
-  if (!url.startsWith(PRODUCT_ROUTE_PREFIX)) {
-    return null
-  }
-
-  return url.slice(PRODUCT_ROUTE_PREFIX.length) || null
-}
+import { getProductById, getProducts } from '@/api/products'
 
 type HelmetData = {
   title: { toString: () => string }
@@ -38,22 +23,56 @@ const buildHeadMarkup = (helmet: HelmetData) =>
     helmet.script.toString(),
   ].join('')
 
-export const renderRoute = async (url: string) => {
-  const queryClient = createQueryClient()
+const PRODUCT_ROUTE_PREFIX = '/product/'
+const ROUTES_WITH_PRODUCT_LIST = new Set(['/', '/cacao-bombs', '/marshmallow', '/gift-sets'])
+
+const extractProductSlug = (url: string) => {
+  if (!url.startsWith(PRODUCT_ROUTE_PREFIX)) {
+    return null
+  }
+
+  return url.slice(PRODUCT_ROUTE_PREFIX.length) || null
+}
+
+type SeoHydrationData = {
+  productKey?: string
+  product?: Product
+  popularProducts?: Product[]
+}
+
+const buildSeoHydrationData = async (url: string) => {
+  const seoData: SeoHydrationData = {}
 
   if (ROUTES_WITH_PRODUCT_LIST.has(url)) {
-    queryClient.setQueryData(['products', { sort: 'popular' }], sortedProducts)
+    seoData.popularProducts = await getProducts({ sort: 'popular' })
   }
 
   const productSlug = extractProductSlug(url)
 
-  if (productSlug) {
-    const product = productsMock.find((item) => item.slug === productSlug || item.id === productSlug)
+  if (!productSlug) {
+    return seoData
+  }
 
-    if (product) {
-      queryClient.setQueryData(['product', productSlug], product)
-      queryClient.setQueryData(['products', { sort: 'popular' }], sortedProducts)
-    }
+  seoData.productKey = productSlug
+  seoData.product = await getProductById(productSlug)
+
+  if (!seoData.popularProducts) {
+    seoData.popularProducts = await getProducts({ sort: 'popular' })
+  }
+
+  return seoData
+}
+
+export const renderRoute = async (url: string) => {
+  const queryClient = createQueryClient()
+  const seoData = await buildSeoHydrationData(url)
+
+  if (seoData.popularProducts) {
+    queryClient.setQueryData(['products', { sort: 'popular' }], seoData.popularProducts)
+  }
+
+  if (seoData.product && seoData.productKey) {
+    queryClient.setQueryData(['product', seoData.productKey], seoData.product)
   }
 
   const helmetContext: { helmet?: HelmetData } = {}
@@ -61,7 +80,6 @@ export const renderRoute = async (url: string) => {
     <AppProviders
       helmetContext={helmetContext}
       queryClient={queryClient}
-      dehydratedState={dehydrate(queryClient)}
     >
       <StaticRouter location={url}>
         <AppServer />
@@ -72,6 +90,6 @@ export const renderRoute = async (url: string) => {
   return {
     appHtml,
     headMarkup: helmetContext.helmet ? buildHeadMarkup(helmetContext.helmet) : '',
-    dehydratedState: dehydrate(queryClient),
+    seoData,
   }
 }

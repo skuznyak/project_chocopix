@@ -186,6 +186,10 @@ export default function ProductPage() {
           `Додатково: ${marshmallowAdditionalComposition.join(', ')}`,
         ].join('\n')
       : product.composition.join(', ')
+  const freshnessText =
+    productType === 'marshmallow'
+      ? 'Ми виготовляємо маршмелоу після вашого замовлення, тому відправка здійснюється протягом 1-2 днів.'
+      : 'Ми виготовляємо какао бомбочки після вашого замовлення, тому відправка здійснюється протягом 1-2 днів.'
 
   const characteristics = [
     ...(productType !== 'cup'
@@ -301,6 +305,10 @@ export default function ProductPage() {
               >
                 Купити зараз
               </Button>
+            </div>
+            <div className="mt-6 rounded-[20px] border border-[#eadfcb] bg-[#f8f1e4]/75 p-4 text-sm leading-6 text-[#5f3925]">
+              <p className="font-semibold tracking-[-0.01em] text-[#3D2616]">✨ Свіжість має значення</p>
+              <p className="mt-1">{freshnessText}</p>
             </div>
             <div className="mt-6 w-full max-w-[460px] rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4]/90 p-4 shadow-soft">
               <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Характеристики</h2>

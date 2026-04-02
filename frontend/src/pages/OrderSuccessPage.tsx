@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { CheckCircle2 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -5,10 +6,88 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
 
+const PURCHASE_STORAGE_KEY = 'chocopix-last-purchase'
+const GTAG_RETRY_DELAY_MS = 400
+const GTAG_MAX_RETRIES = 10
+
 export default function OrderSuccessPage() {
   const [searchParams] = useSearchParams()
   const orderNumber = searchParams.get('orderNumber')
   const pageUrl = buildAbsoluteUrl('/order-success')
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    let retryTimeoutId: number | undefined
+
+    const trySendPurchase = (attempt = 0) => {
+      const rawPurchase = window.sessionStorage.getItem(PURCHASE_STORAGE_KEY)
+
+      if (!rawPurchase) {
+        return
+      }
+
+      try {
+        const purchase = JSON.parse(rawPurchase) as {
+          orderNumber?: string
+          total?: number
+          currency?: string
+        }
+        const purchaseSentKey = purchase.orderNumber ? `purchase_sent:${purchase.orderNumber}` : null
+
+        if (!orderNumber) {
+          return
+        }
+
+        if (!purchase.orderNumber) {
+          return
+        }
+
+        if (purchase.orderNumber !== orderNumber) {
+          return
+        }
+
+        if (purchaseSentKey && window.sessionStorage.getItem(purchaseSentKey)) {
+          return
+        }
+
+        if (typeof window.gtag !== 'function') {
+          if (attempt >= GTAG_MAX_RETRIES) {
+            return
+          }
+
+          retryTimeoutId = window.setTimeout(() => {
+            trySendPurchase(attempt + 1)
+          }, GTAG_RETRY_DELAY_MS)
+          return
+        }
+
+        window.gtag('event', 'purchase', {
+          transaction_id: purchase.orderNumber,
+          value: purchase.total ?? 0,
+          currency: purchase.currency ?? 'UAH',
+        })
+
+        if (purchaseSentKey) {
+          window.sessionStorage.setItem(purchaseSentKey, 'true')
+        }
+        window.sessionStorage.removeItem(PURCHASE_STORAGE_KEY)
+      } catch (error) {
+        void error
+        window.sessionStorage.removeItem(PURCHASE_STORAGE_KEY)
+      }
+    }
+
+    trySendPurchase()
+
+    return () => {
+      if (retryTimeoutId) {
+        window.clearTimeout(retryTimeoutId)
+      }
+    }
+  }, [orderNumber])
 
   return (
     <>

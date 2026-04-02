@@ -11,8 +11,6 @@ type HeroSlide = {
   secret: string
   image: string
   imageAlt: string
-  href: string
-  ctaLabel: string
 }
 
 const SLIDE_DURATION_MS = 3000
@@ -26,8 +24,6 @@ const slides: HeroSlide[] = [
     secret: 'Секретний інгредієнт: любов та бельгійський шоколад',
     image: '/products/heart_chocolate.webp',
     imageAlt: 'Какао бомбочки з маршмелоу ChocoPix',
-    href: '/cacao-bombs',
-    ctaLabel: 'Спробувати зараз',
   },
   {
     title: 'Набори\nкакао бомбочок',
@@ -37,8 +33,6 @@ const slides: HeroSlide[] = [
     secret: 'Тільки натуральні інгредієнти та преміальний какао',
     image: '/products/gift-set-family-classic-10.webp',
     imageAlt: 'Подарунковий набір какао бомбочок ChocoPix',
-    href: '/gift-sets',
-    ctaLabel: 'Дивитись набори',
   },
   {
     title: 'Маршмелоу',
@@ -48,8 +42,6 @@ const slides: HeroSlide[] = [
     secret: 'Унікальна рецептура та ручна робота',
     image: '/products/marshmallow/Marshmallow_with_cinnamon.webp',
     imageAlt: 'Маршмелоу ручної роботи ChocoPix',
-    href: '/marshmallow',
-    ctaLabel: 'Хочу солодкого',
   },
 ]
 
@@ -81,22 +73,16 @@ function HeroTextBlock({ slide, animated }: { slide: HeroSlide; animated: boolea
       </h1>
       <p className="mt-5 max-w-xl font-heroBody text-base leading-8 text-[#6e5647] sm:text-lg">{slide.description}</p>
       <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-        {slide.href.startsWith('/') ? (
-          <Link to={slide.href}>
-            <Button className="min-h-14 rounded-[20px] bg-[#4f2f1d] px-8 font-heroBody text-base font-semibold text-[#fff7f0] shadow-[0_20px_45px_rgba(61,38,22,0.18)] hover:bg-[#3D2616]">
-              {slide.ctaLabel} <ArrowRight className="ml-3" size={18} />
-            </Button>
-          </Link>
-        ) : (
-          <a href={slide.href}>
-            <Button className="min-h-14 rounded-[20px] bg-[#4f2f1d] px-8 font-heroBody text-base font-semibold text-[#fff7f0] shadow-[0_20px_45px_rgba(61,38,22,0.18)] hover:bg-[#3D2616]">
-              {slide.ctaLabel} <ArrowRight className="ml-3" size={18} />
-            </Button>
-          </a>
-        )}
-        <div className="inline-flex min-h-14 items-center rounded-[20px] border border-[#d8c4aa] bg-white/45 px-6 font-heroBody text-sm font-medium text-[#6b5240] backdrop-blur-sm sm:max-w-[280px]">
-          {slide.secret}
-        </div>
+        <Link to="/gift-sets">
+          <Button className="min-h-14 rounded-[20px] bg-[#4f2f1d] px-8 font-heroBody text-base font-semibold text-[#fff7f0] shadow-[0_20px_45px_rgba(61,38,22,0.18)] hover:bg-[#3D2616]">
+            Купити набір <ArrowRight className="ml-3" size={18} />
+          </Button>
+        </Link>
+        <Link to="/cacao-bombs">
+          <Button variant="secondary" className="min-h-14 rounded-[20px] border border-[#d8c4aa] bg-white/45 px-6 font-heroBody text-base font-medium text-[#3D2616] backdrop-blur-sm hover:bg-white/70">
+            Обрати бомбочки
+          </Button>
+        </Link>
       </div>
     </>
   )

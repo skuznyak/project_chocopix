@@ -78,6 +78,7 @@ server {
     server_name chocopix.store;
     include /path/to/deploy/nginx/product-id-redirects.conf;
     include /path/to/deploy/nginx/spa-routes.conf;
+    include /path/to/deploy/nginx/security-hardening.conf;
 
     location / {
         root /path/to/frontend/dist;
@@ -107,6 +108,7 @@ npm run routes:generate
 
 `product-id-redirects.conf` contains exact-match HTTP `301` redirects from legacy `/product/:id` URLs to canonical `/product/:slug` URLs.
 `spa-routes.conf` serves `index.html` only for known SPA routes and returns `404` for unknown URLs (prevents SEO soft-404 issues).
+`security-hardening.conf` blocks public access to technical-looking routes and sensitive files, and keeps `/api/health` local-only.
 
 ### 4. Start Backend
 
@@ -143,4 +145,5 @@ npm run smoke -- https://chocopix.store
 
 This validates:
 - `GET /api/health`
+- `GET /api/products`
 - `GET /api/np/areas`

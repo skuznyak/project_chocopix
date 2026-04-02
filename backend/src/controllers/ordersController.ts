@@ -36,6 +36,7 @@ const createOrderSchema = z.object({
 })
 
 const orders = new Map<string, Order>()
+const generateOrderNumber = () => `CP-${Date.now().toString(36).toUpperCase()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`
 
 export const createOrderController = async (request: Request, response: Response) => {
   const orderNotificationEmails = (process.env.ORDER_NOTIFICATION_EMAILS ?? '')
@@ -71,7 +72,7 @@ export const createOrderController = async (request: Request, response: Response
   const id = crypto.randomUUID()
   const order: Order = {
     id,
-    orderNumber: `CP-${Date.now().toString().slice(-6)}`,
+    orderNumber: generateOrderNumber(),
     ...payload,
     promoCode: appliedPromoCode,
     appliedPromoCode,
@@ -110,15 +111,4 @@ export const createOrderController = async (request: Request, response: Response
   void sendOrderToEmail(notificationOrderData, orderNotificationEmails).catch(console.error)
 
   response.status(201).json(order)
-}
-
-export const getOrderStatusController = (request: Request<{ id: string }>, response: Response) => {
-  const order = orders.get(request.params.id)
-
-  if (!order) {
-    response.status(404).json({ message: 'Order not found' })
-    return
-  }
-
-  response.json(order)
 }

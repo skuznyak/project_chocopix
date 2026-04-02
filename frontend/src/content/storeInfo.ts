@@ -1,0 +1,7 @@
+export const STORE_NAME = 'ChocoPix'
+export const STORE_SITE_HOST = 'chocopix.store'
+export const STORE_PHONE_DISPLAY = '+38 (066) 138-97-81'
+export const STORE_PHONE_LINK = '+380661389781'
+export const STORE_WHATSAPP_URL = 'https://wa.me/380661389781'
+export const STORE_EMAIL = 'support@chocopix.store'
+export const STORE_COUNTRY = 'Україна'

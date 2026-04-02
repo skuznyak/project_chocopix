@@ -8,12 +8,17 @@ const baseUrls = [
   'https://chocopix.store/marshmallow',
   'https://chocopix.store/gift-sets',
   'https://chocopix.store/contacts',
+  'https://chocopix.store/privacy-policy',
+  'https://chocopix.store/delivery',
+  'https://chocopix.store/refund',
 ]
 
-const productUrls = productsCatalog.map((product) => {
-  const slug = product.slug ?? product.id
-  return `https://chocopix.store/product/${slug}`
-})
+const productUrls = productsCatalog
+  .filter((product) => product.category !== 'cups')
+  .map((product) => {
+    const slug = product.slug ?? product.id
+    return `https://chocopix.store/product/${slug}`
+  })
 
 const uniqueUrls = [...new Set([...baseUrls, ...productUrls])]
 const lastmod = new Date().toISOString().slice(0, 10)

@@ -100,7 +100,7 @@ images: [
 ### Варіант 2: Зовнішні URL
 ```typescript
 images: [
-  { id: '1', src: 'https://images.unsplash.com/photo-xxx', alt: 'Фото' },
+  { id: '1', src: '/products/example.webp', alt: 'Фото' },
 ]
 ```
 

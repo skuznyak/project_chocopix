@@ -58,6 +58,16 @@ const isAllowedDevelopmentOrigin = (origin: string) => {
   }
 }
 
+const LOOPBACK_IPS = new Set<string>(['127.0.0.1', '::1', '::ffff:127.0.0.1'])
+const isLoopbackRequest = (request: express.Request) => {
+  const forwardedFor = request.ip ?? ''
+  const remoteAddress = request.socket.remoteAddress
+
+  return LOOPBACK_IPS.has(forwardedFor) || LOOPBACK_IPS.has(remoteAddress ?? '')
+}
+
+app.disable('x-powered-by')
+app.set('trust proxy', true)
 app.use(helmet())
 app.use(
   cors({
@@ -87,8 +97,17 @@ app.use(
   }),
 )
 app.use(express.json())
+app.use('/api', (_request, response, next) => {
+  response.setHeader('X-Robots-Tag', 'noindex, nofollow, noarchive')
+  next()
+})
 
-app.get('/api/health', (_request, response) => {
+app.get('/api/health', (request, response) => {
+  if (!isLoopbackRequest(request)) {
+    response.status(404).end()
+    return
+  }
+
   response.json({ status: 'ok' })
 })
 
@@ -99,7 +118,7 @@ app.use('/api/callback', callbackRouter)
 app.use('/api/promo', promoCodeRouter)
 app.use(errorHandler)
 
-const server = app.listen(port, () => {
+const server = app.listen(port,'127.0.0.1', () => {
   console.log(`ChocoPix API listening on http://localhost:${port}`)
 })
 

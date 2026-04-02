@@ -5,6 +5,7 @@ import { readStorage, writeStorage } from '@/utils/browserStorage'
 const STORAGE_KEY = 'chocopix-orders'
 
 const readOrders = (): Order[] => readStorage<Order[]>(STORAGE_KEY, [])
+const generateOrderNumber = () => `CP-${Date.now().toString(36).toUpperCase()}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`
 
 export const createOrder = async (payload: CreateOrderPayload) => {
   if (!USE_MOCK) {
@@ -14,7 +15,7 @@ export const createOrder = async (payload: CreateOrderPayload) => {
 
   const order: Order = {
     id: crypto.randomUUID(),
-    orderNumber: `CP-${Date.now().toString().slice(-6)}`,
+    orderNumber: generateOrderNumber(),
     items: payload.items,
     customer: payload.customer,
     delivery: payload.delivery,
@@ -30,21 +31,5 @@ export const createOrder = async (payload: CreateOrderPayload) => {
 
   const orders = readOrders()
   writeStorage(STORAGE_KEY, [order, ...orders])
-  return order
-}
-
-export const getOrderStatus = async (id: string) => {
-  if (!USE_MOCK) {
-    const response = await apiClient.get<Order>(`/orders/${id}`)
-    return response.data
-  }
-
-  const orders = readOrders()
-  const order = orders.find((item) => item.id === id)
-
-  if (!order) {
-    throw new Error('Order not found')
-  }
-
   return order
 }

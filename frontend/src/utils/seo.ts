@@ -1,3 +1,5 @@
+import { STORE_PHONE_LINK, STORE_WHATSAPP_URL } from '@/content/storeInfo'
+
 export const SITE_URL = 'https://chocopix.store'
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/107270_001.webp`
 const UTILITY_ROUTES = new Set(['/cart', '/checkout', '/order-success', '/404'])
@@ -25,18 +27,18 @@ export const organizationSchema = {
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/favicon.svg`,
   description: 'Шоколадні бомбочки та какао бомбочки з маршмелоу ручної роботи з доставкою по Україні.',
-  telephone: '+380661389781',
+  telephone: STORE_PHONE_LINK,
   areaServed: 'UA',
   contactPoint: [
     {
       '@type': 'ContactPoint',
-      telephone: '+380661389781',
+      telephone: STORE_PHONE_LINK,
       contactType: 'customer support',
       areaServed: 'UA',
       availableLanguage: ['uk'],
     },
   ],
-  sameAs: ['https://wa.me/380661389781'],
+  sameAs: [STORE_WHATSAPP_URL],
 }
 
 export const websiteSchema = {

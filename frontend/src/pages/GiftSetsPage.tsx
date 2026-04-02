@@ -29,15 +29,15 @@ const faqItems = [
 
 export default function GiftSetsPage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
-  const giftSets = products.filter((product) => product.tags.includes('набори'))
+  const giftSets = products.filter((product) => product.category === 'gift-set')
   const featuredGiftSets = giftSets.slice(0, 3)
   const categoryUrl = buildAbsoluteUrl('/gift-sets')
-  const categoryTitle = 'Подарункові набори какао бомбочок купити | ChocoPix'
+  const categoryTitle = 'Подарункові набори какао бомбочок купити | Шоколадні набори | ChocoPix'
   const categoryDescription =
-    'Подарункові набори какао бомбочок з маршмелоу: готові сети для свят, подарунків і сімейних вечорів. Доставка по Україні.'
+    'Подарункові набори какао бомбочок і шоколадних бомбочок з маршмелоу купити з доставкою по Україні. Готові солодкі подарунки від ChocoPix.'
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Головна', path: '/' },
-    { name: 'Подарункові набори', path: '/gift-sets' },
+    { name: 'Подарункові набори какао бомбочок', path: '/gift-sets' },
   ])
   const collectionPageSchema = {
     '@context': 'https://schema.org',
@@ -79,6 +79,7 @@ export default function GiftSetsPage() {
       <Helmet>
         <title>{categoryTitle}</title>
         <meta name="description" content={categoryDescription} />
+        <meta name="robots" content="index,follow" />
         <meta property="og:title" content={categoryTitle} />
         <meta property="og:description" content={categoryDescription} />
         <meta property="og:type" content="website" />
@@ -94,14 +95,13 @@ export default function GiftSetsPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <nav aria-label="breadcrumb" className="text-sm text-cocoa-900/55">
-          <Link to="/">Головна</Link> / <span>Подарункові набори</span>
+          <Link to="/">Головна</Link> / <span>Подарункові набори какао бомбочок</span>
         </nav>
         <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Подарункові набори</h1>
+        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Подарункові набори какао бомбочок</h1>
         <div className="mt-4 space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
-            Обирайте готові подарункові набори какао бомбочок з маршмелоу для різних ситуацій: день народження, сезонні свята, сімейний подарунок
-            чи затишний вечір удома. У колекції є класичні, преміум і дитячі формати з різною кількістю смаків.
+            Тут зібрані подарункові набори какао бомбочок для дня народження, сімейного подарунка або невеликого солодкого компліменту.
           </p>
           <p>
             Якщо шукаєте набір саме під подію, почніть із{' '}
@@ -115,7 +115,7 @@ export default function GiftSetsPage() {
             ))}{' '}
             Для окремих смаків перегляньте також{' '}
             <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">
-              категорію шоколадних бомбочок
+              какао бомбочки поштучно
             </Link>
             , а для мʼякого десертного доповнення до боксу відкрийте{' '}
             <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
@@ -133,8 +133,7 @@ export default function GiftSetsPage() {
 
         <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#3D2616]">
           <p>
-            Якщо потрібен солодкий подарунок без зайвого вибору, подарунковий набір з шоколаду закриває одразу кілька сценаріїв: день народження,
-            свята, комплімент дівчині або затишний вечір удома з готовим асорті смаків. Окремі смаки{' '}
+            Якщо потрібен готовий солодкий подарунок без зайвого вибору, ця категорія закриває саме такий запит. Окремі смаки{' '}
             <Link to="/marshmallow" className="font-semibold underline underline-offset-4">
               маршмелоу до подарунка
             </Link>{' '}
@@ -145,7 +144,7 @@ export default function GiftSetsPage() {
         <section className="mt-14 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">FAQ</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">
-            Поширені запитання про подарункові набори
+            Поширені запитання про подарункові набори какао бомбочок
           </h2>
           <div className="mt-6 space-y-4">
             {faqItems.map((item) => (

@@ -78,15 +78,16 @@ export default function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Какао бомбочки купити | Шоколадні бомбочки з маршмелоу - ChocoPix</title>
+        <title>Какао бомбочки купити | Шоколадні бомбочки з маршмелоу в Україні | ChocoPix</title>
         <meta
           name="description"
-          content="Какао бомбочки купити онлайн від ChocoPix: шоколадні бомбочки з маршмелоу, ручна робота, подарункові набори та доставка по Україні."
+          content="Какао бомбочки та шоколадні бомбочки з маршмелоу купити з доставкою по Україні. Ручна робота, подарункові набори, авторські смаки від ChocoPix."
         />
-        <meta property="og:title" content="Какао бомбочки купити | Шоколадні бомбочки з маршмелоу - ChocoPix" />
+        <meta name="robots" content="index,follow" />
+        <meta property="og:title" content="Какао бомбочки купити | Шоколадні бомбочки з маршмелоу в Україні | ChocoPix" />
         <meta
           property="og:description"
-          content="Какао бомбочки купити онлайн від ChocoPix: шоколадні бомбочки з маршмелоу, ручна робота, подарункові набори та доставка по Україні."
+          content="Какао бомбочки та шоколадні бомбочки з маршмелоу купити з доставкою по Україні. Ручна робота, подарункові набори, авторські смаки від ChocoPix."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={buildAbsoluteUrl('/')} />
@@ -194,9 +195,9 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Каталог</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Бомбочки</h2>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Какао бомбочки з маршмелоу</h2>
               <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
-                Какао бомбочки купити можна для домашнього какао, подарунка або святкового настрою. Просто киньте шоколадну бомбочку в гаряче молоко і насолоджуйтесь!
+                Короткий огляд основних смаків і форматів. Для повного вибору перейдіть у каталог бомбочок.
               </p>
               <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 Для ще ніжнішої подачі до напою спробуйте{' '}
@@ -222,9 +223,9 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Подарунки</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Набори</h2>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Подарункові набори какао бомбочок</h2>
               <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
-                Готові подарункові набори з кількох смаків. Чудовий вибір для свята або щоб порадувати близьких.
+                Кілька готових наборів для подарунка, свята або сімейного вечора.
               </p>
               <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 А якщо хочете доповнити солодкий бокс, перегляньте{' '}
@@ -249,9 +250,9 @@ export default function HomePage() {
           <div className="flex items-end justify-between gap-4">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Авторське</p>
-              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Маршмелоу</h2>
+              <h2 className="mt-3 font-display text-6xl font-semibold tracking-[-0.04em] text-[#3D2616]">Маршмелоу ручної роботи</h2>
               <p className="mt-3 max-w-xl text-lg text-[#3D2616]">
-                Усі смаки авторського маршмелоу в одному блоці: ягідні, цитрусові, шоколадні та святкові десертні поєднання.
+                Окрема категорія маршмелоу для какао, десертів і невеликих солодких подарунків.
               </p>
               <p className="mt-3 max-w-xl text-base text-[#3D2616]">
                 Відкрийте повну категорію з усіма смаками{' '}
@@ -295,18 +296,16 @@ export default function HomePage() {
 
         <section className="rounded-[30px] bg-gradient-to-b from-[#fff9ef] via-[#f7ead6] to-[#efdbc2] p-7 shadow-[0_16px_36px_rgba(90,53,25,0.09)] sm:p-10">
           <h2 className="font-display text-4xl font-semibold tracking-[-0.03em] text-[#3D2616] sm:text-5xl">
-            Какао бомбочки з маршмелоу - ідеальний подарунок та затишок вдома
+            Какао бомбочки з маршмелоу для подарунка та домашнього какао
           </h2>
           <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#3D2616]">
             <p>
-              Какао бомбочки з маршмелоу давно стали улюбленим ритуалом для холодного сезону та приємних домашніх вечорів. Коли шоколадна сфера
-              потрапляє в гаряче молоко, вона поступово розкривається, а всередині з&apos;являються ніжні маршмелоу і насичений какао-аромат. Саме
-              тому цей формат напою так люблять і діти, і дорослі: він поєднує смак, ефектну подачу та відчуття затишку в кожній чашці.
+              ChocoPix зібрав в одному місці какао бомбочки, подарункові набори та маршмелоу ручної роботи. Головна сторінка допомагає швидко
+              перейти в потрібну категорію без зайвого тексту.
             </p>
             <p>
-              У ChocoPix ви можете купити какао бомбочки з маршмелоу ручної роботи з доставкою по Україні. Ми готуємо шоколадні бомбочки
-              невеликими партіями, щоб зберегти стабільну якість і свіжість. Це вдалий вибір для подарунка близьким, для святкового столу або
-              просто для моменту, коли хочеться чогось теплого, солодкого і красивого без складного приготування.
+              Якщо потрібні окремі смаки, відкрийте каталог бомбочок. Якщо шукаєте готовий подарунок, перейдіть у набори. Для окремого десертного
+              доповнення є категорія маршмелоу.
             </p>
           </div>
 

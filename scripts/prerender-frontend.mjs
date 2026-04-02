@@ -69,7 +69,7 @@ const stripCanonicalLink = (markup) => markup.replace(/<link\b[^>]*rel=["']canon
 const sanitizeTemplate = (template) =>
   stripDynamicHeadTags(template)
     .replace(/<div id="root">[\s\S]*?<\/div>/i, '<div id="root"></div>')
-    .replace(/<script>window\.__SEO_DATA__=[\s\S]*?<\/script>\s*/gi, '')
+    .replace(/<script id=["']seo-data["'] type=["']application\/json["'][\s\S]*?<\/script>\s*/gi, '')
 
 const applyHeadMarkup = (template, headMarkup, route) =>
   template.replace(
@@ -80,7 +80,9 @@ const applyHeadMarkup = (template, headMarkup, route) =>
 const buildHtmlDocument = (template, appHtml, headMarkup, seoData, route) => {
   const withHead = applyHeadMarkup(template, headMarkup, route)
   const hasSeoData = seoData && Object.keys(seoData).length > 0
-  const seoDataScript = hasSeoData ? `\n    <script>window.__SEO_DATA__=${escapeInlineJson(seoData)}</script>` : ''
+  const seoDataScript = hasSeoData
+    ? `\n    <script id="seo-data" type="application/json">${escapeInlineJson(seoData)}</script>`
+    : ''
 
   return withHead.replace(
     '<div id="root"></div>',

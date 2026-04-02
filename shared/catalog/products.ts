@@ -484,8 +484,8 @@ export const productsCatalog: Product[] = [
     tags: ['чашка', 'кераміка', 'класика', 'чашки'],
     popularity: 94,
     images: [
-      { id: '1', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Класична чашка' },
-      { id: '2', src: 'https://images.unsplash.com/photo-1577937927633-291d1e0959b6?auto=format&fit=crop&w=900&q=80', alt: 'Чашка з какао' },
+      { id: '1', src: '/images/107270_001.webp', alt: 'Класична чашка' },
+      { id: '2', src: '/products/hero-mobile.webp', alt: 'Чашка з какао' },
     ],
     featured: true,
   },
@@ -505,8 +505,8 @@ export const productsCatalog: Product[] = [
     tags: ['термочашка', 'подорож', 'сталь', 'чашки'],
     popularity: 89,
     images: [
-      { id: '1', src: 'https://images.unsplash.com/photo-1570554868546-5c403783457c?auto=format&fit=crop&w=900&q=80', alt: 'Термочашка' },
-      { id: '2', src: 'https://images.unsplash.com/photo-1517668851879-8b1a26746c93?auto=format&fit=crop&w=900&q=80', alt: 'Travel чашка' },
+      { id: '1', src: '/images/photo_2024-11-12_01-.webp', alt: 'Термочашка' },
+      { id: '2', src: '/products/hero-mobile.webp', alt: 'Travel чашка' },
     ],
   },
   {
@@ -524,8 +524,8 @@ export const productsCatalog: Product[] = [
     tags: ['скло', 'елегантність', 'подвійне дно', 'чашки'],
     popularity: 86,
     images: [
-      { id: '1', src: 'https://images.unsplash.com/photo-1577937927633-291d1e0959b6?auto=format&fit=crop&w=900&q=80', alt: 'Скляна чашка' },
-      { id: '2', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Чашка з подвійним дном' },
+      { id: '1', src: '/images/107270_001.webp', alt: 'Скляна чашка' },
+      { id: '2', src: '/products/hero-mobile.webp', alt: 'Чашка з подвійним дном' },
     ],
   },
   {
@@ -543,8 +543,8 @@ export const productsCatalog: Product[] = [
     tags: ['лате', 'велика', 'кава', 'чашки'],
     popularity: 87,
     images: [
-      { id: '1', src: 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=900&q=80', alt: 'Чашка для лате' },
-      { id: '2', src: 'https://images.unsplash.com/photo-1570554868546-5c403783457c?auto=format&fit=crop&w=900&q=80', alt: 'Grande чашка' },
+      { id: '1', src: '/images/107270_001.webp', alt: 'Чашка для лате' },
+      { id: '2', src: '/images/photo_2024-11-12_01-.webp', alt: 'Grande чашка' },
     ],
   },
   */

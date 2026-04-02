@@ -12,6 +12,8 @@ import { FREE_DELIVERY_THRESHOLD } from '@/store/cartStore'
 import { formatPrice } from '@/utils/formatPrice'
 import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
 
+const PURCHASE_STORAGE_KEY = 'chocopix-last-purchase'
+
 export default function CheckoutPage() {
   const pageUrl = buildAbsoluteUrl('/checkout')
   const navigate = useNavigate()
@@ -107,6 +109,20 @@ export default function CheckoutPage() {
                 try {
                   setSubmitError(null)
                   const order = await createOrder(payload)
+
+                  if (typeof window !== 'undefined') {
+                    const purchasePayload = {
+                      orderNumber: order.orderNumber,
+                      total: order.total,
+                      currency: 'UAH',
+                    }
+
+                    window.sessionStorage.setItem(
+                      PURCHASE_STORAGE_KEY,
+                      JSON.stringify(purchasePayload),
+                    )
+                  }
+
                   clearCart()
                   setPromoInput('')
                   setPromoFeedback(null)
@@ -121,7 +137,7 @@ export default function CheckoutPage() {
                   }
 
                   if (axios.isAxiosError(error) && error.response?.status === 500) {
-                    setSubmitError('Не вдалося оформити замовлення. Перевірте, чи запущений бекенд, і спробуйте ще раз.')
+                    setSubmitError('Не вдалося оформити замовлення. Спробуйте ще раз трохи пізніше.')
                     return
                   }
 

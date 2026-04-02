@@ -1,19 +1,21 @@
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
+import { STORE_COUNTRY, STORE_EMAIL, STORE_NAME, STORE_PHONE_DISPLAY, STORE_PHONE_LINK, STORE_SITE_HOST, STORE_WHATSAPP_URL } from '@/content/storeInfo'
 
 export default function ContactsPage() {
   return (
     <>
       <Helmet>
-        <title>Контакти ChocoPix | Замовити какао бомбочки</title>
+        <title>Контакти {STORE_NAME} | Замовити какао бомбочки та маршмелоу</title>
         <meta
           name="description"
-          content="Контакти ChocoPix: телефон, месенджери та консультація щодо замовлення какао бомбочок з маршмелоу. Швидко відповідаємо по Україні."
+          content="Контакти ChocoPix: телефон і месенджери для замовлення какао бомбочок, подарункових наборів і маршмелоу. Консультація та доставка по Україні."
         />
-        <meta property="og:title" content="Контакти ChocoPix | Замовити какао бомбочки" />
+        <meta name="robots" content="index,follow" />
+        <meta property="og:title" content={`Контакти ${STORE_NAME} | Замовити какао бомбочки та маршмелоу`} />
         <meta
           property="og:description"
-          content="Контакти ChocoPix: телефон, месенджери та консультація щодо замовлення какао бомбочок з маршмелоу. Швидко відповідаємо по Україні."
+          content="Контакти ChocoPix: телефон і месенджери для замовлення какао бомбочок, подарункових наборів і маршмелоу. Консультація та доставка по Україні."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://chocopix.store/contacts" />
@@ -30,42 +32,54 @@ export default function ContactsPage() {
         <div className="mt-8 grid gap-4 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 text-[#5f3925] sm:grid-cols-2">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c5328]">Телефон</p>
-            <p className="mt-2 text-lg font-semibold">+38 (066) 138-97-81</p>
+            <a className="mt-2 inline-block text-lg font-semibold underline underline-offset-4" href={`tel:${STORE_PHONE_LINK}`}>
+              {STORE_PHONE_DISPLAY}
+            </a>
           </div>
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c5328]">Сайт</p>
-            <p className="mt-2 text-lg font-semibold">chocopix.store</p>
+            <p className="mt-2 text-lg font-semibold">{STORE_SITE_HOST}</p>
           </div>
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c5328]">WhatsApp</p>
-            <a className="mt-2 inline-block text-lg font-semibold underline underline-offset-4" href="https://wa.me/380661389781">
+            <a className="mt-2 inline-block text-lg font-semibold underline underline-offset-4" href={STORE_WHATSAPP_URL}>
               Написати у WhatsApp
             </a>
           </div>
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c5328]">Viber</p>
-            <a className="mt-2 inline-block text-lg font-semibold underline underline-offset-4" href="viber://chat?number=%2B380661389781">
-              Написати у Viber
+            <a className="mt-2 inline-block text-lg font-semibold underline underline-offset-4" href={`tel:${STORE_PHONE_LINK}`}>
+              Зателефонувати / Viber
             </a>
+          </div>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c5328]">Email</p>
+            <a className="mt-2 inline-block text-lg font-semibold underline underline-offset-4" href={`mailto:${STORE_EMAIL}`}>
+              {STORE_EMAIL}
+            </a>
+          </div>
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8c5328]">Країна</p>
+            <p className="mt-2 text-lg font-semibold">{STORE_COUNTRY}</p>
           </div>
         </div>
 
         <div className="mt-8 grid gap-4 sm:grid-cols-3">
           <article className="rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4] p-5 text-[#5f3925]">
-            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Як оформити замовлення</h2>
+            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Як замовити какао бомбочки та набори</h2>
             <p className="mt-2 text-sm leading-6">
               Допоможемо обрати формат: окремі <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочки</Link>{' '}
               або <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарункові набори</Link>.
             </p>
           </article>
           <article className="rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4] p-5 text-[#5f3925]">
-            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Швидкість відповіді</h2>
+            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Швидкий зв'язок для замовлення</h2>
             <p className="mt-2 text-sm leading-6">
               Відповідаємо в месенджерах і телефоном у робочий час, щоб ви могли швидко уточнити наявність і доставку.
             </p>
           </article>
           <article className="rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4] p-5 text-[#5f3925]">
-            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Доставка і комунікація</h2>
+            <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Доставка по Україні та супровід замовлення</h2>
             <p className="mt-2 text-sm leading-6">
               Підтверджуємо деталі замовлення перед відправкою та супроводжуємо вас до отримання посилки.
             </p>

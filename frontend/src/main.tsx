@@ -8,7 +8,22 @@ import { createQueryClient } from '@/app/createQueryClient'
 import '@/index.css'
 
 const queryClient = createQueryClient()
-const seoData = window.__SEO_DATA__
+const seoDataElement = document.getElementById('seo-data')
+const seoData = (() => {
+  if (!seoDataElement?.textContent) {
+    return undefined
+  }
+
+  try {
+    return JSON.parse(seoDataElement.textContent) as {
+      productKey?: string
+      product?: Product
+      popularProducts?: Product[]
+    }
+  } catch {
+    return undefined
+  }
+})()
 
 if (seoData?.popularProducts) {
   queryClient.setQueryData(['products', { sort: 'popular' }], seoData.popularProducts as Product[])

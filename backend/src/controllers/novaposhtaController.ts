@@ -4,8 +4,6 @@ import axios from 'axios'
 const NOVA_POSHTA_API_KEY = process.env.NOVA_POSHTA_API_KEY || ''
 const NOVA_POSHTA_API_URL = 'https://api.novaposhta.ua/v2.0/json/'
 
-console.log('Nova Poshta API Key loaded:', NOVA_POSHTA_API_KEY ? '***' + NOVA_POSHTA_API_KEY.slice(-8) : 'NOT SET')
-
 // Кеш для даних (спрощений, в пам'яті)
 const cache = new Map<string, { data: unknown; timestamp: number }>()
 const CACHE_TTL = 5 * 60 * 1000 // 5 хвилин
@@ -60,24 +58,20 @@ const novaPoshtaApi = axios.create({
 
 // Отримати всі області
 export const getAreasController = async (request: Request, response: Response) => {
-  console.log('getAreasController called')
   try {
     const { q } = request.query
     const cacheKey = `areas:${q || 'all'}`
     const cached = cache.get(cacheKey)
     
     if (cached && Date.now() - cached.timestamp < CACHE_TTL) {
-      console.log('Returning cached areas')
       return response.json(cached.data)
     }
 
-    console.log('Fetching areas from Nova Poshta API...')
     const areaResponse = await novaPoshtaApi.post<NovaPoshtaResponse<NovaPoshtaAreaDto>>(NOVA_POSHTA_API_URL, {
       apiKey: NOVA_POSHTA_API_KEY,
       modelName: 'Address',
       calledMethod: 'getAreas',
     })
-    console.log('Nova Poshta API response:', areaResponse.data.success ? 'SUCCESS' : 'FAILED')
 
     if (!areaResponse.data.success) {
       return response.status(400).json({ error: areaResponse.data.errors })
@@ -97,7 +91,6 @@ export const getAreasController = async (request: Request, response: Response) =
     }
 
     cache.set(cacheKey, { data: areas, timestamp: Date.now() })
-    console.log('Returning', areas.length, 'areas')
     response.json(areas)
   } catch (error) {
     console.error('Error fetching areas from Nova Poshta:', error)

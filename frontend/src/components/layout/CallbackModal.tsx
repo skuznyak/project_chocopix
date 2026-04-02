@@ -81,7 +81,7 @@ export const CallbackModal = ({ isOpen, onClose }: CallbackModalProps) => {
                 setIsSuccess(true)
               } catch (error) {
                 if (axios.isAxiosError(error) && error.response?.status === 500) {
-                  setSubmitError('Не вдалося надіслати заявку. Перевірте, чи запущений бекенд, і спробуйте ще раз.')
+                  setSubmitError('Не вдалося надіслати заявку. Спробуйте ще раз трохи пізніше.')
                   return
                 }
 

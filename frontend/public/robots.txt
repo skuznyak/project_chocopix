@@ -1,5 +1,13 @@
 User-agent: *
 Allow: /
+Disallow: /api
+Disallow: /admin
+Disallow: /dev
+Disallow: /test
+Disallow: /debug
+Disallow: /codex
+Disallow: /sandbox
+Disallow: /playground
 Disallow: /cart
 Disallow: /checkout
 Disallow: /order-success

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { STORE_PHONE_DISPLAY, STORE_PHONE_LINK, STORE_SITE_HOST, STORE_WHATSAPP_URL } from '@/content/storeInfo'
 
 export const Footer = () => (
   <footer id="footer" className="mt-16 border-t border-[#d4d9b8] bg-[#7b4a32] text-white">
@@ -23,24 +24,33 @@ export const Footer = () => (
             <Link to="/cacao-bombs" className="transition hover:text-white">Шоколадні бомбочки</Link>
             <Link to="/gift-sets" className="transition hover:text-white">Подарункові набори</Link>
             <Link to="/marshmallow" className="transition hover:text-white">Маршмелоу</Link>
-            <Link to="/contacts" className="transition hover:text-white">Контакти</Link>
           </div>
         </div>
 
         <div className="text-left lg:text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold">Контакти</p>
-          <p className="mt-3 text-sm text-white/80">+38 (066)138-97-81</p>
+          <p className="mt-3 text-sm text-white/80">{STORE_PHONE_DISPLAY}</p>
           <p className="mt-2 text-sm text-white/80">
-            <a href="/" className="transition hover:text-white">chocopix.store</a>
+            <Link to="/" className="transition hover:text-white">{STORE_SITE_HOST}</Link>
           </p>
           <p className="mt-4 text-sm text-white/50">© 2025-2026</p>
+        </div>
+
+        <div className="text-left lg:text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold">Покупцям</p>
+          <div className="mt-3 flex flex-col gap-2 text-sm text-white/80">
+            <Link to="/privacy-policy" className="transition hover:text-white">Політика конфіденційності</Link>
+            <Link to="/delivery" className="transition hover:text-white">Доставка і оплата</Link>
+            <Link to="/refund" className="transition hover:text-white">Повернення</Link>
+            <Link to="/contacts" className="transition hover:text-white">Контакти</Link>
+          </div>
         </div>
 
         <div className="text-left lg:text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-gold">Месенджери</p>
           <div className="mt-3 flex gap-3 lg:justify-center">
             <a
-              href="https://wa.me/380661389781"
+              href={STORE_WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
               className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/20 text-white transition-transform hover:scale-110 hover:bg-green-500/30"
@@ -50,10 +60,9 @@ export const Footer = () => (
               </svg>
             </a>
             <a
-              href="viber://chat?number=%2B380661389781"
-              target="_blank"
-              rel="noreferrer"
+              href={`tel:${STORE_PHONE_LINK}`}
               className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-500/20 text-white transition-transform hover:scale-110 hover:bg-purple-500/30"
+              aria-label="Зателефонувати для зв'язку через Viber"
             >
               <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M20.176 13.576c-.258-.119-3.029-1.374-3.502-1.545-.473-.172-.817-.261-1.162.259-.345.52-1.337 1.688-1.637 2.03-.3.343-.6.387-1.075.15-.474-.237-1.996-.735-3.792-2.334-1.4-1.248-2.346-2.79-2.622-3.263-.276-.473-.03-.725.213-.966.215-.214.478-.556.714-.837.237-.28.315-.472.472-.788.157-.315.079-.588-.039-.825-.118-.237-1.162-2.802-1.596-3.844-.424-1.019-.854-.88-1.162-.896-.295-.015-.632-.017-.969-.017s-.882.126-1.344.632c-.462.504-1.764 1.727-1.764 4.215 0 2.488 1.813 4.888 2.07 5.23.256.343 3.57 5.46 8.632 7.642 1.206.521 2.144.831 2.874 1.064 1.211.386 2.315.33 3.187.199.977-.148 3.015-1.232 3.448-2.43.433-1.197.433-2.221.305-2.43-.128-.208-.434-.33-.906-.566z"/>
@@ -84,18 +93,6 @@ export const Footer = () => (
               />
             </div>
           </div>
-          <p className="mt-4 text-sm text-white/80">
-            розробив{' '}
-            <a
-              href="https://kuznyak.dev/"
-              target="_blank"
-              rel="noreferrer"
-              className="text-xl leading-none transition hover:opacity-80"
-              style={{ color: 'rgb(232, 255, 0)', fontFamily: '"Bebas Neue", sans-serif' }}
-            >
-              KUZNYAK.DEV
-            </a>
-          </p>
         </div>
       </div>
     </div>

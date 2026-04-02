@@ -32,9 +32,9 @@ export default function MarshmallowPage() {
   const marshmallowProducts = products.filter((product) => product.category === 'marshmallow' || product.tags.includes('маршмелоу'))
   const featuredProducts = marshmallowProducts.slice(0, 3)
   const categoryUrl = buildAbsoluteUrl('/marshmallow')
-  const categoryTitle = 'Маршмелоу купити - крафтове для какао та подарунків | ChocoPix'
+  const categoryTitle = 'Маршмелоу купити | Крафтове маршмелоу ручної роботи | ChocoPix'
   const categoryDescription =
-    'Крафтове маршмелоу ручної роботи для какао, подарунків і десертів. Купити маршмелоу від ChocoPix з доставкою по Україні.'
+    'Маршмелоу ручної роботи купити для какао, десертів і подарунків. Крафтове маршмелоу з доставкою по Україні від ChocoPix.'
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Головна', path: '/' },
     { name: 'Маршмелоу', path: '/marshmallow' },
@@ -79,6 +79,7 @@ export default function MarshmallowPage() {
       <Helmet>
         <title>{categoryTitle}</title>
         <meta name="description" content={categoryDescription} />
+        <meta name="robots" content="index,follow" />
         <meta property="og:title" content={categoryTitle} />
         <meta property="og:description" content={categoryDescription} />
         <meta property="og:type" content="website" />
@@ -104,11 +105,10 @@ export default function MarshmallowPage() {
           </h1>
           <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#3D2616]">
             <p>
-              У цій категорії зібране крафтове маршмелоу ручної роботи з авторськими смаками. Таке маршмелоу можна купити для гарячого какао,
-              солодкого подарунка або десертної подачі вдома чи на свято.
+              У цій категорії зібране крафтове маршмелоу ручної роботи з авторськими смаками для какао, десертів і невеликих подарунків.
             </p>
             <p>
-              Якщо хочете зібрати теплий солодкий комплект, поєднуйте маршмелоу з{' '}
+              Якщо хочете зібрати теплий солодкий комплект, поєднуйте його з{' '}
               <Link to="/cacao-bombs" className="font-semibold underline underline-offset-4">какао бомбочками</Link> або додавайте до{' '}
               <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарункових наборів</Link>.
             </p>
@@ -124,12 +124,11 @@ export default function MarshmallowPage() {
         <section className="mt-10 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Про категорію</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">
-            Крафтове маршмелоу ручної роботи для щоденних і подарункових замовлень
+            Крафтове маршмелоу для какао, десертів і подарунків
           </h2>
           <div className="mt-4 space-y-4 text-[17px] leading-8 text-[#3D2616]">
             <p>
-              Каталог маршмелоу ChocoPix підійде тим, хто шукає крафтове маршмелоу без масмаркетного смаку. Тут є позиції для какао, невеликого
-              подарунка, святкового столу та десертної подачі.
+              Каталог маршмелоу ChocoPix підійде тим, хто шукає саме крафтове маршмелоу ручної роботи, а не масмаркетний варіант.
             </p>
             <p>
               Для першого замовлення зверніть увагу на{' '}
@@ -152,7 +151,7 @@ export default function MarshmallowPage() {
         <section className="mt-14 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">FAQ</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">
-            Поширені запитання про маршмелоу
+            Поширені запитання про крафтове маршмелоу
           </h2>
           <div className="mt-6 space-y-4">
             {faqItems.map((item) => (

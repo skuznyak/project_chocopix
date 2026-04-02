@@ -29,13 +29,36 @@ const faqItems = [
 
 export default function CacaoBombsPage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
-  const cacaoBombs = products.filter((product) => product.tags.includes('бомбочки'))
+  const giftSets = products.filter((product) => product.category === 'gift-set')
+  const cacaoBombs = products.filter((product) => product.tags.includes('бомбочки') && product.category !== 'gift-set')
+  const featuredGiftSets = giftSets.slice(0, 3)
   const featuredBombs = cacaoBombs.slice(0, 3)
   const categoryUrl = buildAbsoluteUrl('/cacao-bombs')
   const breadcrumbSchema = buildBreadcrumbSchema([
     { name: 'Головна', path: '/' },
-    { name: 'Шоколадні бомбочки', path: '/cacao-bombs' },
+    { name: 'Какао бомбочки', path: '/cacao-bombs' },
   ])
+  const collectionPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Какао бомбочки з маршмелоу ChocoPix',
+    url: categoryUrl,
+    description: 'Какао бомбочки з маршмелоу, окремі смаки та подарункові набори з доставкою по Україні.',
+    inLanguage: 'uk-UA',
+    isPartOf: buildAbsoluteUrl('/'),
+    about: ['какао бомбочки', 'шоколадні бомбочки з маршмелоу', 'гарячий шоколад', 'подарункові набори какао бомбочок'],
+  }
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Какао бомбочки ChocoPix',
+    itemListElement: cacaoBombs.map((product, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: buildAbsoluteUrl(`/product/${product.slug ?? product.id}`),
+      name: product.name,
+    })),
+  }
   const faqSchema = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -52,53 +75,88 @@ export default function CacaoBombsPage() {
   return (
     <>
       <Helmet>
-        <title>Шоколадні бомбочки з маршмелоу купити | Какао бомбочки | ChocoPix</title>
+        <title>Какао бомбочки купити | Шоколадні бомбочки з маршмелоу | ChocoPix</title>
         <meta
           name="description"
-          content="Шоколадні бомбочки та какао бомбочки з маршмелоу купити онлайн. Ручна робота, різні смаки та доставка по Україні."
+          content="Какао бомбочки з маршмелоу купити поштучно або в наборі. Шоколадні бомбочки ручної роботи з доставкою по Україні від ChocoPix."
         />
-        <meta property="og:title" content="Шоколадні бомбочки з маршмелоу купити | Какао бомбочки | ChocoPix" />
+        <meta name="robots" content="index,follow" />
+        <meta property="og:title" content="Какао бомбочки купити | Шоколадні бомбочки з маршмелоу | ChocoPix" />
         <meta
           property="og:description"
-          content="Шоколадні бомбочки та какао бомбочки з маршмелоу купити онлайн. Ручна робота, різні смаки та доставка по Україні."
+          content="Какао бомбочки з маршмелоу купити поштучно або в наборі. Шоколадні бомбочки ручної роботи з доставкою по Україні від ChocoPix."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={categoryUrl} />
         <meta property="og:image" content={DEFAULT_OG_IMAGE} />
         <meta property="og:image:alt" content="Шоколадні бомбочки з маршмелоу ChocoPix" />
         <link rel="canonical" href={categoryUrl} />
+        <script type="application/ld+json">{JSON.stringify(collectionPageSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(itemListSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <nav aria-label="breadcrumb" className="text-sm text-cocoa-900/55">
-          <Link to="/">Головна</Link> / <span>Шоколадні бомбочки</span>
+          <Link to="/">Головна</Link> / <span>Какао бомбочки</span>
         </nav>
-        <p className="mt-3 text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Шоколадні бомбочки з маршмелоу</h1>
-        <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#3D2616]">
+        <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Категорія</p>
+        <h1 className="mt-3 font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">Какао бомбочки з маршмелоу</h1>
+        <div className="mt-4 space-y-1 text-[17px] leading-8 text-[#3D2616]">
           <p>
-            Шоколадні бомбочки з маршмелоу - це зручний спосіб приготувати ароматний гарячий шоколад вдома. Достатньо покласти бомбочку в чашку,
-            залити гарячим молоком і дочекатися, поки шоколад розкриється та випустить маршмелоу. Такий десертний формат підходить для сімейного
-            вечора, подарунка або святкового частування.
+            Какао бомбочки з маршмелоу - десерт для гарячого шоколаду, подарунка або затишного вечора. Залийте гарячим молоком і
+            насолоджуйтесь.
           </p>
           <p>
-            У категорії зібрані какао бомбочки з різними смаками: від класичних до більш насичених десертних варіантів. Якщо ви хочете купити
-            шоколадні бомбочки з доставкою по Україні, обирайте позиції в каталозі ChocoPix і поєднуйте їх з{' '}
-            <Link to="/gift-sets" className="font-semibold underline underline-offset-4">подарунковими наборами</Link> для свят, гостей і
-            теплих домашніх моментів. А для додаткової солодкої текстури до чашки перегляньте{' '}
-            <Link to="/marshmallow" className="font-semibold underline underline-offset-4">крафтове маршмелоу</Link>.
+            Купити какао бомбочки з доставкою по Україні можна у вигляді подарункових наборів або поштучно.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {cacaoBombs.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <section className="mt-8">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Додатково</p>
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">Подарункові набори з какао бомбочками</h2>
+          <div className="mt-3 space-y-3 text-[17px] leading-8 text-[#3D2616]">
+            <p>
+              Якщо потрібен готовий подарунок, перегляньте{' '}
+              <Link to="/gift-sets" className="font-semibold underline underline-offset-4">
+                окрему сторінку наборів
+              </Link>
+              . Нижче лише кілька популярних варіантів:
+              {' '}
+              {featuredGiftSets.map((product, index) => (
+                <span key={product.id}>
+                  <Link to={`/product/${product.slug ?? product.id}`} className="font-semibold underline underline-offset-4">
+                    {product.name}
+                  </Link>
+                  {index < featuredGiftSets.length - 1 ? ', ' : '.'}
+                </span>
+              ))}
+            </p>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {giftSets.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
 
-        <div className="mt-10 space-y-4 text-[17px] leading-8 text-[#3D2616]">
+        <section className="mt-10">
+          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Окремі смаки</p>
+          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">Какао бомбочки поштучно</h2>
+          <div className="mt-3 space-y-3 text-[17px] leading-8 text-[#3D2616]">
+            <p>
+              Це основна категорія для тих, хто хоче купити какао бомбочки поштучно, спробувати конкретний смак або самостійно зібрати замовлення.
+            </p>
+          </div>
+          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {cacaoBombs.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        <div className="mt-8 space-y-3 text-[17px] leading-8 text-[#3D2616]">
           <p>
             Для швидкого старту перегляньте популярні смаки:{' '}
             {featuredBombs.map((product, index) => (
@@ -113,18 +171,17 @@ export default function CacaoBombsPage() {
             або повернутися на <Link to="/" className="font-semibold underline underline-offset-4">головну</Link>.
           </p>
           <p>
-            Це бомбочки для гарячого шоколаду, які легко готувати вдома: вони підходять для молока, красиво розкриваються в чашці й допомагають
-            швидко обрати смак під себе або на невеликий солодкий подарунок. Якщо хочеться зробити напій ще десертнішим, можна окремо{' '}
+            Це сторінка саме для окремих шоколадних бомбочок з маршмелоу. Якщо хочеться зробити напій ще десертнішим, можна окремо{' '}
             <Link to="/marshmallow" className="font-semibold underline underline-offset-4">додати маршмелоу</Link>.
           </p>
         </div>
 
-        <section className="mt-14 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
+        <section className="mt-10 rounded-[28px] border border-[#eadfcb] bg-[#f8f1e4] p-6 shadow-soft sm:p-8">
           <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">FAQ</p>
           <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">
-            Поширені запитання про какао бомбочки
+            Поширені запитання: какао бомбочки з маршмелоу
           </h2>
-          <div className="mt-6 space-y-4">
+          <div className="mt-5 space-y-3">
             {faqItems.map((item) => (
               <details key={item.question} className="rounded-[24px] border border-[#eadfcb] bg-white/60 p-5">
                 <summary className="cursor-pointer list-none font-semibold text-[#3D2616]">{item.question}</summary>

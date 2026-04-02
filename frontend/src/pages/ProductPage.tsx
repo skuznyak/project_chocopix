@@ -119,21 +119,22 @@ export default function ProductPage() {
 
   const seoTitle =
     productType === 'gift-set'
-      ? `Подарунковий набір ${product.name} купити | ChocoPix`
+      ? `Подарунковий набір какао бомбочок ${product.name} купити | ChocoPix`
       : productType === 'marshmallow'
-        ? `Маршмелоу ${product.name} купити | Gourmet Marshmallow | ChocoPix`
+        ? `Маршмелоу ${product.name} купити | Крафтове маршмелоу | ChocoPix`
       : productType === 'cup'
         ? `Чашка ${product.name} купити | ChocoPix`
-        : `Какао бомбочка з маршмелоу ${product.name} купити | ChocoPix`
+        : `Какао бомбочка ${product.name} купити | Шоколадна бомбочка з маршмелоу | ChocoPix`
 
   const seoDescription =
     productType === 'gift-set'
-      ? `Подарунковий набір ${product.name} для приємних моментів: стильний набір з какао-смаками як вдалий подарунок з доставкою по Україні.`
+      ? `Подарунковий набір какао бомбочок ${product.name} купити для подарунка, свята або сімейного вечора. Доставка по Україні від ChocoPix.`
       : productType === 'marshmallow'
-        ? `Маршмелоу ${product.name} з ніжною текстурою та десертним смаковим профілем. Підійде для подарунка, какао або солодкої паузи з доставкою по Україні.`
+        ? `Маршмелоу ${product.name} ручної роботи купити для какао, десертів і подарунка. Крафтове маршмелоу з доставкою по Україні.`
       : productType === 'cup'
         ? `Чашка ${product.name} для щоденного використання: зручна подача гарячих напоїв, естетичний дизайн і комфортна сервіровка.`
-        : `Какао бомбочка з маршмелоу ${product.name} для гарячого шоколаду: насичений смак, ніжне маршмелоу та затишний ритуал приготування.`
+        : `Какао бомбочка ${product.name} з маршмелоу для гарячого шоколаду. Купити шоколадну бомбочку з доставкою по Україні від ChocoPix.`
+  const robotsContent = productType === 'cup' ? 'noindex,follow' : 'index,follow'
 
   const seoContentBlocks =
     productType === 'gift-set'
@@ -157,9 +158,9 @@ export default function ProductPage() {
           ]
 
   const categoryPath =
-    productType === 'gift-set' ? '/gift-sets' : productType === 'marshmallow' ? '/marshmallow' : productType === 'cup' ? '/cups' : '/cacao-bombs'
+    productType === 'gift-set' ? '/gift-sets' : productType === 'marshmallow' ? '/marshmallow' : '/cacao-bombs'
   const categoryLabel =
-    productType === 'gift-set' ? 'Подарункові набори' : productType === 'marshmallow' ? 'Маршмелоу' : productType === 'cup' ? 'Чашки' : 'Шоколадні бомбочки'
+    productType === 'gift-set' ? 'Подарункові набори' : productType === 'marshmallow' ? 'Маршмелоу' : productType === 'cup' ? 'Каталог ChocoPix' : 'Шоколадні бомбочки'
   const productUrl = buildAbsoluteUrl(`/product/${canonicalSlug}`)
   const primaryImageUrl = product.images[0]?.src
     ? toAbsoluteImageUrl(product.images[0].src)
@@ -255,6 +256,7 @@ export default function ProductPage() {
       <Helmet>
         <title>{seoTitle}</title>
         <meta name="description" content={seoDescription} />
+        <meta name="robots" content={robotsContent} />
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="product" />
@@ -311,7 +313,7 @@ export default function ProductPage() {
               <p className="mt-1">{freshnessText}</p>
             </div>
             <div className="mt-6 w-full max-w-[460px] rounded-[24px] border border-[#eadfcb] bg-[#f8f1e4]/90 p-4 shadow-soft">
-              <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Характеристики</h2>
+              <h2 className="text-lg font-semibold tracking-[-0.02em] text-[#3D2616]">Характеристики товару</h2>
               <div className="mt-3 space-y-2 text-sm text-[#5f3925]">
                 {characteristics.map((item) => {
                   const isExpanded = expandedCharacteristic === item.key
@@ -391,7 +393,7 @@ export default function ProductPage() {
         </section>
 
         <section className="mt-16">
-          <h2 className="font-display text-3xl">З цим також купують</h2>
+          <h2 className="font-display text-3xl">З цим товаром також купують</h2>
           <div className="mt-6 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {similarProducts.map((entry) => (
               <ProductCard key={entry.id} product={entry} />

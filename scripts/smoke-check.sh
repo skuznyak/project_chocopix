@@ -36,7 +36,11 @@ check_get() {
 
 echo "Smoke check target: $BASE_URL"
 
-check_get "/api/health" "API health"
-check_get "/api/np/areas" "Nova Poshta areas"
+if [[ "$BASE_URL" == "http://localhost"* || "$BASE_URL" == "http://127.0.0.1"* || "$BASE_URL" == "https://localhost"* || "$BASE_URL" == "https://127.0.0.1"* ]]; then
+  check_get "/api/health" "API health"
+fi
+
+check_get "/api/products" "Products API"
+check_get "/api/np/areas?q=%D0%9A%D0%B8%D1%97%D0%B2" "Nova Poshta areas"
 
 echo "All smoke checks passed."

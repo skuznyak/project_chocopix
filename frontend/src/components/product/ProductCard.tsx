@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge'
 import { useCartStore } from '@/store/cartStore'
 import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
+import { trackMetaAddToCart } from '@/utils/metaPixel'
 
 const PlusIcon = ({ isHovered }: { isHovered: boolean }) => (
   <motion.div
@@ -77,6 +78,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             onClick={() => {
               animateAddToCart(imageRef.current)
               addItem(product.id)
+              trackMetaAddToCart(product)
               setIsAdded(true)
               window.setTimeout(() => {
                 setIsAdded(false)

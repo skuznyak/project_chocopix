@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { ShoppingCart, X } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import clsx from 'clsx'
 import { validatePromoCode } from '@/api/promoCodes'
 import { CartItemRow } from '@/components/cart/CartItemRow'
 import { Button } from '@/components/ui/Button'
@@ -81,19 +82,24 @@ export const CartDrawer = () => {
     [setPromoCode, totals.subtotal],
   )
 
-  if (!isOpen) {
-    return null
-  }
-
   return (
     <>
       <button
         type="button"
-        className="fixed inset-0 z-40 bg-cocoa-900/45"
+        className={clsx(
+          'fixed inset-0 z-40 bg-cocoa-900/45 transition-opacity duration-300 ease-out',
+          isOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
+        )}
         onClick={closeCart}
         aria-label="Закрити кошик"
       />
-      <aside className="fixed right-0 top-0 z-50 flex h-[100dvh] w-full max-w-[380px] flex-col border-l border-[#eadfcb] bg-[#f8f1e4] shadow-2xl sm:rounded-l-[28px]">
+      <aside
+        aria-hidden={!isOpen}
+        className={clsx(
+          'fixed right-0 top-0 z-50 flex h-[100dvh] w-full max-w-[380px] flex-col border-l border-[#eadfcb] bg-[#f8f1e4] shadow-2xl transition-transform duration-300 ease-out sm:rounded-l-[28px]',
+          isOpen ? 'translate-x-0' : 'pointer-events-none translate-x-full',
+        )}
+      >
             <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#eadfcb]/80 bg-[#f8f1e4]/95 px-6 pb-4 pt-5 backdrop-blur">
               <h2 className="text-[21px] font-medium tracking-[-0.02em] text-[#6b4331]">Мій кошик</h2>
               <button

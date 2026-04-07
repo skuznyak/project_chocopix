@@ -4,6 +4,7 @@ import { CheckCircle2 } from 'lucide-react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
+import { trackMetaPurchase } from '@/utils/metaPixel'
 import { DEFAULT_OG_IMAGE, buildAbsoluteUrl } from '@/utils/seo'
 
 const PURCHASE_STORAGE_KEY = 'chocopix-last-purchase'
@@ -68,6 +69,10 @@ export default function OrderSuccessPage() {
           transaction_id: purchase.orderNumber,
           value: purchase.total ?? 0,
           currency: purchase.currency ?? 'UAH',
+        })
+        trackMetaPurchase({
+          total: purchase.total,
+          currency: purchase.currency,
         })
 
         if (purchaseSentKey) {

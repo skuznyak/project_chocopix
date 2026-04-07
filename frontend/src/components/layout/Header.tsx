@@ -76,7 +76,7 @@ export const Header = () => {
                 key={item.label}
                 to={item.to}
                 onClick={item.to === '/' ? () => window.scrollTo({ top: 0, behavior: 'smooth' }) : undefined}
-                className={`relative text-sm font-medium transition after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
+                className={`relative text-[15px] font-medium transition after:absolute after:-bottom-1 after:left-0 after:h-[2px] after:w-0 after:transition-all after:duration-300 hover:after:w-full ${
                   item.isPromo
                     ? 'text-[#D97AA6] hover:text-[#D97AA6] after:bg-[#D97AA6]'
                     : 'text-cocoa-900/72 hover:text-cocoa-900 after:bg-[#a4693f]'
@@ -127,7 +127,7 @@ export const Header = () => {
                   key={item.label}
                   to={item.to}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`rounded-lg px-4 py-3 text-sm font-medium transition hover:bg-[#fbf5ea] ${
+                  className={`rounded-lg px-4 py-3 text-[15px] font-medium transition hover:bg-[#fbf5ea] ${
                     item.isPromo ? 'text-[#D97AA6] hover:text-[#D97AA6]' : 'text-cocoa-900/72 hover:text-cocoa-900'
                   }`}
                 >

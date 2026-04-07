@@ -10,6 +10,7 @@ import { useProduct, useProducts } from '@/hooks/useProducts'
 import { useCartStore } from '@/store/cartStore'
 import { animateAddToCart } from '@/utils/animateAddToCart'
 import { formatPrice } from '@/utils/formatPrice'
+import { trackMetaAddToCart } from '@/utils/metaPixel'
 import { buildAbsoluteUrl, buildBreadcrumbSchema, buildProductSchema, toAbsoluteImageUrl } from '@/utils/seo'
 
 type DetectedProductType = 'cacao-bomb' | 'gift-set' | 'cup' | 'marshmallow'
@@ -293,6 +294,7 @@ export default function ProductPage() {
                     document.querySelector<HTMLElement>(`[data-product-image-id="${product.id}"]`),
                   )
                   addItem(product.id)
+                  trackMetaAddToCart(product)
                 }}
               >
                 Додати в кошик
@@ -302,6 +304,7 @@ export default function ProductPage() {
                 onClick={() => {
                   closeCart()
                   addItem(product.id)
+                  trackMetaAddToCart(product)
                   navigate('/checkout')
                 }}
               >

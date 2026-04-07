@@ -26,7 +26,7 @@ export const ScrollToTopButton = () => {
       type="button"
       aria-label="Прокрутити вгору"
       onClick={handleClick}
-      className={`fixed bottom-24 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-[#b97a4a] bg-[#8c5328] text-white shadow-lg transition-all duration-300 hover:bg-[#7d4a37] focus:outline-none focus:ring-2 focus:ring-[#d9aa85] focus:ring-offset-2 md:bottom-6 ${
+      className={`fixed bottom-[calc(2rem+env(safe-area-inset-bottom,0px))] right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-[#b97a4a] bg-[#8c5328] text-white shadow-lg transition-all duration-300 hover:bg-[#7d4a37] focus:outline-none focus:ring-2 focus:ring-[#d9aa85] focus:ring-offset-2 md:bottom-[6rem] ${
         isVisible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
       }`}
     >

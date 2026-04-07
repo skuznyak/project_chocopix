@@ -103,7 +103,7 @@ export default function MarshmallowPage() {
           <h1 className="mt-3 max-w-4xl font-display text-5xl font-semibold tracking-[-0.04em] text-[#3D2616]">
             Маршмелоу купити для какао та подарунків
           </h1>
-          <div className="mt-6 space-y-4 text-[17px] leading-8 text-[#3D2616]">
+          <div className="mt-6 space-y-1 text-[17px] leading-8 text-[#3D2616]">
             <p>
               У цій категорії зібране крафтове маршмелоу ручної роботи з авторськими смаками для какао, десертів і невеликих подарунків.
             </p>

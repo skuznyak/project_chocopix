@@ -1,7 +1,8 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { CartDrawer } from '@/components/cart/CartDrawer'
+import { ChatWidget } from '@/components/chat/ChatWidget'
 import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { ScrollToTopButton } from '@/components/layout/ScrollToTopButton'
@@ -10,11 +11,23 @@ import { organizationSchema, shouldIncludeSitewideSchemas, websiteSchema } from 
 export const Layout = () => {
   const location = useLocation()
   const includeSitewideSchemas = shouldIncludeSitewideSchemas(location.pathname)
+  const hasTrackedInitialPageView = useRef(false)
 
   useEffect(() => {
     if (location.hash) return
     window.scrollTo({ top: 0, behavior: 'auto' })
   }, [location.pathname, location.search, location.hash])
+
+  useEffect(() => {
+    if (!hasTrackedInitialPageView.current) {
+      hasTrackedInitialPageView.current = true
+      return
+    }
+
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'PageView')
+    }
+  }, [location.pathname, location.search])
 
   return (
     <div className="min-h-screen text-cocoa-900">
@@ -24,6 +37,7 @@ export const Layout = () => {
       </Helmet>
       <Header />
       <CartDrawer />
+      <ChatWidget />
       <ScrollToTopButton />
       <main>
         {location.pathname !== '/' ? (

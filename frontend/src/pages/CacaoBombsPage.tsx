@@ -31,7 +31,6 @@ export default function CacaoBombsPage() {
   const { data: products = [] } = useProducts({ sort: 'popular' })
   const giftSets = products.filter((product) => product.category === 'gift-set')
   const cacaoBombs = products.filter((product) => product.tags.includes('бомбочки') && product.category !== 'gift-set')
-  const featuredGiftSets = giftSets.slice(0, 3)
   const featuredBombs = cacaoBombs.slice(0, 3)
   const categoryUrl = buildAbsoluteUrl('/cacao-bombs')
   const breadcrumbSchema = buildBreadcrumbSchema([
@@ -114,26 +113,6 @@ export default function CacaoBombsPage() {
         </div>
 
         <section className="mt-8">
-          <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#c78f59]">Додатково</p>
-          <h2 className="mt-3 font-display text-3xl font-semibold tracking-[-0.03em] text-[#3D2616]">Подарункові набори з какао бомбочками</h2>
-          <div className="mt-3 space-y-3 text-[17px] leading-8 text-[#3D2616]">
-            <p>
-              Якщо потрібен готовий подарунок, перегляньте{' '}
-              <Link to="/gift-sets" className="font-semibold underline underline-offset-4">
-                окрему сторінку наборів
-              </Link>
-              . Нижче лише кілька популярних варіантів:
-              {' '}
-              {featuredGiftSets.map((product, index) => (
-                <span key={product.id}>
-                  <Link to={`/product/${product.slug ?? product.id}`} className="font-semibold underline underline-offset-4">
-                    {product.name}
-                  </Link>
-                  {index < featuredGiftSets.length - 1 ? ', ' : '.'}
-                </span>
-              ))}
-            </p>
-          </div>
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {giftSets.map((product) => (
               <ProductCard key={product.id} product={product} />
